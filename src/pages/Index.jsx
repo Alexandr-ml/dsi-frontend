@@ -1,48 +1,209 @@
 import React from 'react'
+import { Grid } from '@mui/material';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
+
 import AppBarIndex from '../Componentes/AppBarIndex';
 import "../styles/index.css";
 
 
-function Index(){
+function Index() {
 
-    return(
+    return (
         <>
-            <AppBarIndex/>
-            <section class="top">
-                <div class="title">                    
+            <AppBarIndex />
+            <section className="top">
+                <div className="title">
                     <h1>SGDP</h1>
                     <h3>Sistema Gestor de Proyectos</h3>
                 </div>
-                </section>
-                <section class="page">
-                <div class="parallax1"></div>
-                <div class="paragraph first">
-                    <p><b>¿Qué es SGDP?</b></p>
-                    <p><span>L</span>orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </div>
-                <div class="parallax2">
-                    <div class="overlay"></div>
-                    
-                </div>
-                <div class="paragraph second">
-                <p><b>Funcionalidades</b></p>
-                    <p><span>O</span>rci porta non pulvinar neque laoreet suspendisse interdum. Nulla malesuada pellentesque elit eget gravida. Ac orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Ut lectus arcu bibendum at varius vel pharetra vel turpis. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus. Aliquet eget sit amet tellus cras adipiscing enim eu turpis. Pharetra convallis posuere morbi leo urna molestie. Volutpat lacus laoreet non curabitur gravida. Ornare aenean euismod elementum nisi quis eleifend quam. Fames ac turpis egestas sed tempus urna. Nisl nisi scelerisque eu ultrices vitae auctor. A iaculis at erat pellentesque adipiscing commodo elit at. Nulla posuere sollicitudin aliquam ultrices. Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus. Tortor at auctor urna nunc id cursus metus aliquam eleifend. Et molestie ac feugiat sed lectus. Lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis. Neque viverra justo nec ultrices dui sapien eget mi.</p>
-                </div>
-                <div class="parallax3"></div>
-                <div class="paragraph third">
-                <p><b>Sobre Nosotros</b></p>
-                    <p><span>A</span>uctor neque vitae tempus quam pellentesque. In nibh mauris cursus mattis molestie a iaculis at. Sem integer vitae justo eget magna fermentum iaculis eu non. Eget velit aliquet sagittis id. Sed libero enim sed faucibus turpis in eu mi bibendum. Blandit libero volutpat sed cras. Ultricies integer quis auctor elit sed vulputate mi sit. Eget lorem dolor sed viverra ipsum nunc. Fringilla urna porttitor rhoncus dolor purus non enim praesent elementum. Ac placerat vestibulum lectus mauris ultrices eros in cursus. Integer vitae justo eget magna fermentum iaculis eu. Auctor elit sed vulputate mi sit amet mauris commodo.</p>
-                </div>
-                <div class="parallax4"></div>
-                <div class="paragraph fourth">
-                <p><b>Nuestra Historia</b></p>
-                <p><span>A</span>uctor neque vitae tempus quam pellentesque. In nibh mauris cursus mattis molestie a iaculis at. Sem integer vitae justo eget magna fermentum iaculis eu non. Eget velit aliquet sagittis id. Sed libero enim sed faucibus turpis in eu mi bibendum. Blandit libero volutpat sed cras. Ultricies integer quis auctor elit sed vulputate mi sit. Eget lorem dolor sed viverra ipsum nunc. Fringilla urna porttitor rhoncus dolor purus non enim praesent elementum. Ac placerat vestibulum lectus mauris ultrices eros in cursus. Integer vitae justo eget magna fermentum iaculis eu. Auctor elit sed vulputate mi sit amet mauris commodo.</p>
+            </section>
+            <section className="page">
+                <div className="parallax1"></div>
+                <div className="paragraph first">
+                    <h3><b>¿Qué es SGDP?</b></h3>
+                    <p><span>E</span>l sitio web de nuestro Sistema Gestor de Proyectos, concebido como parte de nuestro proyecto para la materia Diseño de Sistemas, es la puerta de entrada a una solución simple pero eficiente para la gestión de proyectos. Nuestra plataforma combina los conocimientos adquiridos en la materia con tecnologías a la vanguardia para brindar a los usuarios una experiencia de gestión de proyectos sin complicaciones.</p>
+                    <p>Las tecnologías utilizadas para nuestro proyecto son: </p>
+                    <Box sx={{ flexGrow: 1, alignItems: 'center' }}>
+                        <Grid container spacing={4}>
+                            <Grid item xs={6}>
+                                <h5>FrontEnd</h5>
+                                <Box
+                                    component="img"
+                                    sx={{
+                                        height: 75,
+                                        width: 86,
+                                        maxHeight: { xs: 233, md: 167 },
+                                        maxWidth: { xs: 350, md: 250 },
+                                    }}
+                                    alt="React"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png"
+
+                                />
+                                <p>React</p>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <h5>BackEnd</h5>
+                                <Box
+                                    component="img"
+                                    sx={{
+                                        height: 75,
+                                        width: 75,
+                                        maxHeight: { xs: 233, md: 167 },
+                                        maxWidth: { xs: 350, md: 250 },
+                                    }}
+                                    alt="Node JS"
+                                    src="https://seeklogo.com/images/N/nodejs-logo-FBE122E377-seeklogo.com.png"
+                                />
+                                <p>Node js</p>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <h5>Base de Datos</h5>
+                                <Box
+                                    component="img"
+                                    sx={{
+                                        height: 100,
+                                        width: 100,
+                                        maxHeight: { xs: 233, md: 167 },
+                                        maxWidth: { xs: 350, md: 250 },
+
+                                    }}
+                                    alt="Node JS"
+                                    src="https://www.pngall.com/wp-content/uploads/13/Mongodb-PNG-Image-HD.png"
+                                />
+                                <p>Mongo DB</p>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <h5 >Servidor</h5>
+                                <Box
+                                    component="img"
+                                    sx={{
+                                        height: 100,
+                                        width: 100,
+                                        maxHeight: { xs: 233, md: 167 },
+                                        maxWidth: { xs: 350, md: 250 },
+
+                                    }}
+                                    alt="Node JS"
+                                    src="https://railway.app/brand/logo-dark.svg"
+                                />
+                                <p>Railway</p>
+                            </Grid>
+                        </Grid>
+                    </Box>
 
                 </div>
-                <div class="parallax5"></div>
-                </section>
+                <div className="parallax2">
+                    <div className="overlay"></div>
+
+                </div>
+                <div className="paragraph second">
+                    <h2><b>Funcionalidades</b></h2>
+                    <Box sx={{ flexGrow: 1, alignItems: 'center' }}>
+                        <Grid container spacing={5} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <Grid item xs={6}>
+                                <h5>Tareas</h5>
+                                <Box
+                                    component="img"
+                                    sx={{
+                                        height: 150,
+                                        width: 150,
+                                        maxHeight: { xs: 233, md: 167 },
+                                        maxWidth: { xs: 350, md: 250 },
+
+                                    }}
+                                    alt="Node JS"
+                                    src="src\img\clipboard.png"
+                                    title='Tareas'
+
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <h5>Proyectos</h5>
+                                <Box
+                                    component="img"
+                                    sx={{
+                                        height: 150,
+                                        width: 150,
+                                        maxHeight: { xs: 233, md: 167 },
+                                        maxWidth: { xs: 350, md: 250 },
+
+                                    }}
+                                    alt="Node JS"
+                                    src="src\img\project-management.png"
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <h5>Reportes</h5>
+                                <Box
+                                    component="img"
+                                    sx={{
+                                        height: 150,
+                                        width: 150,
+                                        maxHeight: { xs: 233, md: 167 },
+                                        maxWidth: { xs: 350, md: 250 },
+
+                                    }}
+                                    alt="Node JS"
+                                    src="src\img\report.png"
+                                />
+
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Box
+                                    component="img"
+                                    sx={{
+                                        height: 150,
+                                        width: 150,
+                                        maxHeight: { xs: 233, md: 167 },
+                                        maxWidth: { xs: 350, md: 250 },
+
+                                    }}
+                                    alt="Node JS"
+                                    src="src\img\coming-soon.png"
+                                />
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </div>
+                <div className="parallax3"></div>
+                <div className="paragraph third">
+                    <h2><b>Sobre Nosotros</b></h2>
+                    <p><span>S</span>omos un equipo de cuatro apasionados estudiantes de la carrera de Ingeniería en Sistemas Informáticos de la Universidad de El Salvador. Nos enorgullece presentarles nuestro proyecto integrador, un Sistema Gestor de Proyectos que hemos desarrollado con dedicación y compromiso como parte de nuestra materia de Diseño de Sistemas.</p>
+                    <p>Nuestra misión es ofrecer una solución eficiente y efectiva para la gestión de proyectos, brindando herramientas que faciliten la planificación, seguimiento y control de todas las etapas involucradas en la ejecución de proyectos, desde la concepción hasta la entrega final. Sabemos lo desafiante que puede ser llevar a cabo proyectos exitosos, y nuestro sistema está diseñado para simplificar este proceso y maximizar los resultados.</p>
+                    <p>Lo que nos hace únicos es nuestra combinación de conocimientos técnicos, creatividad y pasión por la tecnología. Hemos trabajado incansablemente para crear una plataforma intuitiva y completa que se adapte a las necesidades de cualquier proyecto, independientemente de su tamaño o complejidad.</p><br />
+                    <Box>
+                        <Grid container spacing={3} justifyContent={'center'}>
+                            <Grid item xs={3}>
+                                <h5>Katerin Angel</h5>
+                                <p>Desarrollador FrontEnd</p>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <h5>Herbert Chicas</h5>
+                                <p>Desarrollador FrontEnd</p>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <h5>Jeffry Mejia</h5>
+                                <p>Desarrollador FrontEnd</p>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <h5>Kevin Villalta</h5>
+                                <p>Desarrollador BackEnd</p>
+                            </Grid>                            
+                        </Grid>
+                    </Box>
+                </div>
+                <div className="parallax4"></div>
+                <div className="paragraph fourth">
+                    <h3><b>Nuestra Historia</b></h3>
+                    <p><span>T</span>odo comenzó en un reunión de la Universidad de El Salvador, donde cuatro estudiantes de Ingeniería en Sistemas Informáticos compartían el entusiasmo por la tecnología y la ambición de crear algo significativo. Estábamos inmersos en la materia de Diseño de Sistemas, y el desafío de desarrollar un proyecto integrador nos brindó la oportunidad perfecta para poner en práctica lo que habíamos aprendido y demostrar nuestra capacidad para innovar.</p>
+                    <p>Las primeras reuniones eran pura efervescencia creativa. Debates sobre cómo abordar la gestión de proyectos, identificar las necesidades reales de los usuarios y diseñar una solución eficiente eran moneda corriente. A medida que avanzábamos, nos dimos cuenta de que nuestra visión conjunta estaba tomando forma, y así nació la idea de nuestro Sistema Gestor de Proyectos.</p>
+                    <p>A lo largo de los meses, enfrentamos desafíos técnicos, noches de programación frenética y pruebas exhaustivas. Pero cada obstáculo fue una oportunidad para crecer y aprender. Nuestro compromiso y pasión nos llevaron a superar cualquier adversidad, y finalmente, llegamos al punto en el que estábamos listos para compartir nuestro producto con el mundo.</p>
+                </div>
+                <div className="parallax5"></div>
+            </section>
         </>
     )
 }

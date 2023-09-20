@@ -12,24 +12,25 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 
 
 function AppBarLogin(props) {
-    let navigate= useNavigate();
+    let navigate = useNavigate();
 
-    return(<>
-            <AppBar position="static" style={{background:'#214A87', borderBottom:'1px solid white'}}>
-                <Container maxWidth="xl" style={{alignSelf:'center'}} >
-                    <Toolbar disableGutters>                        
-                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+    return (<>
+        <AppBar position="static" style={{ background: '#214A87', borderBottom: '1px solid white' }}>
+            <Container maxWidth="xl">
+                <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
+                    <Box sx={{ display: "inline-list-item", alignContent: "center" }}>
+                        <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                         <Typography
                             variant="h6"
                             noWrap
                             component="a"
-                            href="/"
+                            href='/'
                             sx={{
                                 mr: 2,
                                 display: { xs: 'none', md: 'flex' },
@@ -40,11 +41,12 @@ function AppBarLogin(props) {
                                 textDecoration: 'none',
                             }}
                         >
-                            SISTEMA GESTOR DE PROYECTOS
+                            SGDP
                         </Typography>
-                    </Toolbar>
-                </Container>
-            </AppBar>
-        </>);
+                    </Box>
+                </Toolbar>
+            </Container>
+        </AppBar>
+    </>);
 }
 export default AppBarLogin;
