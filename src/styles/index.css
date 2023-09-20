@@ -28,6 +28,8 @@ body {
 }
 
 
+
+
 /* Classes */
 .top {
     padding: 2em;
@@ -57,6 +59,47 @@ body {
     text-transform: uppercase;
     letter-spacing: 8px;
     line-height: 0;
+}
+
+.techs{
+    justify-content: center;
+    justify-self: center;
+    justify-items: center;
+    margin: 5%;
+}
+
+.tec{
+    padding-top: 6%;
+
+}
+
+.tec h5{
+    display: flex;
+    text-align: center;
+}
+
+.techs p{
+    text-align: center;
+    justify-items: center;
+}
+
+.colab{
+    padding: 3%;
+    justify-content: center;
+    justify-items: center;
+}
+
+.colabs{
+    padding:2%; 
+    justify-content: center;
+    justify-items: center;
+    width: auto;
+}
+
+.nameColab{
+    text-align: center;
+    justify-items: center;
+    width: auto;
 }
 
 /* Parallax */
@@ -133,11 +176,8 @@ body {
     background-size: cover;
 }
 
-.react{
-    position: relative;
-    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png");
 
-}
+
 
 /* Paragraph */
 .paragraph {
@@ -149,11 +189,13 @@ body {
 }
 
 .paragraph p {
-    width: 60%;
+    width: auto;
     font-size: 1.05em;
     line-height: 1.45em;
     letter-spacing: .1em;
     color: rgb(64, 64, 64);
+    padding-left: 3%;
+    padding-right: 3%;
 }
 
 .first span {
@@ -208,5 +250,5 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgba(161, 181, 201, .8);
+    background-color: #214A87;
 }
