@@ -4,7 +4,7 @@ import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import url from "../../serverUrl.js";
-
+import AppBarLogin from '../../Componentes/AppBar.jsx';
 
 
 
@@ -37,6 +37,9 @@ export default function Login(){
     let [password,setPassword] = useState("")
 
     return <>
+
+        <AppBarLogin/>
+
         <section className="vh-100">
             <div className="container-fluid">
                 <div className="row">
@@ -46,6 +49,7 @@ export default function Login(){
                         <div className="d-flex align-items-center  px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
 
                             <form style={{width:"35em"}} id={"loginForm"}>
+
 
                                 <h3 className="fw-normal mb-3 pb-3">Inicio de sesión</h3>
 
