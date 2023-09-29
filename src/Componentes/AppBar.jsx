@@ -21,10 +21,10 @@ function AppBarLogin(props) {
     let navigate = useNavigate();
 
     return (<>
-        <AppBar position="static" style={{ background: '#214A87', borderBottom: '1px solid white' }}>
-            <Container maxWidth="xl">
-                <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
-                    <Box sx={{ display: "inline-list-item", alignContent: "center" }}>
+        <AppBar position="absolute" style={{ background: '#214A87' }}>
+            <Container maxWidth="xl" sx={{ justifyContent: 'center', display: 'flex' }}>
+                <Toolbar disableGutters>
+                    <Box sx={{ display: "inline-list-item" }}>
                         <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                         <Typography
                             variant="h6"
@@ -41,7 +41,7 @@ function AppBarLogin(props) {
                                 textDecoration: 'none',
                             }}
                         >
-                            SGDP
+                            SISTEMA GESTOR DE PROYECTOS
                         </Typography>
                     </Box>
                 </Toolbar>

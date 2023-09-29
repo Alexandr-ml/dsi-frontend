@@ -1,5 +1,5 @@
 import react from "react"
-import {BrowserRouter,Routes,Route} from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Login from "./pages/Autenticación/Login.jsx";
 import Inicio from "./pages/Inicio.jsx";
 import Proyectos from "./pages/Proyectos/Proyectos.jsx";
@@ -10,7 +10,7 @@ import Register from "./pages/Autenticación/Register.jsx";
 import Perfil from "./pages/Perfil/Perfil.jsx";
 import ListaMisProyectos from "./pages/Proyectos/ListaMisProyectos.jsx";
 import Proyecto from "./pages/Proyectos/Proyecto.jsx";
-import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import 'dayjs/locale/es-mx.js'
 import Tareas from "./pages/Tareas/ListaMisTareas.jsx";
@@ -18,31 +18,31 @@ import EditarTarea from "./pages/Tareas/Tarea.jsx";
 import Index from "./pages/Index.jsx"
 
 export const App = () => {
-    return (
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'es-mx'}>
-          <BrowserRouter>
-            <Routes>
-                <Route path ={"/login"} element={<Login/>}></Route>
-                <Route path={"/registro"} element={<Register/>}/>
-                <Route path={"/"} element={<Index/>}/>
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'es-mx'}>
+      <BrowserRouter>
+        <Routes>
+          <Route path={"/login"} element={<Login />}></Route>
+          <Route path={"/registro"} element={<Register />} />
+          <Route path={"/"} element={<Index />} />
 
-                <Route element={<RequireAuth isLogged={localStorage.getItem("isLogged") === "true"}/> } >
-                    <Route path={"/dashboard"} element={<Dashboard><Inicio/></Dashboard>}></Route>
-                    <Route path = {"/proyectos"} element={<Dashboard><Proyectos/></Dashboard>}></Route>
-                    <Route path={"/mistareas"} element={<Dashboard><Tareas/></Dashboard>}></Route>
-                    <Route path={"/mistareas/tarea"} element={<Dashboard><EditarTarea/></Dashboard>}/>
-                    <Route path={"/mistareas/tarea/:id/editar"} element={<Dashboard><EditarTarea/></Dashboard>}/>
-                    <Route path={"/perfil"} element={<Dashboard><Perfil/></Dashboard>}/>
-                    <Route path={'/misproyectos'} element={<Dashboard><ListaMisProyectos/></Dashboard>}/>
-                    <Route path={'/misproyectos/proyecto'} element={<Dashboard><Proyecto/></Dashboard>}/>
-                    <Route path={'/misproyectos/proyecto/:id/editar'} element={<Dashboard><Proyecto/></Dashboard>} />
-                    
+          <Route element={<RequireAuth isLogged={localStorage.getItem("isLogged") === "true"} />} >
+            <Route path={"/dashboard"} element={<Dashboard><Inicio /></Dashboard>}></Route>
+            <Route path={"/proyectos"} element={<Dashboard><Proyectos /></Dashboard>}></Route>
+            <Route path={"/mistareas"} element={<Dashboard><Tareas /></Dashboard>}></Route>
+            <Route path={"/mistareas/tarea"} element={<Dashboard><EditarTarea /></Dashboard>} />
+            <Route path={"/mistareas/tarea/:id/editar"} element={<Dashboard><EditarTarea /></Dashboard>} />
+            <Route path={"/perfil"} element={<Dashboard><Perfil /></Dashboard>} />
+            <Route path={'/misproyectos'} element={<Dashboard><ListaMisProyectos /></Dashboard>} />
+            <Route path={'/misproyectos/proyecto'} element={<Dashboard><Proyecto /></Dashboard>} />
+            <Route path={'/misproyectos/proyecto/:id/editar'} element={<Dashboard><Proyecto /></Dashboard>} />
 
 
-                </Route>
-            </Routes>
-          </BrowserRouter>
-        </LocalizationProvider>
-    );
+
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </LocalizationProvider>
+  );
 };
 

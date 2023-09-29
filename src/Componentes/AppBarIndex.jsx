@@ -23,8 +23,8 @@ function AppBarIndex(props) {
     return (<>
         <AppBar position="static" style={{ background: '#214A87' }}>
             <Container maxWidth="xl" >
-                <Toolbar disableGutters sx={{ justifyContent: "space-between"}}>
-                    <Box sx={{display:"inline-list-item", alignContent:"center"}}>
+                <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
+                    <Box sx={{ display: "inline-list-item", alignContent: "center" }}>
                         <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                         <Typography
                             variant="h6"
@@ -43,7 +43,7 @@ function AppBarIndex(props) {
                             SGDP
                         </Typography>
                     </Box>
-                    <Box sx={{display:"inline-list-item", alignContent:"center"}}>
+                    <Box sx={{ display: "inline-list-item", alignContent: "center" }}>
                         <Box marginRight={2}>
                             <Button href="/login" style={{ background: "#FFFFFF" }}>Iniciar Sesión</Button>
                         </Box>

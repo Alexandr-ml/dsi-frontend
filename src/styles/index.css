@@ -31,7 +31,7 @@ body {
 
 
 /* Classes */
-.container{
+.container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -41,7 +41,7 @@ body {
     text-align: center;
 }
 
-.item{
+.item {
     flex-grow: 1;
     flex-basis: 100;
     justify-content: center;
@@ -51,11 +51,11 @@ body {
     min-width: 150px;
 }
 
-.item p{
+.item p {
     font-weight: 500;
 }
 
-.itemCol{
+.itemCol {
     flex-grow: 1;
     flex-basis: 100;
     justify-content: center;
@@ -65,20 +65,20 @@ body {
     width: fit-content;
 }
 
-.itemCol h5{
+.itemCol h5 {
     text-transform: uppercase;
     font-weight: 600;
     text-align: center;
     padding: 3%;
 }
 
-.image{
+.image {
     height: 100px;
     justify-self: center;
-    margin: 7%;
+    margin: 13px;
 }
 
-.imageFun{
+.imageFun {
     height: 150px;
     justify-self: center;
     margin: 7%;
@@ -102,7 +102,7 @@ body {
     font-weight: 400;
     font-family: 'Oswald', sans-serif;
     letter-spacing: 8px;
-    text-transform: uppercase;    
+    text-transform: uppercase;
 }
 
 .title h3 {
@@ -237,7 +237,8 @@ body {
     line-height: 55px;
     padding: .05em .2em 0 0;
 }
-.fourth span{
+
+.fourth span {
     font-size: 4em;
     color: #214A87;
     float: left;

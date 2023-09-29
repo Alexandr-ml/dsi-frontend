@@ -11,13 +11,15 @@
         height: 100%;
     }
 }
-.Cproyecto{
+
+.Cproyecto {
     text-align: center;
     padding-bottom: 10px;
     padding-top: 10px;
 
 }
-.Cproyectos{
+
+.Cproyectos {
     text-align: left;
     padding-bottom: 10px;
     padding-top: 10px;
@@ -25,5 +27,29 @@
 
 }
 
+.loginCont {
+    display: flex;
+    background-image: url("https://www.uai.cl/online/assets/uploads/2021/06/gestion-de-proyectos-ti.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    backdrop-filter: brightness(50%);
+}
 
+.loginCont h2 {
+    text-align: center;
+    margin: 3%;
+}
 
+.formLogin {
+    background-color: rgb(240, 248, 255, 0.7);
+    padding: 5%;
+    border-radius: 15px;
+    text-align: center;
+    height: fit-content;
+    width: fit-content;
+}
