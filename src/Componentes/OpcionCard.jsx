@@ -40,7 +40,7 @@ function OpcionCard(props){
 
 function CardArea(props){
     return (<>
-         <Card sm={{ maxWidth: 345}} >
+         <Card sx={{ height: 290}} >
             <CardActionArea onClick={props.handler}>
                 <CardMedia
                     component="img"
