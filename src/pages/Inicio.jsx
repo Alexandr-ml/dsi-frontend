@@ -46,11 +46,13 @@ let [imagenesAvatar,setImagenesAvatar] = useState([])
 useEffect(() => {
 fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/proyectos/colaboradores/"+id, requestOptions)
 .then(response => response.json()
-.then(result => {setImagenesAvatar(result.colaboradoresFiltrados)})
+.then(result => {setImagenesAvatar(result)})
 .catch(error => console.log('error', error)));
 }, []);
 
-
+    let img = imagenesAvatar.map((item) => {
+        return item.img
+    })
    
     let navigate = useNavigate()
 
@@ -64,16 +66,7 @@ fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/proyectos/co
         <>
         <Grid container spacing={1} justifyContent="center">
                 <Grid item md={4} >
-                    <CardUserInfo usuario={nombreUsuario} desc="" imgUser={imgUsuario} prFinalizados={cantidadProyectosFinalizados} prProceso={cantidadProyectosEnProceso} prNoIniciados={cantidadProyectosPendientes} avatars={
-                            imagenesAvatar?
-                            imagenesAvatar.map((item)=>{
-                                return(
-                                    imagenesAvatar = item.avatar
-                                )
-                            })
-                            :
-                            ''
-                    }/>
+                    <CardUserInfo usuario={nombreUsuario} desc="" imgUser={imgUsuario} prFinalizados={cantidadProyectosFinalizados} prProceso={cantidadProyectosEnProceso} prNoIniciados={cantidadProyectosPendientes} avatars={img}/>
                 </Grid>
                 <Grid item md={8}>
                     <Grid container spacing={2} justifyContent="center">
