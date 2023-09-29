@@ -37,6 +37,8 @@ export default function DropZoneProfileImage({imagenUrl,userID}){
             //setAuxImg(fr.result)
         }
 
+        localStorage.setItem("fotoPerfil",auxImgUrl)
+
     }
 
     const handleOnDragEnter = e => {
