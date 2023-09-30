@@ -15,7 +15,6 @@ import 'dayjs/locale/es-mx.js'
 import Tareas from "./pages/Tareas/ListaMisTareas.jsx";
 import EditarTarea from "./pages/Tareas/Tarea.jsx";
 import Index from "./pages/Index.jsx"
-import Registro from "./pages/Autenticación/Register.jsx";
 
 export const App = () => {
   return (
