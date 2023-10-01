@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import serverUrl from "../../serverUrl.js";
 
 
-export default function UpdatePerfilModal({modalUpdatePerfilOPen,infoPersonal,handleOnClose}){
+export default function UpdatePerfilModal({modalUpdatePerfilOPen,setInfoPersonal,infoPersonal,handleOnClose}){
 
     let [copyNombre,setCopyNombre] = useState(infoPersonal.nombre)
     let [copyCorreo,setCopyCorreo] = useState(infoPersonal.email)
@@ -24,24 +24,47 @@ export default function UpdatePerfilModal({modalUpdatePerfilOPen,infoPersonal,ha
 
     let actualizarDatos =  () =>{
 
+
         setCargando(true)
-        let header = new Headers
-        //header.set("x-token", sessionStorage.getItem("token"))
-        header.set('Content-Type','application/json')
+        let rol = "Diseñador"
 
-        let rol = 'Diseñador'
+        const headers = new Headers
 
-        let user = {
+        const usuario = {
             nombre:copyNombre,
-            email:copyCorreo,
-            password:infoPersonal.password,
+            email:infoPersonal.email,
             img:infoPersonal.img,
             rol:rol,
             estado:true,
-            google:false,
-            }
+            google:false
+        }
 
+        headers.set('Content-Type','application/json')
 
+        const init = {
+            method:'put',
+            headers:headers,
+            body:JSON.stringify(usuario)
+        }
+
+        fetch(serverUrl+`/api/usuarios/${infoPersonal.uid}`,init)
+            .then(raw => raw.json())
+            .then(respuesta =>{
+                setCopyNombre(respuesta.nombre)
+                setCargando(false)
+                handleOnClose()
+
+                let newUser = {
+                    uid:infoPersonal.uid,
+                    nombre:copyNombre,
+                    email:infoPersonal.email,
+                    ...respuesta
+                }
+
+                setInfoPersonal(newUser)
+                localStorage.setItem('nombreUsuario',newUser.nombre)
+
+            })
 
     }
 
@@ -56,8 +79,6 @@ export default function UpdatePerfilModal({modalUpdatePerfilOPen,infoPersonal,ha
                         <Stack spacing={2}>
                         <Typography>Nombre:</Typography>
                         <TextField type="text" value={copyNombre} onChange={handleOnChangeNombre}/>
-                        <Typography>Correo electronico:</Typography>
-                        <TextField type="email" value={copyCorreo} onChange={handleOnChangeCorreo}/>
                     </Stack>
 
                 }

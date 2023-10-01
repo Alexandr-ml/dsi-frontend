@@ -74,6 +74,7 @@ function Perfil(){
 
     <UpdatePerfilModal
         infoPersonal={informacionPersonal}
+        setInfoPersonal={setInformacionPersonal}
         handleOnClose={handleDialogActualizarInformacion}
         modalUpdatePerfilOPen={modalEditarPerfilOpen}/>
 

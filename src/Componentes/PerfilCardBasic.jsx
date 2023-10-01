@@ -25,8 +25,17 @@ export default function PerfilCardBasic({info,openDialogEliminarCuenta,openDialo
                         </Grid>
 
                         <Grid item sm={12} md={6}>
-                            <Typography variant={'h5'}>Nombre : {info.nombre}</Typography>
-                            <Typography variant={'h5'}>Correo electronico : {info.email}</Typography>
+                            <Grid item container justifyContent={'center'} direction={'row'} >
+
+                                <Grid item>
+                                    <Typography variant={'h5'}
+                                                noWrap={false}>Nombre : {info.nombre}</Typography>
+                                    <Typography variant={'h5'}
+                                                noWrap={false}>Correo electronico : {info.email}</Typography>
+                                </Grid>
+
+                            </Grid>
+
                         </Grid>
 
                         <Grid item sm={12} md={12} xs={12}>
