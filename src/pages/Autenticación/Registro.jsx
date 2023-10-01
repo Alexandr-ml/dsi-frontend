@@ -180,7 +180,7 @@ export default function Registro(){
                                    type={'password'}
                                    onChange={handleOnPasswordChange}
                                    error={errorPassword}
-                                   helperText={password?.toString() > 0 & password.toString() < 6?'La contraseña debe tener 6 o mas caracteres':errorPassword?'Las contraseñas no coinciden.':''}
+                                   helperText={password?.toString() > 0 & password?.toString() < 6?'La contraseña debe tener 6 o mas caracteres':errorPassword?'Las contraseñas no coinciden.':''}
                                    value={password}
                                    fullWidth/>
                     </Grid>
