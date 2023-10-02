@@ -31,6 +31,59 @@ body {
 
 
 /* Classes */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    justify-self: center;
+    justify-items: center;
+    width: 75%;
+    text-align: center;
+}
+
+.item {
+    flex-grow: 1;
+    flex-basis: 100;
+    justify-content: center;
+    justify-self: center;
+    justify-items: center;
+    padding: 3%;
+    min-width: 150px;
+}
+
+.item p {
+    font-weight: 500;
+}
+
+.itemCol {
+    flex-grow: 1;
+    flex-basis: 100;
+    justify-content: center;
+    justify-self: center;
+    justify-items: center;
+    padding: 2%;
+    width: fit-content;
+}
+
+.itemCol h5 {
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: center;
+    padding: 3%;
+}
+
+.image {
+    height: 100px;
+    justify-self: center;
+    margin: 13px;
+}
+
+.imageFun {
+    height: 150px;
+    justify-self: center;
+    margin: 7%;
+}
+
 .top {
     padding: 2em;
     margin: 0 auto;
@@ -40,12 +93,12 @@ body {
 
 .title {
     color: var(--black);
+    display: flow-root;
 }
 
 .title h1 {
     margin: 5;
-    padding: 0;
-    font-size: 35px;
+    font-size: 3rem;
     font-weight: 400;
     font-family: 'Oswald', sans-serif;
     letter-spacing: 8px;
@@ -53,53 +106,13 @@ body {
 }
 
 .title h3 {
-    font-size: 14px;
-    font-weight: 400;
+    display: flex;
+    font-size: 1.2rem;
+    font-weight: 300;
     font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
     letter-spacing: 8px;
-    line-height: 0;
-}
-
-.techs{
     justify-content: center;
-    justify-self: center;
-    justify-items: center;
-    margin: 5%;
-}
-
-.tec{
-    padding-top: 6%;
-
-}
-
-.tec h5{
-    display: flex;
-    text-align: center;
-}
-
-.techs p{
-    text-align: center;
-    justify-items: center;
-}
-
-.colab{
-    padding: 3%;
-    justify-content: center;
-    justify-items: center;
-}
-
-.colabs{
-    padding:2%;
-    justify-content: center;
-    justify-items: center;
-    width: auto;
-}
-
-.nameColab{
-    text-align: center;
-    justify-items: center;
-    width: auto;
 }
 
 /* Parallax */
@@ -224,7 +237,8 @@ body {
     line-height: 55px;
     padding: .05em .2em 0 0;
 }
-.fourth span{
+
+.fourth span {
     font-size: 4em;
     color: #214A87;
     float: left;

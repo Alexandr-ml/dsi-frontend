@@ -62,8 +62,7 @@ fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/proyectos/co
         <>
         <Grid container >
                 <Grid item md={4} >
-                    <CardUserInfo usuario={nombreUsuario} desc="" imgUser={imgUsuario} prFinalizados={cantidadProyectosFinalizados} prProceso={cantidadProyectosEnProceso} prNoIniciados={cantidadProyectosPendientes} avatars = {img}
-                    />
+                    <CardUserInfo usuario={nombreUsuario} desc="" imgUser={imgUsuario} prFinalizados={cantidadProyectosFinalizados} prProceso={cantidadProyectosEnProceso} prNoIniciados={cantidadProyectosPendientes} avatars={img}/>
                 </Grid>
                 <Grid item md={8}>
                     <Grid container spacing={2} justifyContent="center">
