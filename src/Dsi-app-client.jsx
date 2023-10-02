@@ -16,6 +16,7 @@ import Tareas from "./pages/Tareas/ListaMisTareas.jsx";
 import EditarTarea from "./pages/Tareas/Tarea.jsx";
 import Registro from "./pages/Autenticación/Registro.jsx";
 import Index from "./pages/Index.jsx";
+import MisTareas from "./pages/Tareas/MisTareas.jsx";
 
 export const App = () => {
     return (
@@ -28,7 +29,7 @@ export const App = () => {
                 <Route element={<RequireAuth isLogged={localStorage.getItem("isLogged") === "true"}/> } >
                     <Route path={"/dashboard"} element={<Dashboard><Inicio/></Dashboard>}></Route>
                     <Route path = {"/proyectos"} element={<Dashboard><Proyectos/></Dashboard>}></Route>
-                    <Route path={"/mistareas"} element={<Dashboard><Tareas/></Dashboard>}></Route>
+                    <Route path={"/mistareas"} element={<Dashboard><MisTareas/></Dashboard>}></Route>
                     <Route path={"/mistareas/tarea"} element={<Dashboard><EditarTarea/></Dashboard>}/>
                     <Route path={"/mistareas/tarea/:id/editar"} element={<Dashboard><EditarTarea/></Dashboard>}/>
                     <Route path={"/perfil"} element={<Dashboard><Perfil/></Dashboard>}/>

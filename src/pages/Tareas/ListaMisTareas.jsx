@@ -218,7 +218,9 @@ function Tareas(){
             }
 
             {
-                listaTareas ? <TareasTable listaTareas={listaTareas}></TareasTable> : <></>
+                listaTareas ? <TareasTable
+                    listaTareas={listaTareas}
+                    setTareas={setListaTareas}/> : <></>
             }
 
         </div>
