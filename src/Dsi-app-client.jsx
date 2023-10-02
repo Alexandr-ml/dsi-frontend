@@ -3,6 +3,7 @@ import {BrowserRouter,Routes,Route} from "react-router-dom"
 import Login from "./pages/Autenticación/Login.jsx";
 import Inicio from "./pages/Inicio.jsx";
 import Proyectos from "./pages/Proyectos/Proyectos.jsx";
+import DetalleProyecto from "./pages/Proyectos/DetalleProyecto.jsx";
 import GestionTareas from "./pages/Tareas/GestionTareas.jsx";
 import RequireAuth from "./pages/Autenticación/RequireAuth.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
@@ -25,6 +26,7 @@ export const App = () => {
                 <Route element={<RequireAuth isLogged={localStorage.getItem("isLogged") === "true"}/> } >
                     <Route path={"/dashboard"} element={<Dashboard><Inicio/></Dashboard>}></Route>
                     <Route path = {"/proyectos"} element={<Dashboard><Proyectos/></Dashboard>}></Route>
+                    <Route path={"/proyecto/detalle"} element={<Dashboard><DetalleProyecto/></Dashboard>}></Route>
                     <Route path={"/mistareas"} element={<Dashboard><Tareas/></Dashboard>}></Route>
                     <Route path={"/mistareas/tarea"} element={<Dashboard><EditarTarea/></Dashboard>}/>
                     <Route path={"/mistareas/tarea/:id/editar"} element={<Dashboard><EditarTarea/></Dashboard>}/>
