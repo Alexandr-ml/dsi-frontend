@@ -4,9 +4,7 @@ import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import url from "../../serverUrl.js";
-
-
-
+import axios from 'axios';
 
   function autenticar(email,password){
 
@@ -25,9 +23,7 @@ import url from "../../serverUrl.js";
     }catch (error){
         console.log(error.message)
     }
-
       return r;
-
 }
 export default function Login(){
       const navigate = useNavigate()

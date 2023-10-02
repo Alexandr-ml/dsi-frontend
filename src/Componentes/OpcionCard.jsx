@@ -40,8 +40,33 @@ function OpcionCard(props){
 
 function CardArea(props){
     return (<>
-         <Card sm={{ maxWidth: 345}} >
+         <Card sx={{ height: 290}}>
             <CardActionArea onClick={props.handler}>
+                <CardMedia
+                    component="img"
+                    height="140"
+                    image={props.img}
+                    alt="green iguana"
+                    />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {props.titulo}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {props.desc}
+                    </Typography>
+                </CardContent>
+            </CardActionArea >
+        </Card>
+    </>
+    )
+
+}
+
+function CardAreaProximamente(props){
+    return (<>
+         <Card sx={{ height: 290}}>
+            <CardActionArea onClick={props.handler} >
                 <CardMedia
                     component="img"
                     height="140"
@@ -119,4 +144,4 @@ function CardUserInfo(props){
     </> )
 }
 
-export {OpcionCard, CardArea, CardUserInfo};
+export {OpcionCard, CardArea, CardUserInfo, CardAreaProximamente};
