@@ -22,9 +22,10 @@ function AppBarIndex(props) {
     return (<>
         <AppBar position="static" style={{ background: '#214A87' }}>
             <Container maxWidth="xl" >
-                <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
+                <Toolbar disableGutters sx={{ justifyContent: "center", display:"flex" }}>
                     <Box sx={{ display: "inline-list-item", alignContent: "center" }}>
                         <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+                        <a href='/' style={{ textDecoration: "none", color:'white' }}>
                         <Typography
                             variant="h6"
                             noWrap
@@ -37,20 +38,12 @@ function AppBarIndex(props) {
                                 letterSpacing: '.1rem',
                                 color: 'inherit',
                                 textDecoration: 'none',
-                            }}
+                            }}                            
                         >
-                            SGDP
+                            SISTEMA GESTOR DE PROYECTOS
                         </Typography>
+                        </a>
                     </Box>
-                    <Box sx={{ display: "inline-list-item", alignContent: "center" }}>
-                        <Box marginRight={2}>
-                            <Button href="/login" style={{ background: "#FFFFFF" }}>Iniciar Sesión</Button>
-                        </Box>
-                        <Box marginRight={2}>
-                            <Button href="/registro" variant="outlined" style={{ borderColor: "#FFFFFF", color: "#FFFFFF" }}>Crear Cuenta</Button>
-                        </Box>
-                    </Box>
-
                 </Toolbar>
             </Container>
         </AppBar>
