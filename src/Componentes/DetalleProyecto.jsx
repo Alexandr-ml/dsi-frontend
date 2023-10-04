@@ -153,17 +153,12 @@ function OpcionCardDetalle(props){
     )
 }
 
-function OpcionCardRecursos(props){
-
+function colaboradoresTarget(props){
     return (<>
-    <Card variant={"outlined"}>
-            <CardActionArea onClick={props.handler} sx={{height: 352}} >
-            <Grid container spacing={1} justifyContent="center">
-            <CardContent >
-                    <Grid container spacing={1} justifyContent="center">
+        <Grid container spacing={1} justifyContent="center">
                             <Grid item sx={3}>
-                                <Tooltip title="Usuario">
-                                <Avatar/>   
+                                <Tooltip title={props.nombre}>
+                                <Avatar src={props.img}/>   
                                 </Tooltip>                                              
                             </Grid>
                             <Grid item sx={3}>                                
@@ -185,68 +180,28 @@ function OpcionCardRecursos(props){
                             </Grid>
                     </Grid>
                     <Divider />
-                    <Grid container spacing={1} justifyContent="center">
-                            <Grid item sx={3}>
-                                <Tooltip title="Usuario">
-                                <Avatar/>  
-                                </Tooltip>                                              
-                            </Grid>
-                            <Grid item sx={3}>                                
-                                <IconButton aria-label="delete" color='warning'>
-                                        <AlarmIcon />11
-                                    </IconButton>                                
-                            </Grid>
-                            <Divider orientation="vertical" flexItem />
-                            <Grid item sx={3}>                                
-                                <IconButton aria-label="delete" color='warning'>
-                                        <ConstructionIcon />11
-                                    </IconButton>                                
-                            </Grid>
-                            <Divider orientation="vertical" flexItem />
-                            <Grid item sx={3}> 
-                                <IconButton aria-label="delete" color='warning'>
-                                        <CheckBoxIcon />11
-                                    </IconButton>
-                            </Grid>
-                    </Grid>
-                    <Divider />
-                    <Grid container spacing={1} justifyContent="center">
-                            <Grid item sx={3}>
-                                <Tooltip title="Usuario">
-                                <Avatar/>  
-                                </Tooltip>                                              
-                            </Grid>
-                            <Grid item sx={3}>                                
-                                <IconButton aria-label="delete" color='warning'>
-                                        <AlarmIcon />11
-                                    </IconButton>                                
-                            </Grid>
-                            <Divider orientation="vertical" flexItem />
-                            <Grid item sx={3}>                                
-                                <IconButton aria-label="delete" color='warning'>
-                                        <ConstructionIcon />11
-                                    </IconButton>                                
-                            </Grid>
-                            <Divider orientation="vertical" flexItem />
-                            <Grid item sx={3}> 
-                                <IconButton aria-label="delete" color='warning'>
-                                        <CheckBoxIcon />11
-                                    </IconButton>
-                            </Grid>
-                    </Grid>
-                    <Divider />
-                    <br />
-                    <Grid container spacing={1} justifyContent="center">
-                    <Pagination count={3} />
-                    </Grid>
-                </CardContent>
-            </Grid>
-
-            </CardActionArea>
-        </Card>
-    </>
-    )
+    </>)
 }
+
+function OpcionCardRecursos(props) {
+    console.log(props.colaboradores)
+  return (
+    <>
+      <Card variant={"outlined"}>
+        <CardActionArea onClick={props.handler} sx={{ height: 352 }}>
+          <Grid container spacing={1} justifyContent="center">
+            <CardContent>
+              {/* {props.colaboradores.map((element, index) => (
+                <div key={index}>{colaboradoresTarget(element)}</div>
+              ))} */}
+            </CardContent>
+          </Grid>
+        </CardActionArea>
+      </Card>
+    </>
+  );
+}
+
 
 function OpcionCardTareas(props){
     console.log("No entro")
