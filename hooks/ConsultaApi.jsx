@@ -2,9 +2,13 @@ import React, {useEffect, useState} from 'react';
 import adminProy from './adminProy.jsx';
 
 export const ConsultaApi = () => {
+
+
 const [con, setConsulta] = useState(null);
 
   const consultar = async (id) => {
+    console.log('ConsultaApi');
+
     const token = sessionStorage.getItem('token');
       try {
         const {data} = await adminProy.get(

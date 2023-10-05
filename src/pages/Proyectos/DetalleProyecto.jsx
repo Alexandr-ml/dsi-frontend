@@ -13,26 +13,32 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import {ConsultaApi} from "../../../hooks/ConsultaApi.jsx";
 
 
+
 function DetalleProyecto(){
+
 
     let navigate = useNavigate();
     const {con, consultar} = ConsultaApi();
     const [nombreProyecto, setNombreProyecto] = useState("");
     const [descripcionProyecto, setDescripcionProyecto] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
     const [fechaInicioProyecto, setFechaInicioProyecto] = useState("");
     const [fechaFinalProyecto, setFechaFinalProyecto] = useState("");
     const [avanceProyecto, setAvanceProyecto] = useState("");
     const [colaboradoresProyecto, setColaboradoresProyecto] = useState("");
 
+
     const porcentajeAv = '60';
     //se ejecuta al crearse el componente
     useEffect(() => {
         consultar("647e730003483186ad7078ae");
+        setIsLoading(false);
     }, []);
 
     //se ejecuta cuando se actualiza el estado de con
+
+
     useEffect(() => {
-        // console.log(con);
         if(con){
             setNombreProyecto(con.nombre);
             setDescripcionProyecto(con.descripcion);
@@ -42,7 +48,9 @@ function DetalleProyecto(){
             setFechaInicioProyecto(fechaInicio.toLocaleDateString());
             setFechaFinalProyecto(fechaFinal.toLocaleDateString());
             setAvanceProyecto(con.estado);
-            setColaboradoresProyecto(con.colaboradores);
+            console.log(con);
+            if (con.colaboradores)setColaboradoresProyecto(con.colaboradores);
+            setIsLoading(false);
         }
 
     }, [con]);
