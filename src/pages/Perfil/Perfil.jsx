@@ -8,6 +8,7 @@ import PerfilCardBasic from "../../Componentes/PerfilCardBasic.jsx";
 import Loading from "../../Componentes/Loading.jsx";
 import Button from "@mui/material/Button";
 import UpdatePerfilModal from "../../Componentes/modals/UpdatePerfilModal.jsx";
+import serverUrl from "../../serverUrl.js";
 
 
 function Perfil(){
@@ -51,6 +52,26 @@ function Perfil(){
         </>
     }
 
+    const borrarCuenta = () =>{
+
+        let header = new Headers()
+        header.set('x-token',localStorage.getItem('token'))
+
+        const init = {
+            header:header,
+            method:'DELETE',
+        }
+
+        fetch(serverUrl+`/api/${info.uid}`,init)
+            .then(raw => {
+                if(raw.ok){
+                    localStorage.clear()
+                    window.location.href = "/login"
+                }
+            })
+    }
+
+
     return <>
         <PerfilCardBasic
             info={informacionPersonal}
@@ -67,7 +88,9 @@ function Perfil(){
 
             <DialogActions>
                 <Button onClick={handleDialogEliminarCuenta}>Cancelar.</Button>
-                <Button color={'error'}>Eliminar.</Button>
+                <Button
+                    onClick={borrarCuenta}
+                    color={'error'} >Eliminar.</Button>
             </DialogActions>
         </Dialog>
 

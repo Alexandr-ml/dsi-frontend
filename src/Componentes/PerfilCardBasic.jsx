@@ -12,24 +12,6 @@ export default function PerfilCardBasic({info,openDialogEliminarCuenta,openDialo
 
     console.log(info)
 
-    const borraCuenta = () =>{
-
-        let header = new Headers()
-        header.set('x-token',localStorage.getItem('token'))
-
-        const init = {
-            header:header,
-            method:'DELETE',
-        }
-
-        fetch(serverUrl+`/api/${info.uid}`,init)
-            .then(raw => {
-                if(raw.ok){
-                    localStorage.clear()
-                    window.location.href = "/login"
-                }
-            })
-    }
 
     return <>
             <Card>
