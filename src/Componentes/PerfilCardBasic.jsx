@@ -41,8 +41,8 @@ export default function PerfilCardBasic({info,openDialogEliminarCuenta,openDialo
                         <Grid item sm={12} md={12} xs={12}>
                                 <Stack alignItems={'flex-start'} spacing={2}>
                                     <Typography variant={'h5'}>Seguridad.</Typography>
-                                    <Button>Cambiar contraseña.</Button>
-                                    <Button>Restablecer contraseña.</Button>
+                                    <Button disabled >Cambiar contraseña.</Button>
+                                    <Button disabled>Restablecer contraseña.</Button>
                                 </Stack>
                         </Grid>
                     </Grid>
@@ -51,6 +51,7 @@ export default function PerfilCardBasic({info,openDialogEliminarCuenta,openDialo
                 <CardActions>
                     <Button onClick={() => openDialogActualizarInfo(true)}>Editar perfil.</Button>
                     <Button
+                        disabled
                         onClick={() => openDialogEliminarCuenta(true)}
                         color={'error'}>Eliminar cuenta.</Button>
                 </CardActions>
