@@ -16,6 +16,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import url from "../../serverUrl.js";
+import AppBarLogin from "../../Componentes/AppBarLogin.jsx";
+import AppBarIndex from "../../Componentes/AppBarLogin.jsx";
 
 
 export default function Registro(){
@@ -138,7 +140,7 @@ export default function Registro(){
         | !confirmPassword
 
     return <>
-
+    <AppBarIndex/>
     <Container >
 
 
