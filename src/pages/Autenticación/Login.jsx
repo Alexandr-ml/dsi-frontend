@@ -94,6 +94,7 @@ export default function Login(){
                                         sessionStorage.setItem("token", res.token)
                                         localStorage.setItem("isLogged", true)
                                         localStorage.setItem("nombreUsuario", res.usuario.nombre)
+                                        localStorage.setItem('fotoPerfil',res.usuario.img)
                                         console.log(res)
                                         window.location = window.location.href.replace("login", "dashboard")
                                     } else {
