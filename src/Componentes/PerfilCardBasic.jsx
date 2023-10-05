@@ -5,11 +5,31 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 import DropZoneProfileImage from "./dropZoneProfileImage.jsx";
+import serverUrl from "../serverUrl.js";
 
 
 export default function PerfilCardBasic({info,openDialogEliminarCuenta,openDialogActualizarInfo}){
 
     console.log(info)
+
+    const borraCuenta = () =>{
+
+        let header = new Headers()
+        header.set('x-token',localStorage.getItem('token'))
+
+        const init = {
+            header:header,
+            method:'DELETE',
+        }
+
+        fetch(serverUrl+`/api/${info.uid}`,init)
+            .then(raw => {
+                if(raw.ok){
+                    localStorage.clear()
+                    window.location.href = "/login"
+                }
+            })
+    }
 
     return <>
             <Card>
@@ -51,11 +71,14 @@ export default function PerfilCardBasic({info,openDialogEliminarCuenta,openDialo
                 <CardActions>
                     <Button onClick={() => openDialogActualizarInfo(true)}>Editar perfil.</Button>
                     <Button
-                        disabled
                         onClick={() => openDialogEliminarCuenta(true)}
                         color={'error'}>Eliminar cuenta.</Button>
                 </CardActions>
             </Card>
+
+
+
+
         </>
 
 }
