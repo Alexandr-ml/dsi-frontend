@@ -126,7 +126,7 @@ function OpcionCardProgreso(props){
         <Card variant={"outlined"}>
             <CardActionArea onClick={props.handler} >
                 <CardContent>
-                    <Typography textAlign={"center"} >{props.desc}{props.icono}1</Typography>
+                    <Typography >{props.desc}{props.icono}1</Typography>
                 </CardContent>
             </CardActionArea>
         </Card>
@@ -191,9 +191,9 @@ function OpcionCardRecursos(props) {
         <CardActionArea onClick={props.handler} sx={{ height: 352 }}>
           <Grid container spacing={1} justifyContent="center">
             <CardContent>
-              {/* {props.colaboradores.map((element, index) => (
+              {props.colaboradores.map((element, index) => (
                 <div key={index}>{colaboradoresTarget(element)}</div>
-              ))} */}
+              ))}
             </CardContent>
           </Grid>
         </CardActionArea>
@@ -214,14 +214,16 @@ function OpcionCardTareas(props){
                             <Typography variant={"h5"}>{props.titulo}</Typography>
                         </Grid>
                     </Grid>
-                    <Typography>Fecha de inicio</Typography>
-                    <Typography>{props.fechaInicio}</Typography>
-                    <br/>
-                    <Divider />
-                    <Typography>Fecha de Finalizacion</Typography>
-                    <Typography>{props.fechaFinal}</Typography>
-                    <br/>
-                    <br/>
+                    <Grid container spacing={1}>
+                        <Grid item xs={6}  >
+                            <Typography>Fecha de inicio</Typography>
+                            <Typography>{props.fechaInicio}</Typography>
+                        </Grid>
+                        <Grid item xs={6} >
+                            <Typography>Fecha de Finalización</Typography>
+                            <Typography>{props.fechaFinal}</Typography>
+                        </Grid>
+                    </Grid>
                 </CardContent>
             </CardActionArea>
         </Card>
@@ -234,19 +236,8 @@ function OpcionCardAvance(props){
         <Card variant={"outlined"} sx={{mb: 2}}>
             <CardActionArea onClick={props.handler} >
                 <CardContent>
-                    <Grid container>
-                        <Grid item xs={12} textAlign={"center"} >
-                            <Typography variant={"h5"}>Progreso</Typography>
-                        </Grid>
-                    </Grid>
-                    <div className="set-size charts-container">
-                        <div className="pie-wrapper progress-30">
-                            <span className="label">{props.porcentaje}<span className="smaller">%</span></span>
-                            <div className="pie">
-                            <div className="left-side half-circle"></div>
-                            <div className="right-side half-circle"></div>
-                            </div>
-                        </div>
+                    <div className="half-arc" style={{'--percentage': props.rango}}>
+                        <span className="label">{props.porcentaje}%</span>
                     </div>
                 </CardContent>
             </CardActionArea>

@@ -23,6 +23,8 @@ function DetalleProyecto(){
     const [fechaFinalProyecto, setFechaFinalProyecto] = useState("");
     const [avanceProyecto, setAvanceProyecto] = useState("");
     const [colaboradoresProyecto, setColaboradoresProyecto] = useState("");
+
+    const porcentajeAv = '60';
     //se ejecuta al crearse el componente
     useEffect(() => {
         consultar("647e730003483186ad7078ae");
@@ -60,12 +62,13 @@ function DetalleProyecto(){
 
                 <Grid item md={4} >
                     <Box>
-                        <Grid container spacing={1}>
-                            <Grid item md={4}>
-                                <OpcionCardTareas fechaInicio={fechaInicioProyecto} fechaFinal={fechaFinalProyecto}/>
+                        <Grid container spacing={1} >
+                            <Grid item md={12} sx={{ml:10}}>
+                                <OpcionCardAvance porcentaje={porcentajeAv}
+                                rango ={porcentajeAv+'%'}/>
                             </Grid>
-                            <Grid item md={8}>
-                                <OpcionCardAvance porcentaje={50}/>
+                            <Grid item md={12}>
+                                <OpcionCardTareas fechaInicio={fechaInicioProyecto} fechaFinal={fechaFinalProyecto}/>
                             </Grid>
                         </Grid>
                     </Box>
