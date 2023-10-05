@@ -62,7 +62,7 @@ function Perfil(){
             method:'DELETE',
         }
 
-        fetch(serverUrl+`/api/${info.uid}`,init)
+        fetch(serverUrl+`/api/${informacionPersonal.uid}`,init)
             .then(raw => {
                 if(raw.ok){
                     localStorage.clear()
