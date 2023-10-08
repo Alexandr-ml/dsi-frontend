@@ -127,7 +127,13 @@ function ResponsiveAppBar(props) {
                                 }}
                             >
                                 {pages.map((page) => (
-                                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                    <MenuItem key={page} onClick={()=>{
+
+                                        if(page === 'Proyectos') navigate('/misproyectos')
+
+                                        if(page === 'Mis tareas') navigate('/mistareas')
+
+                                        handleCloseNavMenu()}}>
                                             <Typography textAlign="center">{page}</Typography>
                                     </MenuItem>
                                 ))}
@@ -156,7 +162,13 @@ function ResponsiveAppBar(props) {
                             {pages.map((page) => (
                                 <Button
                                     key={page}
-                                    onClick={handleCloseNavMenu}
+                                    onClick={()=>{
+
+                                        if(page === 'Proyectos') navigate('/misproyectos')
+
+                                        if(page === 'Mis tareas') navigate('/mistareas')
+
+                                        handleCloseNavMenu()}}
                                     sx={{ my: 2, color: 'white', display: 'block' }}
                                 >
                                     {page}
@@ -195,6 +207,7 @@ function ResponsiveAppBar(props) {
                                             break;
                                             case "Perfil": navigate("/perfil");
                                             break;
+                                            default: navigate('/')
                                         }
                                     }}>
                                         <Typography textAlign={"center"}>{setting}</Typography>

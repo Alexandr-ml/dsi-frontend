@@ -5,11 +5,13 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 import DropZoneProfileImage from "./dropZoneProfileImage.jsx";
+import serverUrl from "../serverUrl.js";
 
 
 export default function PerfilCardBasic({info,openDialogEliminarCuenta,openDialogActualizarInfo}){
 
     console.log(info)
+
 
     return <>
             <Card>
@@ -41,8 +43,8 @@ export default function PerfilCardBasic({info,openDialogEliminarCuenta,openDialo
                         <Grid item sm={12} md={12} xs={12}>
                                 <Stack alignItems={'flex-start'} spacing={2}>
                                     <Typography variant={'h5'}>Seguridad.</Typography>
-                                    <Button>Cambiar contraseña.</Button>
-                                    <Button>Restablecer contraseña.</Button>
+                                    <Button disabled >Cambiar contraseña.</Button>
+                                    <Button disabled>Restablecer contraseña.</Button>
                                 </Stack>
                         </Grid>
                     </Grid>
@@ -55,6 +57,10 @@ export default function PerfilCardBasic({info,openDialogEliminarCuenta,openDialo
                         color={'error'}>Eliminar cuenta.</Button>
                 </CardActions>
             </Card>
+
+
+
+
         </>
 
 }

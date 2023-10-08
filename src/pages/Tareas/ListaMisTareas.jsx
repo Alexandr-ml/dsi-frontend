@@ -8,6 +8,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import url from "../../serverUrl.js";
+import TareasTable from "../../Componentes/TareasTable.jsx";
 
 function Tareas(){
 
@@ -215,6 +216,13 @@ function Tareas(){
                     return <h1 className={'mb-1'}><Skeleton/></h1>
                 })
             }
+
+            {
+                listaTareas ? <TareasTable
+                    listaTareas={listaTareas}
+                    setTareas={setListaTareas}/> : <></>
+            }
+
         </div>
     </>;
 }
