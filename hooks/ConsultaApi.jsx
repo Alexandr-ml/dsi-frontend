@@ -12,7 +12,7 @@ const [con, setConsulta] = useState(null);
     const token = sessionStorage.getItem('token');
       try {
         const {data} = await adminProy.get(
-          '/proyectos/'+id,
+          '/proyectos/pro/'+id,
             {
                 headers: {
                 'Content-Type': '/application/json',

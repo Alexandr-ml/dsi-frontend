@@ -21,18 +21,16 @@ function DetalleProyecto(){
     const {con, consultar} = ConsultaApi();
     const [nombreProyecto, setNombreProyecto] = useState("");
     const [descripcionProyecto, setDescripcionProyecto] = useState("");
-    const [isLoading, setIsLoading] = useState(true);
     const [fechaInicioProyecto, setFechaInicioProyecto] = useState("");
     const [fechaFinalProyecto, setFechaFinalProyecto] = useState("");
-    const [avanceProyecto, setAvanceProyecto] = useState("");
     const [colaboradoresProyecto, setColaboradoresProyecto] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
 
 
     const porcentajeAv = '60';
     //se ejecuta al crearse el componente
     useEffect(() => {
         consultar("647e730003483186ad7078ae");
-        setIsLoading(false);
     }, []);
 
     //se ejecuta cuando se actualiza el estado de con
@@ -47,8 +45,7 @@ function DetalleProyecto(){
             const fechaFinal = new Date(con.fecha_final);
             setFechaInicioProyecto(fechaInicio.toLocaleDateString());
             setFechaFinalProyecto(fechaFinal.toLocaleDateString());
-            setAvanceProyecto(con.estado);
-            console.log(con);
+            
             if (con.colaboradores)setColaboradoresProyecto(con.colaboradores);
             setIsLoading(false);
         }
