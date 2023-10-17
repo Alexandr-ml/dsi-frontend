@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import ResponsiveAppBar from "../../Componentes/ResponsiveAppBar.jsx";
-import {Card, CardContent, Grid, Paper, styled, CardMedia} from "@mui/material";
+import {Grid} from "@mui/material";
 import {OpcionCardTareas, OpcionCardAvance, OpcionCardDetalle, OpcionCardRecursos, OpcionCardProgreso, BasicCard,} from "../../Componentes/DetalleProyecto.jsx"
 import Box from "@mui/material/Box";
 import ConstructionIcon from '@mui/icons-material/Construction';
 import {Navigate} from "react-router";
 import {useNavigate} from "react-router-dom";
 import Typography from '@mui/material/Typography';
-import { blue, green, red} from '@mui/material/colors';
+import { blue} from '@mui/material/colors';
 import AlarmIcon from '@mui/icons-material/Alarm';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import {ConsultaApi} from "../../../hooks/ConsultaApi.jsx";
+import { ConsultaTareasApi } from '../../../hooks/TareasPorProyecto.jsx';
 
 
 
@@ -19,6 +20,7 @@ function DetalleProyecto(){
 
     let navigate = useNavigate();
     const {con, consultar} = ConsultaApi();
+    const {conTareas, consultarTareas} = ConsultaTareasApi();
     const [nombreProyecto, setNombreProyecto] = useState("");
     const [descripcionProyecto, setDescripcionProyecto] = useState("");
     const [fechaInicioProyecto, setFechaInicioProyecto] = useState("");
@@ -33,7 +35,18 @@ function DetalleProyecto(){
         consultar("647e730003483186ad7078ae");
     }, []);
 
-    //se ejecuta cuando se actualiza el estado de con
+    useEffect(() => {
+        consultarTareas("6456efca5838aeca09f347f8");
+    }, []);
+
+
+    useEffect(() => {
+        if(conTareas){
+            console.log(conTareas);
+        }
+    }
+    , [conTareas]);
+
 
 
     useEffect(() => {
@@ -95,41 +108,17 @@ function DetalleProyecto(){
                 <Grid item md={4}>
                     <OpcionCardRecursos colaboradores={colaboradoresProyecto}/>
                 </Grid>
-
             </Grid>
-
             <Grid container spacing={1} sx={{ mt: 0.5 }}>
                 <Grid item md={3} >
-                    <BasicCard />
-                </Grid>
-                <Grid item md={3} >
-                    <BasicCard  />
-                </Grid>
-                <Grid item md={3} >
-                    <BasicCard  />
-                </Grid>
-                <Grid item md={3} >
-                    <BasicCard  />
-                </Grid>
-            </Grid>
+                    {
 
-            <Grid container spacing={1} sx={{ mt: 0.5 }}>
-                <Grid item md={3} >
-                    <BasicCard />
-                </Grid>
-                <Grid item md={3} >
-                    <BasicCard  />
-                </Grid>
-                <Grid item md={3} >
-                    <BasicCard  />
-                </Grid>
-                <Grid item md={3} >
+                    }
                     <BasicCard />
                 </Grid>
             </Grid>
         </>
     )
-
 }
 
 export default DetalleProyecto;

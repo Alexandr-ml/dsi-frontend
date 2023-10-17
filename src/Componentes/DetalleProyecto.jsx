@@ -191,9 +191,9 @@ function OpcionCardRecursos(props) {
         <CardActionArea onClick={props.handler} sx={{ height: 352 }}>
           <Grid container spacing={1} justifyContent="center">
             <CardContent>
-              {props.colaboradores.map((element, index) => (
+              {/* {props.colaboradores.map((element, index) => (
                 <div key={index}>{colaboradoresTarget(element)}</div>
-              ))}
+              ))} */}
             </CardContent>
           </Grid>
         </CardActionArea>
@@ -204,7 +204,6 @@ function OpcionCardRecursos(props) {
 
 
 function OpcionCardTareas(props){
-    console.log("No entro")
     return (<>
         <Card variant={"outlined"} sx={{p: 0.3}}>
             <CardActionArea onClick={props.handler} >
