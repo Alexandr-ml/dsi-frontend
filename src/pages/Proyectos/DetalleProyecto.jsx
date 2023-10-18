@@ -20,7 +20,7 @@ function DetalleProyecto(){
 
     let navigate = useNavigate();
     const {con, consultar} = ConsultaApi();
-    const {conTareas, consultarTareas} = ConsultaTareasApi();
+    const {conTareas, consultarTareas} = useState();
     const [nombreProyecto, setNombreProyecto] = useState("");
     const [descripcionProyecto, setDescripcionProyecto] = useState("");
     const [fechaInicioProyecto, setFechaInicioProyecto] = useState("");
@@ -35,9 +35,20 @@ function DetalleProyecto(){
         consultar("647e730003483186ad7078ae");
     }, []);
 
-    useEffect(() => {
-        consultarTareas("6456efca5838aeca09f347f8");
-    }, []);
+
+    var myHeaders = new Headers();
+myHeaders.append("x-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDRmZmE2YzI3ZDQ3NGNhNWFhNzY0ZDUiLCJpYXQiOjE2ODY0NTY5MzQsImV4cCI6MTY4NjQ3MTMzNH0.6A65qxBGpXsXWSgrAFdgNhWOsF2ABR3ArkvWOerjc0U");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("http://localhost:8080/api/tareas/listadoTareas/6456efca5838aeca09f347f8", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
 
 
     useEffect(() => {
