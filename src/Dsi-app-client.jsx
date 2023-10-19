@@ -17,6 +17,7 @@ import EditarTarea from "./pages/Tareas/Tarea.jsx";
 import Registro from "./pages/Autenticación/Registro.jsx";
 import Index from "./pages/Index.jsx";
 import MisTareas from "./pages/Tareas/MisTareas.jsx";
+import TareasPorProyecto from "./pages/Tareas/TareasPorProyecto.jsx";
 
 export const App = () => {
     return (
@@ -35,6 +36,7 @@ export const App = () => {
                     <Route path={"/perfil"} element={<Dashboard><Perfil/></Dashboard>}/>
                     <Route path={'/misproyectos'} element={<Dashboard><ListaMisProyectos/></Dashboard>}/>
                     <Route path={'/misproyectos/proyecto'} element={<Dashboard><Proyecto/></Dashboard>}/>
+                    <Route path={'/misproyectos/proyecto/:id/tareas'} element={<Dashboard><TareasPorProyecto/></Dashboard>}/>
                     <Route path={'/misproyectos/proyecto/:id/editar'} element={<Dashboard><Proyecto/></Dashboard>} />
                 </Route>
             </Routes>

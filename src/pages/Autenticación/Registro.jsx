@@ -114,7 +114,12 @@ export default function Registro(){
                 return raw.json()
             }).then(body =>{
 
-                const typeError = body?.errors[0]
+                let typeError;
+                try{
+                     typeError = body?.errors[0]
+                }catch (ReferenceError){
+                 console.log(body)
+                }
 
                 if(typeError){
                     switch (typeError.path){

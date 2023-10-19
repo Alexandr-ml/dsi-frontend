@@ -2,7 +2,7 @@ import react, {useEffect, useState} from 'react'
 import Typography from "@mui/material/Typography";
 import {
     Dialog, DialogContent, DialogTitle,
-    Grid,
+    Grid, ListItemIcon,
     Skeleton,
     Stack,
     Table,
@@ -12,6 +12,7 @@ import {
     TableHead,
     TableRow
 } from "@mui/material";
+import ListIcon from '@mui/icons-material/List'
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {Add, Edit} from "@mui/icons-material";
@@ -21,6 +22,7 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import {Link, useNavigate} from "react-router-dom";
 import url from "../../serverUrl.js";
+import React from "react";
 
 
 function ListaMisProyectos(){
@@ -143,6 +145,11 @@ function ListaMisProyectos(){
                                                 <Tooltip title={'Borrar proyecto'}>
                                                     <IconButton color={'error'} onClick={() => {updateProjectList(proyecto.uid)}}>
                                                         <DeleteIcon/>
+                                                    </IconButton>
+                                                </Tooltip>
+                                                <Tooltip title={'Ver lista de tareas'}>
+                                                    <IconButton color={'info'} onClick={ () => navigate(`/misproyectos/proyecto/${proyecto.uid}/tareas`)}>
+                                                        <ListIcon/>
                                                     </IconButton>
                                                 </Tooltip>
 
