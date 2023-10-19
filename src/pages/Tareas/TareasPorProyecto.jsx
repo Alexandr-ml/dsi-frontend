@@ -8,6 +8,7 @@ import Container from "@mui/material/Container";
 import serverUrl from "../../serverUrl.js";
 import listaMisTareas from "./ListaMisTareas.jsx";
 import TareasTable from "../../Componentes/TareasTable.jsx";
+import TareasTablePorProyecto from "../../Componentes/TareasTablePorProyecto.jsx";
 
 
 
@@ -24,12 +25,16 @@ function TareasPorProyecto(){
     }
 
 
+
+
     let [tareas,setTareas] = useState()
 
     const [tareasNoIniciadas,setTareasNoIniciadas] = useState()
     const [tareasEnProgreso,setTareasEnProgreso] = useState()
     const [tareasFinalizadas,setTareasFinalizadas] = useState()
 
+
+    const [nombreProyecto,setNombreProyecto] = useState()
     let navigate = useNavigate()
 
     const actualizarTareas = (tareas) => {
@@ -54,6 +59,13 @@ function TareasPorProyecto(){
                 actualizarTareas(tareas)
 
             })
+
+        fetch(serverUrl+`/api/proyectos/${id}`,initGetTareas)
+            .then(raw => raw.json())
+            .then(body => {
+                console.log(body)
+                setNombreProyecto(body.resto._doc.nombre)}
+            )
     }, []);
 
     let [tabSeleccionada,setTabSeleccionada] = useState(0)
@@ -63,18 +75,17 @@ function TareasPorProyecto(){
         //console.log(value)
 
         setTabSeleccionada(value)
-
     }
 
     const setTab = (valor)=>{
 
         switch (valor){
             case 0:
-                return <TareasTable listaTareas={tareasNoIniciadas} actualizarTareas={actualizarTareas} />
+                return <TareasTablePorProyecto listaTareas={tareasNoIniciadas} actualizarTareas={actualizarTareas} proyecto={id}/>
             case 1:
-                return <TareasTable listaTareas={tareasEnProgreso} actualizarTareas={actualizarTareas}/>
+                return <TareasTablePorProyecto listaTareas={tareasEnProgreso} actualizarTareas={actualizarTareas} proyecto={id}/>
             case 2:
-                return <TareasTable listaTareas={tareasFinalizadas} actualizarTareas={actualizarTareas}/>
+                return <TareasTablePorProyecto listaTareas={tareasFinalizadas} actualizarTareas={actualizarTareas} proyecto={id}/>
             default:
                 return <></>
         }
@@ -84,7 +95,7 @@ function TareasPorProyecto(){
     return <>
         <Grid container alignItems={'center'}  className={'mb-4'}>
             <Grid item xs={8}>
-                <Typography variant={'h3'}>Tareas</Typography>
+                <Typography variant={'h3'}>{nombreProyecto}</Typography>
             </Grid >
             <Grid item xs={4} >
                 <Button
