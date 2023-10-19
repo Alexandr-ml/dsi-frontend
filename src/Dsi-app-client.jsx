@@ -11,6 +11,7 @@ import Register from "./pages/Autenticación/Register.jsx";
 import Perfil from "./pages/Perfil/Perfil.jsx";
 import ListaMisProyectos from "./pages/Proyectos/ListaMisProyectos.jsx";
 import Proyecto from "./pages/Proyectos/Proyecto.jsx";
+import DetalleProyecto from "./pages/Proyectos/ProyectoTarea.jsx";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import 'dayjs/locale/es-mx.js'
@@ -26,8 +27,8 @@ export const App = () => {
                 <Route element={<RequireAuth isLogged={localStorage.getItem("isLogged") === "true"}/> } >
                     <Route path={"/dashboard"} element={<Dashboard><Inicio/></Dashboard>}></Route>
                     <Route path = {"/proyectos"} element={<Dashboard><Proyectos/></Dashboard>}></Route>
-                    <Route path={"/proyecto/detalle"} element={<Dashboard><DetalleProyecto/></Dashboard>}></Route>
-                    <Route path={"/mistareas"} element={<Dashboard><Tareas/></Dashboard>}></Route>
+                    <Route path={"/proyecto/tarea"} element={<Dashboard><DetalleProyecto/></Dashboard>}></Route>
+                    <Route path={"/mistareas"} element={<Dashboard><MisTareas/></Dashboard>}></Route>
                     <Route path={"/mistareas/tarea"} element={<Dashboard><EditarTarea/></Dashboard>}/>
                     <Route path={"/mistareas/tarea/:id/editar"} element={<Dashboard><EditarTarea/></Dashboard>}/>
                     <Route path={"/perfil"} element={<Dashboard><Perfil/></Dashboard>}/>
