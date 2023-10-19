@@ -99,7 +99,7 @@ function TareasPorProyecto(){
             </Grid >
             <Grid item xs={4} >
                 <Button
-                    onClick={()=> navigate('/mistareas/tarea')}
+                    onClick={()=>  navigate('/mistareas/tarea')}
                     variant={'contained'}
                     endIcon={<Add/>}>Nueva tarea</Button>
             </Grid>
