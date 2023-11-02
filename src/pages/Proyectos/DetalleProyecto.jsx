@@ -72,6 +72,7 @@ fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/tareas/lista
             setFechaFinalProyecto(fechaFinal.toLocaleDateString());
             
             if (con.colaboradores)setColaboradoresProyecto(con.colaboradores);
+            console.log(con.colaboradores);
             setIsLoading(false);
 
             
@@ -104,9 +105,9 @@ fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/tareas/lista
                 <Grid item md={4} >
                     <Box>
                         <Grid container spacing={1}>
-                            <Grid item md={12} sx={{ml:1}} >
+                            <Grid item md={12} sx={{ml:9, mr:10}}>
                                 <OpcionCardAvance porcentaje={porcentajeAv}
-                                rango ={porcentajeAv+'%'}/>
+                                rango ={porcentajeAv+'%'} />
                             </Grid>
                             <Grid item md={12} sx={{paddingBottom:1}}>
                                 <OpcionCardTareas fechaInicio={fechaInicioProyecto} fechaFinal={fechaFinalProyecto}/>
