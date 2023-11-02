@@ -4,7 +4,7 @@ import {Grid} from "@mui/material";
 import {OpcionCardTareas, OpcionCardAvance, OpcionCardDetalle, OpcionCardRecursos, OpcionCardProgreso, BasicCard,} from "../../Componentes/DetalleProyecto.jsx"
 import Box from "@mui/material/Box";
 import ConstructionIcon from '@mui/icons-material/Construction';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import { blue} from '@mui/material/colors';
 import AlarmIcon from '@mui/icons-material/Alarm';
@@ -20,7 +20,7 @@ import { Style } from '@mui/icons-material';
 
 function DetalleProyecto(){
 
-
+    const {id} = useParams();
     let navigate = useNavigate();
     const {con, consultar} = ConsultaApi();
     const [proyectoTarea, setproyectoTarea] = useState("");
@@ -37,7 +37,7 @@ function DetalleProyecto(){
 
 
     const proy='650bc7935d3687ea8f542d09';
-    const linkEditPro='/misproyectos/proyecto/'+proy+'/editar';
+    const linkEditPro='/misproyectos/proyecto/'+id+'/editar';
 
 
     const porcentajeAv = '60';
@@ -56,7 +56,7 @@ function DetalleProyecto(){
         redirect: 'follow'
     };
 
-    fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/tareas/listadoTareas/"+proy, requestOptions)
+    fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/tareas/listadoTareas/"+id, requestOptions)
         .then(response => response.text())
         .catch(error => console.log('error', error));
 
@@ -75,7 +75,7 @@ function DetalleProyecto(){
             setIsLoading(false);
 
 
-            fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/tareas/listadoTareas/"+proy, requestOptions)
+            fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/tareas/listadoTareas/"+id, requestOptions)
                 .then(response => response.json())
                 .then(result => setproyectoTarea(result.tareas))
                 .catch(error => console.log('error', error));
