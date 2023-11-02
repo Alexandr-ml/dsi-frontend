@@ -28,7 +28,7 @@ const style = {
   p: 4,
 };
 
-function BasicModal() {
+function BasicModal(titulo, descripcion) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -44,10 +44,10 @@ function BasicModal() {
         >
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Titulo de la tarea
+                {titulo}
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                {descripcion}
             </Typography>
           </Box>
         </Modal>
@@ -56,27 +56,27 @@ function BasicModal() {
   }
 
 
-function BasicCard() {
+function BasicCard(props) {
     return (
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Estado de la tarea
+            {props.estado}
           </Typography>
           <Typography variant="h5" component="div">
-            Titulo de la tarea
+            {props.nombre}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
             adjective
           </Typography>
           <Typography variant="body2">
-            Descripcion: well meaning and kindly.
+            {props.descripcion}
             <br />
             {'"a benevolent smile"'}
           </Typography>
         </CardContent>
         <CardActions>
-            {BasicModal()}
+            {BasicModal(props.titulo, props.descripcion)}
         </CardActions>
       </Card>
     );

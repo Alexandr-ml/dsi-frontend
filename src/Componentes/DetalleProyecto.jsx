@@ -10,11 +10,12 @@ import Divider from '@mui/material/Divider';
 import { Pagination } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
-
+import CircularProgress from '@mui/material/CircularProgress';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
+import CardMedia from '@mui/material/CardMedia';
 
 const style = {
   position: 'absolute',
@@ -22,61 +23,82 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
+  bgcolor: 'transparent',
   p: 4,
+  transition: '0.3s',
 };
 
-function BasicModal() {
+import { Link } from 'react-router-dom';
+
+function BasicModal(nombre, descripcion, enlace, ) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-  
+
+    //extraer campo nombre, img del elemento asignado
+
     return (
-      <div>
-        <Button onClick={handleOpen}>Open modal</Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Titulo de la tarea
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
-          </Box>
-        </Modal>
-      </div>
+        <div>
+            <Button onClick={handleOpen}>Open modal</Button>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+
+                <Box sx={style}>
+                <Card sx={{ maxWidth: 345,  bgcolor: 'warning.main' }}>
+                <CardActionArea>
+                    <CardMedia
+                    component="img"
+                    height="140"
+                    image="https://res.cloudinary.com/dykkzngwd/image/upload/v1695007522/ImagenesGestor/Administrador-de-tareas-gratis-header_c2gmj9.png"
+                    alt="green iguana"
+                    />
+                    <CardContent>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                            {nombre}
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2}}>
+                            {descripcion}
+                    </Typography>
+                    <Tooltip title={"Nombre"}>
+                        <Avatar src={""}/>   
+                    </Tooltip> 
+                    <Link to={enlace}>
+                        <Button>Editar Tarea</Button>
+                    </Link>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+                    
+                </Box>
+            </Modal>
+        </div>
     );
-  }
+}
 
 
-function BasicCard() {
+  function BasicCard(props) {
     return (
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Estado de la tarea
+            {props.estado}
           </Typography>
           <Typography variant="h5" component="div">
-            Titulo de la tarea
+            {props.nombre}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            adjective
           </Typography>
           <Typography variant="body2">
-            Descripcion: well meaning and kindly.
+            {props.descripcion}
             <br />
-            {'"a benevolent smile"'}
           </Typography>
         </CardContent>
         <CardActions>
-            {BasicModal()}
+            {BasicModal(props.nombre, props.descripcion, props.linkT, props.asignado)}
         </CardActions>
       </Card>
     );
@@ -155,28 +177,13 @@ function OpcionCardDetalle(props){
 
 function colaboradoresTarget(props){
     return (<>
-        <Grid container spacing={1} justifyContent="center">
-                            <Grid item sx={3}>
+        <Grid container spacing={1}>
+                            <Grid item>
                                 <Tooltip title={props.nombre}>
                                 <Avatar src={props.img}/>   
+                                <Typography  variant={"h5"}>{props.nombre}</Typography>
+                                <Typography  variant={"h5"}>{props.email}</Typography>
                                 </Tooltip>                                              
-                            </Grid>
-                            <Grid item sx={3}>                                
-                                <IconButton aria-label="delete" color='warning'>
-                                        <AlarmIcon />11
-                                    </IconButton>                                
-                            </Grid>
-                            <Divider orientation="vertical" flexItem />
-                            <Grid item sx={3}>                                
-                                <IconButton aria-label="delete" color='warning'>
-                                        <ConstructionIcon />11
-                                    </IconButton>                                
-                            </Grid>
-                            <Divider orientation="vertical" flexItem />
-                            <Grid item sx={3}> 
-                                <IconButton aria-label="delete" color='warning'>
-                                        <CheckBoxIcon />11
-                                    </IconButton>
                             </Grid>
                     </Grid>
                     <Divider />
@@ -184,16 +191,20 @@ function colaboradoresTarget(props){
 }
 
 function OpcionCardRecursos(props) {
-    console.log(props.colaboradores)
   return (
     <>
       <Card variant={"outlined"}>
         <CardActionArea onClick={props.handler} sx={{ height: 352 }}>
           <Grid container spacing={1} justifyContent="center">
             <CardContent>
-              {/* {props.colaboradores.map((element, index) => (
+              {
+                props.colaboradores?
+              props.colaboradores.map((element, index) => (
                 <div key={index}>{colaboradoresTarget(element)}</div>
-              ))} */}
+              ))
+              :<CircularProgress />
+
+              }
             </CardContent>
           </Grid>
         </CardActionArea>

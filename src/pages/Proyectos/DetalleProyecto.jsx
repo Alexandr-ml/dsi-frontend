@@ -11,8 +11,12 @@ import { blue} from '@mui/material/colors';
 import AlarmIcon from '@mui/icons-material/Alarm';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import {ConsultaApi} from "../../../hooks/ConsultaApi.jsx";
-import { ConsultaTareasApi } from '../../../hooks/TareasPorProyecto.jsx';
-
+import CircularProgress from '@mui/material/CircularProgress';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import EditIcon from '@mui/icons-material/Edit';
+import { Link } from 'react-router-dom';
+import { Style } from '@mui/icons-material';
 
 
 function DetalleProyecto(){
@@ -20,7 +24,7 @@ function DetalleProyecto(){
 
     let navigate = useNavigate();
     const {con, consultar} = ConsultaApi();
-    const {conTareas, consultarTareas} = useState();
+    const [proyectoTarea, setproyectoTarea] = useState("");
     const [nombreProyecto, setNombreProyecto] = useState("");
     const [descripcionProyecto, setDescripcionProyecto] = useState("");
     const [fechaInicioProyecto, setFechaInicioProyecto] = useState("");
@@ -28,16 +32,24 @@ function DetalleProyecto(){
     const [colaboradoresProyecto, setColaboradoresProyecto] = useState("");
     const [isLoading, setIsLoading] = useState(true);
 
+    //obtener id del proyecto de la url
+    const idPro=window.location.href.split('/');
+
+
+
+    const proy='650bc7935d3687ea8f542d09';
+    const linkEditPro='/misproyectos/proyecto/'+proy+'/editar';
+
 
     const porcentajeAv = '60';
     //se ejecuta al crearse el componente
     useEffect(() => {
-        consultar("647e730003483186ad7078ae");
+        consultar(proy);
     }, []);
 
 
     var myHeaders = new Headers();
-myHeaders.append("x-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDRmZmE2YzI3ZDQ3NGNhNWFhNzY0ZDUiLCJpYXQiOjE2ODY0NTY5MzQsImV4cCI6MTY4NjQ3MTMzNH0.6A65qxBGpXsXWSgrAFdgNhWOsF2ABR3ArkvWOerjc0U");
+myHeaders.append("x-token", sessionStorage.getItem("token"));
 
 var requestOptions = {
   method: 'GET',
@@ -45,20 +57,9 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-fetch("http://localhost:8080/api/tareas/listadoTareas/6456efca5838aeca09f347f8", requestOptions)
+fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/tareas/listadoTareas/"+proy, requestOptions)
   .then(response => response.text())
-  .then(result => console.log(result))
   .catch(error => console.log('error', error));
-
-
-    useEffect(() => {
-        if(conTareas){
-            console.log(conTareas);
-        }
-    }
-    , [conTareas]);
-
-
 
     useEffect(() => {
         if(con){
@@ -72,18 +73,29 @@ fetch("http://localhost:8080/api/tareas/listadoTareas/6456efca5838aeca09f347f8",
             
             if (con.colaboradores)setColaboradoresProyecto(con.colaboradores);
             setIsLoading(false);
+
+            
+            fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/tareas/listadoTareas/"+proy, requestOptions)
+            .then(response => response.json())
+            .then(result => setproyectoTarea(result.tareas))
+            .catch(error => console.log('error', error));
         }
 
     }, [con]);
 
 
+
     return (
         <>
+
             <Grid container spacing={1} justifyContent="center" sx={{ bgcolor: blue[500], borderRadius: 1}} maxWidth="xl">
             <Typography variant="h3" gutterBottom color="white">{nombreProyecto}</Typography>
+            <Link to={linkEditPro}>
+            <BottomNavigationAction label="Recents" icon={<EditIcon/>}/>
+            </Link>
             </Grid>
         
-            <Grid container spacing={1} sx={{ mt: 0.5 }}>
+            <Grid container spacing={1} sx={{ mt: 0.5, background: blue[400], paddingRight:1, paddingBottom:3, paddingTop:2 }}>
 
                 <Grid item md={4}>
                     <OpcionCardDetalle  titulo={"Detalle"} desc={descripcionProyecto}/>
@@ -91,19 +103,19 @@ fetch("http://localhost:8080/api/tareas/listadoTareas/6456efca5838aeca09f347f8",
 
                 <Grid item md={4} >
                     <Box>
-                        <Grid container spacing={1} >
-                            <Grid item md={12} sx={{ml:10}}>
+                        <Grid container spacing={1}>
+                            <Grid item md={12} sx={{ml:1}} >
                                 <OpcionCardAvance porcentaje={porcentajeAv}
                                 rango ={porcentajeAv+'%'}/>
                             </Grid>
-                            <Grid item md={12}>
+                            <Grid item md={12} sx={{paddingBottom:1}}>
                                 <OpcionCardTareas fechaInicio={fechaInicioProyecto} fechaFinal={fechaFinalProyecto}/>
                             </Grid>
                         </Grid>
                     </Box>
                     <Grid container spacing={1} >
                         <Grid item md={4}>
-                            <OpcionCardProgreso  desc={"Pendientes"} icono={
+                            <OpcionCardProgreso   desc={"Pendientes"} icono={
                                 <AlarmIcon />
                             }/>
                         </Grid>
@@ -120,14 +132,18 @@ fetch("http://localhost:8080/api/tareas/listadoTareas/6456efca5838aeca09f347f8",
                     <OpcionCardRecursos colaboradores={colaboradoresProyecto}/>
                 </Grid>
             </Grid>
-            <Grid container spacing={1} sx={{ mt: 0.5 }}>
-                <Grid item md={3} >
-                    {
+            <Grid container spacing={1} sx={{ mt: 1 , background: blue[500], paddingRight: 1}}>
 
+                    {
+                        proyectoTarea? proyectoTarea.map((element,index) => (
+                            console.log(element),
+                            <Grid item md={3} >,
+                            <BasicCard asignado={element.asignados} estado={element.estado_Tarea} nombre={element.nombre} descripcion={element.descripcion} linkT={'/mistareas/tarea/'+element.uid+'/editar'}/>,
+                            </Grid>
+                        )): <CircularProgress />
                     }
-                    <BasicCard />
-                </Grid>
             </Grid>
+
         </>
     )
 }
