@@ -43,7 +43,7 @@ function DetalleProyecto(){
     const porcentajeAv = '60';
     //se ejecuta al crearse el componente
     useEffect(() => {
-        consultar(proy);
+        consultar(id);
     }, []);
 
 
