@@ -17,6 +17,7 @@ import EditarTarea from "./pages/Tareas/Tarea.jsx";
 import Index from "./pages/Index.jsx";
 import Tareas from "./pages/Tareas/ListaMisTareas.jsx";
 import MisTareas from "./pages/Tareas/MisTareas.jsx";
+import Registro from "./pages/Autenticación/Registro.jsx";
 export const App = () => {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'es-mx'}>
@@ -24,7 +25,7 @@ export const App = () => {
                 <Routes>
                     <Route path={'/'} element={<Index/>}/>
                     <Route path ={"/login"} element={<Login/>}></Route>
-                    <Route path={"/registro"} element={<Register/>}/>
+                    <Route path={"/registro"} element={<Registro/>}/>
                     <Route element={<RequireAuth isLogged={localStorage.getItem("isLogged") === "true"}/> } >
                         <Route path={"/dashboard"} element={<Dashboard><Inicio/></Dashboard>}></Route>
                         <Route path = {"/proyectos"} element={<Dashboard><Proyectos/></Dashboard>}></Route>
