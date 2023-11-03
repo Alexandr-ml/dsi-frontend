@@ -41,10 +41,10 @@ function ResponsiveAppBar(props) {
     const navigate = useNavigate()
 
 
-     function cerrarSesion(){
-         localStorage.clear()
-         window.location.href = "/login"
-     }
+    function cerrarSesion(){
+        localStorage.clear()
+        window.location.href = "/login"
+    }
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -63,7 +63,7 @@ function ResponsiveAppBar(props) {
     //TO-DO cargar la imagen del usuario
     const configAvatar = () => {
 
-       const headers = new Headers
+        const headers = new Headers
 
         headers.append("x-token", sessionStorage.getItem("token"))
 
@@ -75,136 +75,149 @@ function ResponsiveAppBar(props) {
     }
 
     return(<>
-            <AppBar position="static" style={{background:'#214A87'}}>
-                <Container maxWidth="xl" >
-                    <Toolbar disableGutters>
-                        <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="a"
-                            href="/dashboard"
-                            sx={{
-                                mr: 2,
-                                display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                letterSpacing: '.3rem',
-                                color: 'inherit',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            SGDP
-                        </Typography>
+        <AppBar position="static" style={{background:'#214A87'}}>
+            <Container maxWidth="xl" >
+                <Toolbar disableGutters>
+                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="a"
+                        href="/dashboard"
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' },
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                        }}
+                    >
+                        SGDP
+                    </Typography>
 
-                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                            <IconButton
-                                size="large"
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleOpenNavMenu}
-                                color="inherit"
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorElNav}
-                                anchorOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'left',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'left',
-                                }}
-                                open={Boolean(anchorElNav)}
-                                onClose={handleCloseNavMenu}
-                                sx={{
-                                    display: { xs: 'block', md: 'none' },
-                                }}
-                            >
-                                {pages.map((page) => (
-                                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                            <Typography textAlign="center">{page}</Typography>
-                                    </MenuItem>
-                                ))}
-                            </Menu>
-                        </Box>
-                        <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-                        <Typography
-                            variant="h5"
-                            noWrap
-                            component="a"
-                            href=""
+                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleOpenNavMenu}
+                            color="inherit"
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorElNav}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                            open={Boolean(anchorElNav)}
+                            onClose={handleCloseNavMenu}
                             sx={{
-                                mr: 2,
-                                display: { xs: 'flex', md: 'none' },
-                                flexGrow: 1,
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                letterSpacing: '.3rem',
-                                color: 'inherit',
-                                textDecoration: 'none',
+                                display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            SGDP
-                        </Typography>
-                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             {pages.map((page) => (
-                                <Button
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, color: 'white', display: 'block' }}
-                                >
-                                    {page}
-                                </Button>
+                                <MenuItem key={page} onClick={()=>{
+
+                                    if(page === 'Proyectos') navigate('/misproyectos')
+
+                                    if(page === 'Mis tareas') navigate('/mistareas')
+
+                                    handleCloseNavMenu()}}>
+                                    <Typography textAlign="center">{page}</Typography>
+                                </MenuItem>
                             ))}
-                        </Box>
+                        </Menu>
+                    </Box>
+                    <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                    <Typography
+                        variant="h5"
+                        noWrap
+                        component="a"
+                        href=""
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'flex', md: 'none' },
+                            flexGrow: 1,
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                        }}
+                    >
+                        SGDP
+                    </Typography>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        {pages.map((page) => (
+                            <Button
+                                key={page}
+                                onClick={()=>{
 
-                        <Box sx={{ flexGrow: 0 }}>
-                            <Tooltip title="Opciones">
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar src={avatar} alt={localStorage.getItem('nombreUsuario')}  />
-                                </IconButton>
-                            </Tooltip>
-                            <Menu
-                                sx={{ mt: '45px' }}
-                                id="menu-appbar"
-                                anchorEl={anchorElUser}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={Boolean(anchorElUser)}
-                                onClose={handleCloseUserMenu}
+                                    if(page === 'Proyectos') navigate('/misproyectos')
+
+                                    if(page === 'Mis tareas') navigate('/mistareas')
+
+                                    handleCloseNavMenu()}}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {settings.map((setting) => (
-                                    <MenuItem key={setting} onClick={()=>{
-                                        handleCloseUserMenu()
+                                {page}
+                            </Button>
+                        ))}
+                    </Box>
 
-                                        switch (setting) {
-                                            case "Cerrar sesión": cerrarSesion();
+                    <Box sx={{ flexGrow: 0 }}>
+                        <Tooltip title="Opciones">
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                <Avatar src={avatar} alt={localStorage.getItem('nombreUsuario')}  />
+                            </IconButton>
+                        </Tooltip>
+                        <Menu
+                            sx={{ mt: '45px' }}
+                            id="menu-appbar"
+                            anchorEl={anchorElUser}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(anchorElUser)}
+                            onClose={handleCloseUserMenu}
+                        >
+                            {settings.map((setting) => (
+                                <MenuItem key={setting} onClick={()=>{
+                                    handleCloseUserMenu()
+
+                                    switch (setting) {
+                                        case "Cerrar sesión": cerrarSesion();
                                             break;
-                                            case "Perfil": navigate("/perfil");
+                                        case "Perfil": navigate("/perfil");
                                             break;
-                                        }
-                                    }}>
-                                        <Typography textAlign={"center"}>{setting}</Typography>
-                                    </MenuItem>
-                                ))}
-                            </Menu>
-                        </Box>
-                    </Toolbar>
-                </Container>
-            </AppBar>
-        </>);
+                                        default: navigate('/')
+                                    }
+                                }}>
+                                    <Typography textAlign={"center"}>{setting}</Typography>
+                                </MenuItem>
+                            ))}
+                        </Menu>
+                    </Box>
+                </Toolbar>
+            </Container>
+        </AppBar>
+    </>);
 }
 export default ResponsiveAppBar;

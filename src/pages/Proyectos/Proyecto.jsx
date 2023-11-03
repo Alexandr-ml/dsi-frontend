@@ -70,8 +70,8 @@ function Proyecto(){
                     const rawProject = respuesta.resto._doc
 
                     const project = {uid:rawProject._id,
-                    ...rawProject,
-                    colaboradores: rawProject.colaboradores
+                        ...rawProject,
+                        colaboradores: rawProject.colaboradores
                     }
                     setProject(project)
                     console.log(project)
@@ -110,8 +110,8 @@ function Proyecto(){
         }else{
 
             if(valor.length === 0){
-            setButtonAddCollaboratorDisabled(true)
-            setErrorSelectedCollaboratorFormat(false)
+                setButtonAddCollaboratorDisabled(true)
+                setErrorSelectedCollaboratorFormat(false)
             }else {
                 setErrorSelectedCollaboratorFormat(false)
                 setButtonAddCollaboratorDisabled(false)
@@ -233,8 +233,8 @@ function Proyecto(){
                     </div>
                 </>
 
-            : <Container>
-                <Typography variant={'h3'} className={'mb-4'}>Crear proyecto.</Typography>
+                : <Container>
+                    <Typography variant={'h3'} className={'mb-4'}>Crear proyecto.</Typography>
                     <Grid container alignItems={'center'} spacing={4} className={'mb-4'} >
                         <Grid item xs={12} >
 
@@ -372,43 +372,43 @@ function Proyecto(){
                         <Grid item >
 
                             <Button
-                                    variant={'contained'}
-                                    color={ id ? 'warning' : 'primary'}
-                                    onClick={()=>{
+                                variant={'contained'}
+                                color={ id ? 'warning' : 'primary'}
+                                onClick={()=>{
 
-                                        let collaboratorsUidOnly = project.colaboradores.map(colab => colab.uid)
-                                        console.log(collaboratorsUidOnly)
-                                        let processedProject = {...project,colaboradores:collaboratorsUidOnly}
+                                    let collaboratorsUidOnly = project.colaboradores.map(colab => colab.uid)
+                                    console.log(collaboratorsUidOnly)
+                                    let processedProject = {...project,colaboradores:collaboratorsUidOnly}
 
-                                        let header = new Headers
-                                        header.set("x-token", sessionStorage.getItem("token"))
-                                        header.set('Content-type','application/json')
-
-
-
-                                        if(!id){
-                                            fetch(url+'/api/proyectos',{
-                                                method:'post',
-                                                headers:header,
-                                                body:JSON.stringify(processedProject)
-                                            })
-                                                .then(raw => raw.json())
-                                                .then(respuesta => setWasProjectSuccessfullyCreated(true))
-                                        }else {
-                                            fetch(url+`/api/proyectos/${project.uid}`,{
-                                                method:'put',
-                                                headers:header,
-                                                body:JSON.stringify(processedProject)
-                                            })
-                                                .then(raw => raw.json())
-                                                .then(respuesta => console.log(respuesta))
-                                        }
+                                    let header = new Headers
+                                    header.set("x-token", sessionStorage.getItem("token"))
+                                    header.set('Content-type','application/json')
 
 
 
+                                    if(!id){
+                                        fetch(url+'/api/proyectos',{
+                                            method:'post',
+                                            headers:header,
+                                            body:JSON.stringify(processedProject)
+                                        })
+                                            .then(raw => raw.json())
+                                            .then(respuesta => setWasProjectSuccessfullyCreated(true))
+                                    }else {
+                                        fetch(url+`/api/proyectos/${project.uid}`,{
+                                            method:'put',
+                                            headers:header,
+                                            body:JSON.stringify(processedProject)
+                                        })
+                                            .then(raw => raw.json())
+                                            .then(respuesta => console.log(respuesta))
+                                    }
 
-                                        console.log(JSON.stringify(project))}}
-                                    >
+
+
+
+                                    console.log(JSON.stringify(project))}}
+                            >
 
                                 { id ? 'Modificar' : 'Crear'}
                             </Button>
@@ -427,34 +427,34 @@ function Proyecto(){
                     </Grid>
 
 
-                <Dialog sx={{margin:0,padding:0}}
-                    onClose={() => setIsModalErrorVisible(false)}
-                    open={isModalErrorVisible}>
-                    <DialogContent sx={{margin:0,padding:0}}>
-                        <Alert severity={'error'}>No se encontro el colaborador buscado.</Alert>
+                    <Dialog sx={{margin:0,padding:0}}
+                            onClose={() => setIsModalErrorVisible(false)}
+                            open={isModalErrorVisible}>
+                        <DialogContent sx={{margin:0,padding:0}}>
+                            <Alert severity={'error'}>No se encontro el colaborador buscado.</Alert>
 
-                    </DialogContent>
-                </Dialog>
+                        </DialogContent>
+                    </Dialog>
 
 
-                <Dialog  open={wasProjectSuccessfulyCreated} onClose={handleModalProjectCreated}>
-                    <DialogTitle>Exito.</DialogTitle>
-                    <DialogContent>
-                        <Grid container>
-                            <Grid item xs={12}>
-                                <Typography variant={'h4'}>El proyecto se creo exitosamente!</Typography>
+                    <Dialog  open={wasProjectSuccessfulyCreated} onClose={handleModalProjectCreated}>
+                        <DialogTitle>Exito.</DialogTitle>
+                        <DialogContent>
+                            <Grid container>
+                                <Grid item xs={12}>
+                                    <Typography variant={'h4'}>El proyecto se creo exitosamente!</Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Button variant={'contained'} onClick={handleModalProjectCreated}>
+                                        Aceptar
+                                    </Button>
+                                </Grid>
                             </Grid>
-                            <Grid item>
-                                <Button variant={'contained'} onClick={handleModalProjectCreated}>
-                                    Aceptar
-                                </Button>
-                            </Grid>
-                        </Grid>
 
 
 
-                    </DialogContent>
-                </Dialog>
+                        </DialogContent>
+                    </Dialog>
                 </Container>
 
 
