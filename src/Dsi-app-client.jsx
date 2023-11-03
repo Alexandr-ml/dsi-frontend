@@ -15,6 +15,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import 'dayjs/locale/es-mx.js'
 import EditarTarea from "./pages/Tareas/Tarea.jsx";
 import Index from "./pages/Index.jsx";
+import Tareas from "./pages/Tareas/ListaMisTareas.jsx";
+import MisTareas from "./pages/Tareas/MisTareas.jsx";
 export const App = () => {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'es-mx'}>
@@ -26,6 +28,7 @@ export const App = () => {
                     <Route element={<RequireAuth isLogged={localStorage.getItem("isLogged") === "true"}/> } >
                         <Route path={"/dashboard"} element={<Dashboard><Inicio/></Dashboard>}></Route>
                         <Route path = {"/proyectos"} element={<Dashboard><Proyectos/></Dashboard>}></Route>
+                        <Route path={'/mistareas'} element={<Dashboard><MisTareas/></Dashboard>}/>
                         <Route path={"/misproyectos/proyecto/consultar/:id"} element={<Dashboard><DetalleProyecto/></Dashboard>}></Route>
                         <Route path={"/mistareas/tarea"} element={<Dashboard><EditarTarea/></Dashboard>}/>
                         <Route path={"/mistareas/tarea/:id/editar"} element={<Dashboard><EditarTarea/></Dashboard>}/>
