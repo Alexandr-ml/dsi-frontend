@@ -87,12 +87,13 @@ export default function Login() {
                                 .then(response => response.ok ? response.json() : 0)
                                 .then(res => {
                                     if (res) {
-                                        console.log(res)
+                                        console.log(res.usuario)
                                         localStorage.setItem("uid", res.usuario.uid)
                                         localStorage.setItem("usuario", res.usuario)
                                         sessionStorage.setItem("token", res.token)
                                         localStorage.setItem("isLogged", true)
                                         localStorage.setItem("nombreUsuario", res.usuario.nombre)
+                                        localStorage.setItem('fotoPerfil',res.usuario.img)
                                         console.log(res)
                                         window.location = window.location.href.replace("login", "dashboard")
                                     } else {
