@@ -63,9 +63,6 @@ function BasicModal(nombre, descripcion, enlace, ) {
                     <Typography id="modal-modal-description" sx={{ mt: 2}}>
                             {descripcion}
                     </Typography>
-                    <Tooltip title={"Nombre"}>
-                        <Avatar src={""}/>   
-                    </Tooltip> 
                     <Link to={enlace}>
                         <Button>Editar Tarea</Button>
                     </Link>
@@ -148,7 +145,7 @@ function OpcionCardProgreso(props){
         <Card variant={"outlined"}>
             <CardActionArea onClick={props.handler} >
                 <CardContent>
-                    <Typography >{props.desc}{props.icono}1</Typography>
+                    <Typography >{props.desc}{props.icono}</Typography>
                 </CardContent>
             </CardActionArea>
         </Card>
@@ -195,7 +192,7 @@ function OpcionCardRecursos(props) {
     <>
       <Card variant={"outlined"}>
         <CardActionArea onClick={props.handler} sx={{ height: 352 }}>
-          <Grid container spacing={1} justifyContent="center">
+          <Grid container spacing={1} justifyContent="center" >
             <CardContent>
               {
                 props.colaboradores?
