@@ -81,6 +81,7 @@ function UpdatePasswordModal({user,isOpen,closingAction,setUser}){
         <DialogActions>
             <Button disabled={!passwordsMatch}
                 onClick={updatePassword}>Cambiar contraseña.</Button>
+            <Button onClick={closingAction} color={'error'}>Cancelar.</Button>
         </DialogActions>
     </Dialog>
 
