@@ -32,7 +32,7 @@ let cabeceras = ['Nombre.','Descripción.','Proyectos.','Acciones.']
             <TableContainer sx={{height:450,maxHeight:450}}>
                 <Table>
                     <TableHead>
-                        <TableRow>
+                        <TableRow align={'center'} style={{background:'#214A87', color:'white', fontWeight:'bold'}}>
                             {
                                 cabeceras.map(value => <TableCell align={'center'}>{value}</TableCell>)
                             }

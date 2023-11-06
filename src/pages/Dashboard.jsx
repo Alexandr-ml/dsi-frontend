@@ -9,7 +9,7 @@ export default function Dashboard({children}){
 
     return <>
         <ResponsiveAppBar/>
-        <Container sx={{mt:2}}>{children}</Container>
+        <Container sx={{mt:2}} style={{backgroundColor:'white'}}>{children}</Container>
         <Footer></Footer>
         
     </>

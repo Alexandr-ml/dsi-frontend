@@ -161,7 +161,7 @@ const ReportTareas = () => {
                 <Tabs tabs={tabData} />
             </div>
             <div style={{ display: 'flex' }}>
-                <TableContainer component={Paper}>
+                <TableContainer component={'div'}>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -177,7 +177,7 @@ const ReportTareas = () => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <TableContainer component={Paper}>
+                <TableContainer component={'div'}>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -193,7 +193,7 @@ const ReportTareas = () => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <TableContainer component={Paper}>
+                <TableContainer component={'div'}>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -210,6 +210,7 @@ const ReportTareas = () => {
                     </Table>
                 </TableContainer>
             </div></> : <div align={'center'}><CircularProgress /></div>}
+            <br></br>
     </>
 };
 
