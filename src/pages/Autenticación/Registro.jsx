@@ -112,8 +112,9 @@ export default function Registro(){
                 return raw.json()
             }).then(body =>{
 
-                const typeError = body?.errors[0]
 
+                const typeError = body?.errors?.[0]
+                console.log(typeError)
                 if(typeError){
                     switch (typeError.path){
                         case 'email':
@@ -121,11 +122,11 @@ export default function Registro(){
                             setErrorEmail(true)
                             setError(true)
                     }
-                    //Comentar despues de pruebas
-                    //setCuentaCreadaExitosamente(true)
                 }else{
-                    setTimeout(redirect,2000)
+
                     setCuentaCreadaExitosamente(true)
+                    setTimeout(redirect,1000)
+
                 }
         })
 
