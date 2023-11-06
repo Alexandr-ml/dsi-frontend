@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, CardActionArea, CardContent, Grid, Icon} from "@mui/material";
+import { Card, CardActionArea, CardContent, Grid, Icon } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import CardMedia from '@mui/material/CardMedia';
 
@@ -17,7 +17,7 @@ import { CardActions } from '@mui/material';
 import { yellow } from '@mui/material/colors';
 
 
-function OpcionCard(props){
+function OpcionCard(props) {
 
     return (<>
         <Card variant={"outlined"} >
@@ -38,16 +38,16 @@ function OpcionCard(props){
 
 }
 
-function CardArea(props){
+function CardArea(props) {
     return (<>
-         <Card sm={{ maxWidth: 345}} >
+        <Card sm={{ maxWidth: 345 }} >
             <CardActionArea onClick={props.handler}>
                 <CardMedia
                     component="img"
                     height="140"
                     image={props.img}
                     alt="green iguana"
-                    />
+                />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                         {props.titulo}
@@ -63,34 +63,34 @@ function CardArea(props){
 
 }
 
-function CardAreaProximamente(props){
+function CardAreaProximamente(props) {
     return (<>
-            <Card sx={{ height: 290}}>
-                <CardActionArea onClick={props.handler} >
-                    <CardMedia
-                        component="img"
-                        height="140"
-                        image={props.img}
-                        alt="green iguana"
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            {props.titulo}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {props.desc}
-                        </Typography>
-                    </CardContent>
-                </CardActionArea >
-            </Card>
-        </>
+        <Card sx={{ height: 290 }}>
+            <CardActionArea onClick={props.handler} >
+                <CardMedia
+                    component="img"
+                    height="140"
+                    image={props.img}
+                    alt="green iguana"
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {props.titulo}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {props.desc}
+                    </Typography>
+                </CardContent>
+            </CardActionArea >
+        </Card>
+    </>
     )
 
 }
 
-function CardUserInfo(props){
+function CardUserInfo(props) {
     return (<>
-        <Card sx={{ maxWidth: 345, maxHeight: 500}}>
+        <Card sx={{ maxWidth: 345, maxHeight: 500 }}>
             <CardActionArea>
                 <Grid container spacing={2} justifyContent="center">
                     <Grid item md={8}>
@@ -105,7 +105,7 @@ function CardUserInfo(props){
                         <ListItem>
                             <ListItemAvatar>
                                 <Avatar>
-                                    <CheckCircleOutlineIcon color="success"/>
+                                    <CheckCircleOutlineIcon color="success" />
                                 </Avatar>
                             </ListItemAvatar>
                             <ListItemText primary="Proyectos Finalizados" secondary={props.prFinalizados} />
@@ -113,7 +113,7 @@ function CardUserInfo(props){
                         <ListItem>
                             <ListItemAvatar>
                                 <Avatar>
-                                    <ConstructionIcon  />
+                                    <ConstructionIcon />
                                 </Avatar>
                             </ListItemAvatar>
                             <ListItemText primary="Proyectos en proceso" secondary={props.prProceso} />
@@ -121,7 +121,7 @@ function CardUserInfo(props){
                         <ListItem>
                             <ListItemAvatar>
                                 <Avatar>
-                                    <EventBusyIcon  sx={{ color: yellow[500] }}/>
+                                    <EventBusyIcon sx={{ color: yellow[500] }} />
                                 </Avatar>
                             </ListItemAvatar>
                             <ListItemText primary="Proyectos no iniciados" secondary={props.prNoIniciados} />
@@ -141,9 +141,31 @@ function CardUserInfo(props){
                 </Container>
             </CardActions>
         </Card>
-    </> )
+    </>)
+}
+
+function CardReport(props) {
+    return (<>
+        <Card style={{ display: "flex", alignContent: "center" }}>
+            <CardActionArea onClick={props.handler} >
+                <CardMedia
+                    component="img"
+                    height="300px"
+                    image={props.img}                    
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {props.titulo}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {props.desc}
+                    </Typography>
+                </CardContent>
+            </CardActionArea >
+        </Card>
+    </>)
 }
 
 
 
-export {OpcionCard, CardArea, CardUserInfo,CardAreaProximamente};
+export { OpcionCard, CardArea, CardUserInfo, CardAreaProximamente, CardReport };

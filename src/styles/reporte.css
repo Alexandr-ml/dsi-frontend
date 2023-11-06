@@ -1,0 +1,63 @@
+.tabs-container {
+    width: 300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tab-buttons {
+    display: flex;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+}
+
+.tab-button.active {
+    font-weight: bold;
+    border-bottom: 2px solid #09083f;
+}
+
+.tab-content {
+    margin-top: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.tareas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    width: auto;
+    height: auto;
+}
+
+.proyectos {
+    width: fit-content;
+    height: fit-content;
+    background-color: white;
+    color: black;
+    position: relative;
+    display: flex;
+}
+
+.grafico{
+    width: auto;
+    height: auto;
+}
+
+.dona{
+    width: auto;
+    padding: 5%;
+}
+.barra{
+    width: auto;
+    margin: 5%;
+}
+

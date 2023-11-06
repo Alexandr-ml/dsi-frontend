@@ -16,7 +16,7 @@ import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import serverUrl from "../serverUrl.js";
 
-const pages = ['Proyectos', 'Mis tareas'];
+const pages = ['Proyectos', 'Tareas', 'Informes'];
 const settings = ['Perfil', 'Cerrar sesión'];
 
 function ResponsiveAppBar(props) {
@@ -131,7 +131,9 @@ function ResponsiveAppBar(props) {
 
                                         if(page === 'Proyectos') navigate('/misproyectos')
 
-                                        if(page === 'Mis tareas') navigate('/mistareas')
+                                        if(page === 'Tareas') navigate('/mistareas')
+
+                                        if(page === 'Informes') navigate('/misinformes')
 
                                         handleCloseNavMenu()}}>
                                             <Typography textAlign="center">{page}</Typography>
@@ -166,7 +168,9 @@ function ResponsiveAppBar(props) {
 
                                         if(page === 'Proyectos') navigate('/misproyectos')
 
-                                        if(page === 'Mis tareas') navigate('/mistareas')
+                                        if(page === 'Tareas') navigate('/mistareas')
+
+                                        if(page === 'Informes') navigate('/misinformes')
 
                                         handleCloseNavMenu()}}
                                     sx={{ my: 2, color: 'white', display: 'block' }}
@@ -201,7 +205,6 @@ function ResponsiveAppBar(props) {
                                 {settings.map((setting) => (
                                     <MenuItem key={setting} onClick={()=>{
                                         handleCloseUserMenu()
-
                                         switch (setting) {
                                             case "Cerrar sesión": cerrarSesion();
                                             break;
