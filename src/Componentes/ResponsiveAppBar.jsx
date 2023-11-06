@@ -1,4 +1,4 @@
-import react, {useEffect} from 'react'
+import react, { useEffect } from 'react'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,8 +12,8 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import serverUrl from "../serverUrl.js";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Modal from '@mui/material/Modal';
@@ -38,59 +38,58 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-  };
+};
 
 function ResponsiveAppBar(props) {
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
-    const [notificaciones, setNotificaciones] = useState("");
+    const [notificaciones, setNotificaciones] = useState([]);
 
-    const [avatar,setAvatar] = useState()
+    const [avatar, setAvatar] = useState()
+
+    let id = localStorage.getItem("uid")
 
     useEffect(() => {
 
         let header = new Headers
         header.set("x-token", sessionStorage.getItem("token"))
 
-        fetch(serverUrl+'/api/usuarios/'+localStorage.getItem('uid'),{
-            method:'get',
-            headers:header
+        fetch(serverUrl + '/api/usuarios/' + localStorage.getItem('uid'), {
+            method: 'get',
+            headers: header
         }).then(raw => raw.json())
             .then(response => setAvatar(response.usuario.img))
 
-        fetch(serverUrl+'/api/notificaciones/usuario/64500a36140b2e6f85fd87d0',{
-            method:'get',
-            headers:header
+        fetch(serverUrl + '/api/notificaciones/usuario/' + id, {
+            method: 'get',
+            headers: header
         }).then(raw => raw.json())
             .then(response => setNotificaciones(response.notificaciones))
-            .then(response => console.log(response))
-
-
     }, []);
 
 
     useEffect(() => {
 
         var myHeaders = new Headers();
-        myHeaders.append("x-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDU3ZDkyZTQxZTMzNGE2ZGQ2NDc0M2QiLCJpYXQiOjE2OTkyNDUzNDgsImV4cCI6MTY5OTI1OTc0OH0.YSQPOPLSx3zuRIQpoqcAH5SqtXfK-oA7lrRUGtxzA_w");
-        
+        myHeaders.append("x-token", sessionStorage.getItem("token"));
+
         var requestOptions = {
-          method: 'GET',
-          headers: myHeaders,
-          redirect: 'follow'
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
         };
-        
-        fetch(serverUrl+"/api/notificaciones/usuario/64500a36140b2e6f85fd87d0", requestOptions)
+
+        fetch(serverUrl + "/api/notificaciones/usuario/" + id, requestOptions)
             .then(response => response.json())
             .then(result => setNotificaciones(result))
-          .catch(error => console.log('error', error));
+            .catch(error => console.log('error', error));
 
     }, []);
 
     const navigate = useNavigate()
 
 
-    function cerrarSesion(){
+    function cerrarSesion() {
         localStorage.clear()
         window.location.href = "/login"
     }
@@ -119,9 +118,9 @@ function ResponsiveAppBar(props) {
 
         headers.append("x-token", sessionStorage.getItem("token"))
 
-        fetch(url+`/api/usuarios/${localStorage.getItem('uid')}`,{
-            headers:headers,
-            method:'get'
+        fetch(url + `/api/usuarios/${localStorage.getItem('uid')}`, {
+            headers: headers,
+            method: 'get'
         })
 
     }
@@ -129,78 +128,85 @@ function ResponsiveAppBar(props) {
 
 
     notificaciones ? notificaciones.map((element, index) => {
-        console.log(element);
         const titulo = element.titulo;
         const descripcion = element.descripcion;
         const fecha = element.fecha;
         const proyecto = element.proyecto.nombre; // Accede a la propiedad "nombre" del objeto proyecto
         const tarea = element.tarea.nombre;
-    
-    
+
+
     }) : console.log("no hay notificaciones");
 
 
 
-      
+
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    let hayNotificaciones
 
 
 
 
+    return (<>
 
-    return(<>
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+        >
+            <Box sx={style} textAlign={"center"}>
+                <Typography variant="h4">Notificaciones</Typography>
+                <br></br>
+                <TableContainer component={'div'}>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <TableHead style={{ background: '#214A87' }}>
+                            <TableRow>
+                                <TableCell align="center" style={{ color: "white", fontWeight: 'bolder' }}>Titulo</TableCell>
+                                <TableCell align="center" style={{ color: "white", fontWeight: 'bolder' }}>Descripcion</TableCell>
+                                <TableCell align="center" style={{ color: "white", fontWeight: 'bolder' }}>Fecha</TableCell>
+                                <TableCell align="center" style={{ color: "white", fontWeight: 'bolder' }}>Proyecto</TableCell>
+                                <TableCell align="center" style={{ color: "white", fontWeight: 'bolder' }}>Tarea</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {notificaciones ? notificaciones.map((element, index) => {
+                                const titulo = element.titulo;
+                                const descripcion = element.descripcion;
+                                const fecha = element.fecha;
+                                const proyecto = element.proyecto.nombre; // Accede a la propiedad "nombre" del objeto proyecto
+                                const tarea = element.tarea.nombre;
+                                const fechaFormat = fecha.slice(0, 10)
+                                return <>
+                                    <TableRow key={index}>
+                                        <TableCell align="center">{titulo}</TableCell>
+                                        <TableCell align="center">{descripcion}</TableCell>
+                                        <TableCell align="center">{fechaFormat}</TableCell>
+                                        <TableCell align="center">{proyecto}</TableCell>
+                                        <TableCell align="center">{tarea}</TableCell>
+                                    </TableRow>
+                                </>
+                            }) : console.log("no hay notificaciones")}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <br></br>
+                <Button variant={'contained'} color={'error'}
+                    onClick={() => {
+                        const headers = new Headers();
+                        headers.set("x-token", sessionStorage.getItem("token"))
+                        const initBorrarTarea = {
+                            method: 'DELETE',
+                            headers: headers,
+                        }
+                        let id = localStorage.getItem("uid")
+                        fetch(serverUrl + "/api/notificaciones/" + id, initBorrarTarea)
+                    }}>Eliminar</Button>
+            </Box>
+        </Modal>
 
-    <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style} textAlign={"center"}>
-        <Typography >       Notificaciones           </Typography>
-        <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="right">Titulo</TableCell>
-            <TableCell align="right">Descripcion</TableCell>
-            <TableCell align="right">Fecha</TableCell>
-            <TableCell align="right">Poryecto</TableCell>
-            <TableCell align="right">Tarea</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-        {    notificaciones ? notificaciones.map((element, index) => {
-
-
-        console.log(element);
-        const titulo = element.titulo;
-        const descripcion = element.descripcion;
-        const fecha = element.fecha;
-        const proyecto = element.proyecto.nombre; // Accede a la propiedad "nombre" del objeto proyecto
-        const tarea = element.tarea.nombre;
-
-        console.log("si tiene un:" +titulo);
-        return <>
-            <TableRow key={index}>
-            <TableCell align="right">{titulo}</TableCell>
-            <TableCell align="right">{descripcion}</TableCell>
-            <TableCell align="right">{fecha}</TableCell>
-            <TableCell align="right">{proyecto}</TableCell>
-            <TableCell align="right">{tarea}</TableCell>
-            </TableRow>
-        </>
-
-        }) : console.log("no hay notificaciones")}
-        </TableBody>
-      </Table>
-    </TableContainer>
-        </Box>
-      </Modal>
-
-        <AppBar position="static" style={{background:'#214A87'}}>
+        <AppBar position="static" style={{ background: '#214A87' }}>
             <Container maxWidth="xl" >
                 <Toolbar disableGutters>
                     <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -252,13 +258,14 @@ function ResponsiveAppBar(props) {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={()=>{
+                                <MenuItem key={page} onClick={() => {
 
-                                    if(page === 'Proyectos') navigate('/misproyectos')
+                                    if (page === 'Proyectos') navigate('/misproyectos')
 
-                                    if(page === 'Mis tareas') navigate('/mistareas')
+                                    if (page === 'Mis tareas') navigate('/mistareas')
 
-                                    handleCloseNavMenu()}}>
+                                    handleCloseNavMenu()
+                                }}>
                                     <Typography textAlign="center">{page}</Typography>
                                 </MenuItem>
                             ))}
@@ -287,13 +294,14 @@ function ResponsiveAppBar(props) {
                         {pages.map((page) => (
                             <Button
                                 key={page}
-                                onClick={()=>{
+                                onClick={() => {
 
-                                    if(page === 'Proyectos') navigate('/misproyectos')
+                                    if (page === 'Proyectos') navigate('/misproyectos')
 
-                                    if(page === 'Mis tareas') navigate('/mistareas')
+                                    if (page === 'Mis tareas') navigate('/mistareas')
 
-                                    handleCloseNavMenu()}}
+                                    handleCloseNavMenu()
+                                }}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
                                 {page}
@@ -301,7 +309,7 @@ function ResponsiveAppBar(props) {
                         ))}
                     </Box>
 
-                    <Box sx={{ flexGrow: 0 }}>
+                    <Box sx={{ flexGrow: 0 }} style={{marginRight:'3%'}}>
                         <Tooltip title="Notificaciones">
                             <NotificationsIcon onClick={handleOpen} sx={{ p: 0 }}>
                             </NotificationsIcon>
@@ -311,7 +319,7 @@ function ResponsiveAppBar(props) {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Opciones">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar src={avatar} alt={localStorage.getItem('nombreUsuario')}  />
+                                <Avatar src={avatar} alt={localStorage.getItem('nombreUsuario')} />
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -331,7 +339,7 @@ function ResponsiveAppBar(props) {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={()=>{
+                                <MenuItem key={setting} onClick={() => {
                                     handleCloseUserMenu()
 
                                     switch (setting) {
