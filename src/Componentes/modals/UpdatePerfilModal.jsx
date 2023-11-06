@@ -35,6 +35,7 @@ export default function UpdatePerfilModal({modalUpdatePerfilOPen,setInfoPersonal
             email:infoPersonal.email,
             img:infoPersonal.img,
             rol:rol,
+            password:inforPersonal.password,
             estado:true,
             google:false
         }
@@ -61,6 +62,7 @@ export default function UpdatePerfilModal({modalUpdatePerfilOPen,setInfoPersonal
                     ...respuesta
                 }
 
+                console.log(newUser)
                 setInfoPersonal(newUser)
                 localStorage.setItem('nombreUsuario',newUser.nombre)
 

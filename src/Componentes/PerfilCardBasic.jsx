@@ -7,7 +7,7 @@ import Container from "@mui/material/Container";
 import DropZoneProfileImage from "./dropZoneProfileImage.jsx";
 
 
-export default function PerfilCardBasic({info,openDialogEliminarCuenta,openDialogActualizarInfo}){
+export default function PerfilCardBasic({info,openDialogEliminarCuenta,openDialogActualizarInfo,openDialogUpdatePassword}){
 
     console.log(info)
 
@@ -41,7 +41,9 @@ export default function PerfilCardBasic({info,openDialogEliminarCuenta,openDialo
                         <Grid item sm={12} md={12} xs={12}>
                                 <Stack alignItems={'flex-start'} spacing={2}>
                                     <Typography variant={'h5'}>Seguridad.</Typography>
-                                    <Button>Cambiar contraseña.</Button>
+                                    <Button onClick={() => {
+                                        openDialogUpdatePassword(true)
+                                    }}>Cambiar contraseña.</Button>
                                     <Button>Restablecer contraseña.</Button>
                                 </Stack>
                         </Grid>

@@ -4,7 +4,8 @@ import {Grid} from "@mui/material";
 import {OpcionCardTareas, OpcionCardAvance, OpcionCardDetalle, OpcionCardRecursos, OpcionCardProgreso, BasicCard,} from "../../Componentes/DetalleProyecto.jsx"
 import Box from "@mui/material/Box";
 import ConstructionIcon from '@mui/icons-material/Construction';
-import {useNavigate, useParams} from "react-router-dom";
+import {Navigate} from "react-router";
+import {useNavigate} from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import { blue} from '@mui/material/colors';
 import AlarmIcon from '@mui/icons-material/Alarm';
@@ -16,11 +17,12 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import EditIcon from '@mui/icons-material/Edit';
 import { Link } from 'react-router-dom';
 import { Style } from '@mui/icons-material';
+import { set } from 'date-fns';
 
 
 function DetalleProyecto(){
 
-    const {id} = useParams();
+
     let navigate = useNavigate();
     const {con, consultar} = ConsultaApi();
     const [proyectoTarea, setproyectoTarea] = useState("");
@@ -29,6 +31,13 @@ function DetalleProyecto(){
     const [fechaInicioProyecto, setFechaInicioProyecto] = useState("");
     const [fechaFinalProyecto, setFechaFinalProyecto] = useState("");
     const [colaboradoresProyecto, setColaboradoresProyecto] = useState("");
+    const [porcentajeAvance, setPorcentajeAvance] = useState("");
+
+    const [pendites, setPendietes] = useState("");
+    const [enProceso, setEnProceso] = useState("");
+    const [finalizados, setFinalizados] = useState("");
+
+
     const [isLoading, setIsLoading] = useState(true);
 
     //obtener id del proyecto de la url
@@ -36,14 +45,14 @@ function DetalleProyecto(){
 
 
 
-    const proy='650bc7935d3687ea8f542d09';
-    const linkEditPro='/misproyectos/proyecto/'+id+'/editar';
+    const proy='6546bf1bd11b1a0906d8aa45';
+    const linkEditPro='/misproyectos/proyecto/'+proy+'/editar';
 
 
     const porcentajeAv = '60';
     //se ejecuta al crearse el componente
     useEffect(() => {
-        consultar(id);
+        consultar(proy);
     }, []);
 
 
@@ -56,7 +65,7 @@ function DetalleProyecto(){
         redirect: 'follow'
     };
 
-    fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/tareas/listadoTareas/"+id, requestOptions)
+    fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/tareas/listadoTareas/"+proy, requestOptions)
         .then(response => response.text())
         .catch(error => console.log('error', error));
 
@@ -69,13 +78,29 @@ function DetalleProyecto(){
             const fechaFinal = new Date(con.fecha_final);
             setFechaInicioProyecto(fechaInicio.toLocaleDateString());
             setFechaFinalProyecto(fechaFinal.toLocaleDateString());
+            setPorcentajeAvance(con.porcentaje);
 
             if (con.colaboradores)setColaboradoresProyecto(con.colaboradores);
             console.log(con.colaboradores);
             setIsLoading(false);
 
+            fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/tareas/estadistica/"+proy, requestOptions)
+                .then(response => response.json())
+                .then(result => setPendietes(result.cantidadTareasPendientes?result.cantidadTareasPendientes:"0"))
+                .catch(error => console.log('error', error));
 
-            fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/tareas/listadoTareas/"+id, requestOptions)
+            fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/tareas/estadistica/"+proy, requestOptions)
+                .then(response => response.json())
+                .then(result => setEnProceso(result.cantidadTareasEnProceso?result.cantidadTareasEnProceso:"0"))
+                .catch(error => console.log('error', error));
+
+            fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/tareas/estadistica/"+proy, requestOptions)
+                .then(response => response.json())
+                .then(result => {setFinalizados(result.cantidadTareasFinalizadas?result.cantidadTareasFinalizadas:"0")})
+                .catch(error => console.log('error', error));
+
+
+            fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/tareas/listadoTareas/"+proy, requestOptions)
                 .then(response => response.json())
                 .then(result => setproyectoTarea(result.tareas))
                 .catch(error => console.log('error', error));
@@ -105,27 +130,58 @@ function DetalleProyecto(){
                     <Box>
                         <Grid container spacing={1}>
                             <Grid item md={12} sx={{ml:9, mr:10}}>
-                                <OpcionCardAvance porcentaje={porcentajeAv}
-                                                  rango ={porcentajeAv+'%'} />
+                                <OpcionCardAvance porcentaje={porcentajeAvance}
+                                                  rango ={porcentajeAvance+'%'} />
                             </Grid>
                             <Grid item md={12} sx={{paddingBottom:1}}>
                                 <OpcionCardTareas fechaInicio={fechaInicioProyecto} fechaFinal={fechaFinalProyecto}/>
                             </Grid>
                         </Grid>
                     </Box>
-                    <Grid container spacing={1} >
-                        <Grid item md={4}>
-                            <OpcionCardProgreso   desc={"Pendientes"} icono={
-                                <AlarmIcon />
-                            }/>
-                        </Grid>
-                        <Grid item md={4}>
-                            <OpcionCardProgreso  desc={"En proceso"} icono={<ConstructionIcon/>}/>
-                        </Grid>
-                        <Grid item md={4}>
-                            <OpcionCardProgreso  desc={"Finalizados"} icono={<CheckBoxIcon/>}/>
-                        </Grid>
+                    <Grid container spacing={1}>
+
+
+                        {pendites ? (
+                            <>
+
+                                <Grid item md={4}>
+                                    <OpcionCardProgreso
+                                        desc={pendites}
+                                        icono={<AlarmIcon />}
+                                    />
+                                </Grid>
+                            </>
+                        ) : (
+                            <CircularProgress />
+                        )}
+
+                        {enProceso ? (
+                            <>
+                                <Grid item md={4}>
+                                    <OpcionCardProgreso
+                                        desc={enProceso}
+                                        icono={<ConstructionIcon />}
+                                    />
+                                </Grid>
+                            </>
+                        ) : (
+                            <CircularProgress />
+                        )}
+                        {finalizados ? (
+                            <>
+
+                                <Grid item md={4}>
+                                    <OpcionCardProgreso
+                                        desc={finalizados}
+                                        icono={<CheckBoxIcon />}
+                                    />
+                                </Grid>
+                            </>
+                        ) : (
+                            <CircularProgress />
+                        )}
                     </Grid>
+
                 </Grid>
 
                 <Grid item md={4}>
@@ -133,15 +189,21 @@ function DetalleProyecto(){
                 </Grid>
             </Grid>
             <Grid container spacing={1} sx={{ mt: 1 , background: blue[500], paddingRight: 1}}>
-
-                {
-                    proyectoTarea? proyectoTarea.map((element,index) => (
-                        console.log(element),
-                            <Grid item md={3} >,
-                                <BasicCard asignado={element.asignados} estado={element.estado_Tarea} nombre={element.nombre} descripcion={element.descripcion} linkT={'/mistareas/tarea/'+element.uid+'/editar'}/>,
-                            </Grid>
-                    )): <CircularProgress />
-                }
+                {proyectoTarea ? (
+                    proyectoTarea.map((element, index) => (
+                        <Grid item md={3} key={index}>
+                            <BasicCard
+                                asignado={element.asignados}
+                                estado={element.estado_Tarea}
+                                nombre={element.nombre}
+                                descripcion={element.descripcion}
+                                linkT={'/mistareas/tarea/'+element.uid+'/editar'}
+                            />
+                        </Grid>
+                    ))
+                ) : (
+                    <CircularProgress />
+                )}
             </Grid>
 
         </>

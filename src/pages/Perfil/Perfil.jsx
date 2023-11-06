@@ -8,13 +8,14 @@ import PerfilCardBasic from "../../Componentes/PerfilCardBasic.jsx";
 import Loading from "../../Componentes/Loading.jsx";
 import Button from "@mui/material/Button";
 import UpdatePerfilModal from "../../Componentes/modals/UpdatePerfilModal.jsx";
+import UpdatePasswordModal from "../../Componentes/modals/UpdatePasswordModal.jsx";
 
 
 function Perfil(){
     let [informacionPersonal,setInformacionPersonal] = useState();
     let [modalEditarPerfilOpen,setModalEditarPerfilOpen] = useState(false)
     let [modalEliminarCuentaOpen,setModalEliminarCuentaOpen] = useState(false)
-
+    let [modalUpdatePasswordOpen,setModalUpdatePasswordOpen] = useState(false)
 
 
     let headers = new Headers
@@ -29,13 +30,17 @@ function Perfil(){
         setModalEliminarCuentaOpen(false)
     }
 
+    let handleDialogUpdatePassword = () =>{
+        setModalUpdatePasswordOpen(false)
+    }
+
     useEffect ( () => {
         fetch( url+'/api/usuarios/'+localStorage.getItem('uid'),{
             method: 'get',
             headers:headers,
         }).then( responseRaw => responseRaw.json())
             .then(response => {
-                //console.log(response.usuario)
+                console.log(response.usuario)
                 setInformacionPersonal(response.usuario)
             } )
 
@@ -56,6 +61,7 @@ function Perfil(){
             info={informacionPersonal}
             openDialogEliminarCuenta={setModalEliminarCuentaOpen}
             openDialogActualizarInfo={setModalEditarPerfilOpen}
+            openDialogUpdatePassword={setModalUpdatePasswordOpen}
 
         />
 
@@ -76,8 +82,15 @@ function Perfil(){
         infoPersonal={informacionPersonal}
         setInfoPersonal={setInformacionPersonal}
         handleOnClose={handleDialogActualizarInformacion}
-        modalUpdatePerfilOPen={modalEditarPerfilOpen}/>
+        modalUpdatePerfilOPen={modalEditarPerfilOpen}
+    />
 
+    <UpdatePasswordModal
+        isOpen={modalUpdatePasswordOpen}
+        closingAction={handleDialogUpdatePassword}
+        user={informacionPersonal}
+        setUser={setInformacionPersonal}
+    />
     </>
 }
 
