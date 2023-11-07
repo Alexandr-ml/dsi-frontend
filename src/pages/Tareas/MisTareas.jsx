@@ -8,6 +8,7 @@ import Container from "@mui/material/Container";
 import serverUrl from "../../serverUrl.js";
 import listaMisTareas from "./ListaMisTareas.jsx";
 import TareasTable from "../../Componentes/TareasTable.jsx";
+import TareasTableUn from '../../Componentes/TareasTableUn.jsx';
 import { set } from 'date-fns';
 
 
@@ -55,7 +56,6 @@ function MisTareas(){
         setMisTareasNoIni(misTareasNoIniciadasAux)
         setMisTareasProgre(misTareasEnProgresoAux)
         setMisTareasFin(misTareasFinalizadasAux)
-        console.log(misTareasEnProgresoAux)
     }
 
     useEffect(() => {
@@ -114,11 +114,11 @@ function MisTareas(){
 
         switch (valor){
             case 0:
-                return <TareasTable listaTareas={misTareasNoIni} actualizarTareas={actualizarTareas} />
+                return <TareasTableUn listaTareas={misTareasNoIni} actualizarTareas={actualizarTareas} />
             case 1:
-                return <TareasTable listaTareas={misTareasProgre} actualizarTareas={actualizarTareas}/>
+                return <TareasTableUn listaTareas={misTareasProgre} actualizarTareas={actualizarTareas}/>
             case 2:
-                return <TareasTable listaTareas={misTareasFin} actualizarTareas={actualizarTareas}/>
+                return <TareasTableUn listaTareas={misTareasFin} actualizarTareas={actualizarTareas}/>
             default:
                 return <></>
         }
@@ -156,7 +156,7 @@ function MisTareas(){
 
         </Container>
         <br></br>
-        <Typography variant={'h3'}>Mis Tareas Asignadas</Typography>
+        <Typography variant={'h3'}>Tareas Asignadas</Typography>
         <Container>
 
             {

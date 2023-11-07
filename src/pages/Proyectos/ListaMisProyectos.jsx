@@ -79,7 +79,6 @@ function ListaMisProyectos() {
             });
         });
         setProyColab(proyectosFiltrados);
-        console.log(proyectosFiltrados);
     }
 
     useEffect(() => {
@@ -92,7 +91,6 @@ function ListaMisProyectos() {
             .then(response => {
                 if (response.proyectos) {
                     setListaProyectos(response.proyectos)
-                    console.log(response.proyectos)
                 } else {
                     setHasProjects(false)
                 }
@@ -103,7 +101,6 @@ function ListaMisProyectos() {
                 .then(result => {
                     setProyectos(result.proyectos)
                     filtrarProyectos(result.proyectos)
-                    console.log(result.proyectos)
                 }))
 
     }, [])
@@ -212,18 +209,7 @@ function ListaMisProyectos() {
                                                         <Add />
                                                     </IconButton>
                                                 </Tooltip>
-                                                <Tooltip title={'Editar proyecto'}>
-                                                    <IconButton color={'primary'} onClick={() => {
-                                                        navigate(`/misproyectos/proyecto/${proyecto.uid}/editar`)
-                                                    }}>
-                                                        <Edit />
-                                                    </IconButton>
-                                                </Tooltip>
-                                                <Tooltip title={'Borrar proyecto'}>
-                                                    <IconButton color={'error'} onClick={() => { updateProjectList(proyecto.uid) }}>
-                                                        <DeleteIcon />
-                                                    </IconButton>
-                                                </Tooltip>
+                                                
                                             </TableCell>
                                         </TableRow>
                                     })

@@ -10,8 +10,6 @@ export default function Dashboard({children}){
     return <>
         <ResponsiveAppBar/>
         <Container sx={{mt:2}} style={{backgroundColor:'white'}}>{children}</Container>
-        <Footer></Footer>
-        
     </>
 
 }

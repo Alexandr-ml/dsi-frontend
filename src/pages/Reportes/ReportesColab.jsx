@@ -190,8 +190,8 @@ const ReportColab = () => {
                             <Table>
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell style={{ textAlign: 'center' }}>Colaborador</TableCell>
-                                        <TableCell style={{ textAlign: 'center' }}>Estado</TableCell>
+                                        <TableCell style={{ textAlign: 'center' , background:'#214A87', color:'white' }}>Colaborador</TableCell>
+                                        <TableCell style={{ textAlign: 'center', background:'#214A87', color:'white'  }}>Estado</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>

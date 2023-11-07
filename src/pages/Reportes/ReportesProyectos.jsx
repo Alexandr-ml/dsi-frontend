@@ -175,11 +175,11 @@ const ReportProyectos = () => {
                 <div style={{ display: 'flex' }}>
 
                 {proyectosNoIniciados ? <>
-                    <TableContainer component={Paper}>
+                    <TableContainer component={'div'}>
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ textAlign: 'center' }}>No iniciados</TableCell>
+                                    <TableCell style={{ textAlign: 'center' , background:'#214A87', color:'white'  }}>No iniciados</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -191,11 +191,11 @@ const ReportProyectos = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <TableContainer component={Paper}>
+                    <TableContainer component={'div'}>
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ textAlign: 'center' }}>En progreso</TableCell>
+                                    <TableCell style={{ textAlign: 'center' , background:'#214A87', color:'white' }}>En progreso</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -207,11 +207,11 @@ const ReportProyectos = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <TableContainer component={Paper}>
+                    <TableContainer component={'div'}>
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ textAlign: 'center' }}>Finalizados</TableCell>
+                                    <TableCell style={{ textAlign: 'center' , background:'#214A87', color:'white' }}>Finalizados</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -225,6 +225,7 @@ const ReportProyectos = () => {
                     </TableContainer>
                     </>:<div align={'center'}><CircularProgress /></div>}
                 </div>
+                <br></br>
             </div>
         },
         {
@@ -238,13 +239,14 @@ const ReportProyectos = () => {
                         <Bar data={dataPor} options={optionsBar} />
                     </div>
                 </div>
+                <br></br>
                 <div style={{display:"flex"}}>
                 {proyectos33 ? <>
-                <TableContainer component={Paper}>
+                <TableContainer component={'div'}>
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ textAlign: 'center' }}>0% - 33%</TableCell>
+                                    <TableCell style={{ textAlign: 'center', background:'#214A87', color:'white' }}>0% - 33%</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -256,27 +258,27 @@ const ReportProyectos = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <TableContainer component={Paper}>
+                    <TableContainer component={'div'}>
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ textAlign: 'center' }}>34% - 66%</TableCell>
+                                    <TableCell style={{ textAlign: 'center' , background:'#214A87', color:'white'  }}>34% - 66%</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {proyectos66.map((fila, index) => (
                                     <TableRow key={index}>
-                                        <TableCell style={{ border: 'none' }}>{fila.nombre  + " ("+fila.porcentaje+"%)"}</TableCell>
+                                        <TableCell style={{ border: 'none' , background:'#214A87', color:'white'  }}>{fila.nombre  + " ("+fila.porcentaje+"%)"}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <TableContainer component={Paper}>
+                    <TableContainer component={'div'}>
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ textAlign: 'center' }}>67% - 99%</TableCell>
+                                    <TableCell style={{ textAlign: 'center' , background:'#214A87', color:'white' }}>67% - 99%</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -289,6 +291,7 @@ const ReportProyectos = () => {
                         </Table>
                     </TableContainer> </>: <div align={'center'}><CircularProgress /></div>}
                 </div>
+                <br></br>
             </div>
         }
     ];

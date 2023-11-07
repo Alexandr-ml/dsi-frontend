@@ -119,8 +119,7 @@ function Tareas(){
                                 <TableRow>
                                     <TableCell>Nombre</TableCell>
                                     <TableCell>Descripción</TableCell>
-                                    <TableCell>Proyecto.</TableCell>
-                                                                     
+                                    <TableCell>Proyecto.</TableCell>                                                                     
                                     <TableCell align={'center'}>Acciones.</TableCell>
                                 </TableRow>
                             </TableHead>

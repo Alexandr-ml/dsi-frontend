@@ -160,12 +160,13 @@ const ReportTareas = () => {
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Tabs tabs={tabData} />
             </div>
+            <br></br>
             <div style={{ display: 'flex' }}>
                 <TableContainer component={'div'}>
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell style={{ textAlign: 'center' }}>No iniciados</TableCell>
+                                <TableCell style={{ textAlign: 'center' , background:'#214A87', color:'white'  }}>No iniciados</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -181,7 +182,7 @@ const ReportTareas = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell style={{ textAlign: 'center' }}>En progreso</TableCell>
+                                <TableCell style={{ textAlign: 'center', background:'#214A87', color:'white'  }}>En progreso</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -197,7 +198,7 @@ const ReportTareas = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell style={{ textAlign: 'center' }}>Finalizados</TableCell>
+                                <TableCell style={{ textAlign: 'center', background:'#214A87', color:'white'  }}>Finalizados</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
