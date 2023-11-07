@@ -18,6 +18,10 @@ import Index from "./pages/Index.jsx";
 import Tareas from "./pages/Tareas/ListaMisTareas.jsx";
 import MisTareas from "./pages/Tareas/MisTareas.jsx";
 import Registro from "./pages/Autenticación/Registro.jsx";
+import MisReportes from "./pages/Reportes/MisReportes.jsx";
+import ReportColab from "./pages/Reportes/ReportesColab.jsx";
+import ReportProyectos from "./pages/Reportes/ReportesProyectos.jsx";
+import ReportTareas from "./pages/Reportes/ReportesTareas.jsx";
 export const App = () => {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'es-mx'}>
@@ -37,6 +41,10 @@ export const App = () => {
                         <Route path={'/misproyectos'} element={<Dashboard><ListaMisProyectos/></Dashboard>}/>
                         <Route path={'/misproyectos/proyecto'} element={<Dashboard><Proyecto/></Dashboard>}/>
                         <Route path={'/misproyectos/proyecto/:id/editar'} element={<Dashboard><Proyecto/></Dashboard>} />
+                        <Route path={"/misinformes"} element={<Dashboard><MisReportes/></Dashboard>} />
+                        <Route path={"/reportcolab"} element={<Dashboard><ReportColab/></Dashboard>}/>
+                        <Route path={"/reportproy"} element={<Dashboard><ReportProyectos/></Dashboard>}/>
+                        <Route path={"/reporttareas"} element={<Dashboard><ReportTareas/></Dashboard>}/>
                     </Route>
                 </Routes>
             </BrowserRouter>

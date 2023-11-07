@@ -17,7 +17,7 @@ import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import dayjs from "dayjs";
 import projectReducer  from "../../js/projectReducer.js";
 import {Circle} from "@mui/icons-material";
@@ -28,6 +28,7 @@ function Proyecto(){
     let initialState = {}
 
     const {id} = useParams()
+    const navigate = useNavigate()
 
     const ListItem = styled('li')(({ theme }) => ({
         margin: theme.spacing(0.5),
@@ -401,7 +402,7 @@ function Proyecto(){
                                             body:JSON.stringify(processedProject)
                                         })
                                             .then(raw => raw.json())
-                                            .then(respuesta => console.log(respuesta))
+                                            .then(respuesta => navigate('/misproyectos'))
                                     }
 
 
