@@ -54,7 +54,7 @@ const ReportColab = () => {
             index === self.findIndex(u => u.uid === usuario.uid)
         )
         const usuariosTareas = usuarioUnicos.map(usuario => {
-            const tareasAsignadas = tareasFiltrada.filter(tarea => tarea.asignados.nombre === usuario.nombre);
+            const tareasAsignadas = tareasFiltrada.filter(tarea => tarea.asignados === usuario.nombre);
             return {
                 ...usuario,
                 tieneTareas: tareasAsignadas.length > 0

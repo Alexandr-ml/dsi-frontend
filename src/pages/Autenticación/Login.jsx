@@ -1,84 +1,92 @@
 import react from 'react'
-import {useState} from 'react'
-import {TextField} from "@mui/material";
+import { useState } from 'react'
+import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import url from "../../serverUrl.js";
 import AppBarIndex from '../../Componentes/AppBarLogin.jsx';
+import {Dialog, DialogContent, DialogTitle, Grid, Typography} from '@mui/material';
 
 
 
 
-function autenticar(email,password){
+function autenticar(email, password) {
 
-
-    let body = {email:email,password:password}
-    let r ;
+    let body = { email: email, password: password }
+    let r;
     try {
-        r =   fetch(url+"/api/auth/login",{
-            method:"POST",
-            body:JSON.stringify(body),
-            headers:{
-                "Content-Type":"application/json"
+        r = fetch(url + "/api/auth/login", {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+                "Content-Type": "application/json"
             }
         })
 
-    }catch (error){
+    } catch (error) {
         console.log(error.message)
     }
 
     return r;
 
 }
-export default function Login(){
+
+
+export default function Login() {
+    const [aut, setAut] = useState(false)
     const navigate = useNavigate()
-    let [errorEmail,setErrorEmail] = useState(false)
-    let [errorPassword,setErrorPassword] = useState(false)
-    let [email,setEmail] = useState("")
-    let [password,setPassword] = useState("")
+    let [errorEmail, setErrorEmail] = useState(false)
+    let [errorPassword, setErrorPassword] = useState(false)
+    let [email, setEmail] = useState("")
+    let [password, setPassword] = useState("")
+
+    const handleModalProjectCreated = () => {
+        setAut(false)
+        history.back()
+    }
 
     return <>
-        <AppBarIndex/>
+        <AppBarIndex />
         <div className='loginCont'>
             <form className="formLogin" style={{ width: "35em" }} id={"loginForm"}>
                 <h2>Iniciar Sesión</h2>
                 <div className="form-outline mb-4">
                     <TextField type="email"
-                               required
-                               pattern={"email"}
-                               error={errorEmail}
-                               className="form-control form-control-lg"
-                               helperText={errorEmail ? "Ingrese una direccion valida" : ""}
-                               onChange={e => {
-                                   if (e.target.validity.typeMismatch) {
-                                       setErrorEmail(true)
-                                       console.log(errorEmail)
-                                   } else {
-                                       setErrorEmail(false)
-                                       setEmail(e.target.value)
-                                   }
-                               }
-                               }
-                               label={"Correo electronico"}
+                        required
+                        pattern={"email"}
+                        error={errorEmail}
+                        className="form-control form-control-lg"
+                        helperText={errorEmail ? "Ingrese una direccion valida" : ""}
+                        onChange={e => {
+                            if (e.target.validity.typeMismatch) {
+                                setErrorEmail(true)
+                                console.log(errorEmail)
+                            } else {
+                                setErrorEmail(false)
+                                setEmail(e.target.value)
+                            }
+                        }
+                        }
+                        label={"Correo electronico"}
                     />
                 </div>
                 <div className="form-outline mb-4">
                     <TextField type="password"
-                               required
-                               error={errorPassword}
-                               helperText={errorPassword ? "Debe poseer 6 o más caracteres" : ""}
-                               inputProps={{ minLength: 6 }}
-                               onChange={e => {
-                                   if (e.target.validity.tooShort) {
-                                       setErrorPassword(true)
-                                   } else {
-                                       setErrorPassword(false)
-                                       setPassword(e.target.value)
-                                   }
-                               }
-                               }
-                               className="form-control form-control-lg"
-                               label={"Contraseña"} />
+                        required
+                        error={errorPassword}
+                        helperText={errorPassword ? "Debe poseer 6 o más caracteres" : ""}
+                        inputProps={{ minLength: 6 }}
+                        onChange={e => {
+                            if (e.target.validity.tooShort) {
+                                setErrorPassword(true)
+                            } else {
+                                setErrorPassword(false)
+                                setPassword(e.target.value)
+                            }
+                        }
+                        }
+                        className="form-control form-control-lg"
+                        label={"Contraseña"} />
                 </div>
                 <div className="pt-1 mb-4">
                     <Button
@@ -94,13 +102,14 @@ export default function Login(){
                                         sessionStorage.setItem("token", res.token)
                                         localStorage.setItem("isLogged", true)
                                         localStorage.setItem("nombreUsuario", res.usuario.nombre)
-                                        localStorage.setItem('fotoPerfil',res.usuario.img)
+                                        localStorage.setItem('fotoPerfil', res.usuario.img)
                                         console.log(res)
                                         window.location = window.location.href.replace("login", "dashboard")
                                     } else {
+                                        setAut(true)
                                     }
                                 }).catch(error => {
-                            })
+                                })
                         }}
                         variant={'contained'}
                     >Ingresar</Button>
@@ -111,6 +120,22 @@ export default function Login(){
                 </Button>
             </form>
         </div>
+
+        <Dialog open={aut} onClose={handleModalProjectCreated} style={{alignItems:'center'}}>
+            <DialogTitle textAlign={'center'}>Credenciales incorrectas</DialogTitle>
+            <DialogContent>
+                <Grid container flex={'flow'}>
+                    <Grid item xs={12}>
+                        <Typography variant={'h6'} textAlign={'center'}>Revise correo o contraseña</Typography>
+                    </Grid>
+                    <Grid item alignContent={'center'}>
+                        <Button variant={'contained'} onClick={handleModalProjectCreated}>
+                            Aceptar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </DialogContent>
+        </Dialog>
 
     </>
 }
