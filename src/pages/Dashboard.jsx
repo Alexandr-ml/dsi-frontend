@@ -10,7 +10,6 @@ export default function Dashboard({children}){
     return <>
         <ResponsiveAppBar/>
         <Container sx={{mt:2}}>{children}</Container>
-        <Footer></Footer>
         
     </>
 

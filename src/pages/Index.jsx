@@ -98,12 +98,7 @@ function Index() {
                             <img className='imageFun' src='https://res.cloudinary.com/dykkzngwd/image/upload/v1696007434/usuarios/kumhwy0czw30fev2ceaq.jpg' />
                             <h5>Herbert Chicas</h5>
                             <p>Desarrollador FrontEnd</p>
-                        </div>
-                        <div className='itemCol'>
-                            <img className='imageFun' src='https://res.cloudinary.com/dykkzngwd/image/upload/v1695266222/usuarios/jz71cvul53kdg9yzqbnr.jpg' />
-                            <h5>Jeffry Mejia</h5>
-                            <p>Desarrollador FrontEnd</p>
-                        </div>
+                        </div>                        
                         <div className='itemCol'>
                             <img className='imageFun' src='https://res.cloudinary.com/dykkzngwd/image/upload/v1695091997/usuarios/500x500_g5tu6a.jpg' />
                             <h5>Kevin Villalta</h5>

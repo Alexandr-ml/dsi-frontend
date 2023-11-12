@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, CardActionArea, CardContent, Grid} from "@mui/material";
+import { Card, CardActionArea, CardContent, Grid } from "@mui/material";
 import CardActions from '@mui/material/CardActions';
 import Typography from "@mui/material/Typography";
 import IconButton from '@mui/material/IconButton';
@@ -30,25 +30,26 @@ const style = {
 
 import { Link } from 'react-router-dom';
 
-function BasicModal(nombre, descripcion, enlace, ) {
+function BasicModal(nombre, descripcion, enlace, asignado) {
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleOpen = () => { setOpen(true) 
+        document.body.style.overflowY = 'hidden';};
+    const handleClose = () => {setOpen(false)
+        document.body.style.overflowY = 'auto';};
 
     //extraer campo nombre, img del elemento asignado
 
     return (
         <div>
-            <Button onClick={handleOpen}>Open modal</Button>
+            <Button variant='outlined' onClick={handleOpen} style={{ color: 'white' }}>Ver tarea</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-
                 <Box sx={style}>
-                    <Card sx={{ maxWidth: 345,  bgcolor: 'warning.main' }}>
+                    <Card sx={{ maxWidth: 345, bgcolor: '#214A87' }}>
                         <CardActionArea>
                             <CardMedia
                                 component="img"
@@ -57,17 +58,17 @@ function BasicModal(nombre, descripcion, enlace, ) {
                                 alt="green iguana"
                             />
                             <CardContent>
-                                <Typography id="modal-modal-title" variant="h6" component="h2">
+                                <Typography id="modal-modal-title" variant="h6" component="h2" color='white'>
                                     {nombre}
                                 </Typography>
-                                <Typography id="modal-modal-description" sx={{ mt: 2}}>
+                                <Typography id="modal-modal-description" sx={{ mt: 2 }} color='white'>
                                     {descripcion}
                                 </Typography>
                                 <Tooltip title={"Nombre"}>
-                                    <Avatar src={""}/>
+                                    <Avatar src={asignado} />
                                 </Tooltip>
                                 <Link to={enlace}>
-                                    <Button>Editar Tarea</Button>
+                                    <Button variant='outlined' style={{ color: 'white' }}>Editar Tarea</Button>
                                 </Link>
                             </CardContent>
                         </CardActionArea>
@@ -82,19 +83,18 @@ function BasicModal(nombre, descripcion, enlace, ) {
 
 function BasicCard(props) {
     return (
-        <Card sx={{ minWidth: 275 }}>
-            <CardContent>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    {props.estado}
-                </Typography>
+        <Card sx={{ minWidth: 275 }} style={{ background: '#214A87', color: 'white' }}>
+            <CardContent >
                 <Typography variant="h5" component="div">
                     {props.nombre}
                 </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                <Typography sx={{ fontSize: 14 }} color="white" gutterBottom>
+                    {props.estado}
+                </Typography>
+                <Typography sx={{ mb: 1.5 }} color="white">
                 </Typography>
                 <Typography variant="body2">
                     {props.descripcion}
-                    <br />
                 </Typography>
             </CardContent>
             <CardActions>
@@ -104,85 +104,87 @@ function BasicCard(props) {
     );
 }
 
-function OpcionCard(props){
+function OpcionCard(props) {
 
     return (<>
-            <Card variant={"outlined"}>
-                <CardActionArea onClick={props.handler} >
-                    <CardContent>
-                        <Grid container spacing={1}>
-                            <Grid item xs={12} textAlign={"center"} >
-                                <Typography variant={"h5"}>{props.titulo}</Typography>
-                            </Grid>
+        <Card variant={"outlined"}>
+            <CardActionArea onClick={props.handler} >
+                <CardContent>
+                    <Grid container spacing={1}>
+                        <Grid item xs={12} textAlign={"center"} >
+                            <Typography variant={"h5"}>{props.titulo}</Typography>
                         </Grid>
-                        <Typography textAlign={"center"} >{props.desc}<AlarmIcon />1</Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        </>
+                    </Grid>
+                    <Typography textAlign={"center"} >{props.desc}<AlarmIcon />1</Typography>
+                </CardContent>
+            </CardActionArea>
+        </Card>
+    </>
     )
 }
 
-function CardTarea(props){
+function CardTarea(props) {
 
     return (<>
-            <Card variant={"outlined"}>
-                <CardActionArea onClick={props.handler} sx={{height: 200}}>
-                    <CardContent>
-                        <Grid container spacing={1}>
-                            <Grid item xs={12} textAlign={"center"} >
-                                <Typography variant={"h5"}>{props.titulo}</Typography>
-                            </Grid>
+        <Card variant={"outlined"}>
+            <CardActionArea onClick={props.handler} sx={{ height: 200 }}>
+                <CardContent>
+                    <Grid container spacing={1}>
+                        <Grid item xs={12} textAlign={"center"} >
+                            <Typography variant={"h5"}>{props.titulo}</Typography>
                         </Grid>
-                        <Typography textAlign={"center"} >{props.desc}<AlarmIcon />1</Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        </>
+                    </Grid>
+                    <Typography textAlign={"center"} >{props.desc}<AlarmIcon />1</Typography>
+                </CardContent>
+            </CardActionArea>
+        </Card>
+    </>
     )
 }
 
-function OpcionCardProgreso(props){
+function OpcionCardProgreso(props) {
 
     return (<>
-            <Card variant={"outlined"}>
-                <CardActionArea onClick={props.handler} >
-                    <CardContent>
-                        <Typography >{props.desc}{props.icono}1</Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        </>
+        <Card variant={"outlined"} style={{ background: '#214A87', color: 'white' }}>
+            <CardActionArea onClick={props.handler} >
+                <CardContent style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Typography >{props.desc}{props.icono}</Typography>
+                </CardContent>
+            </CardActionArea>
+        </Card>
+    </>
     )
 }
 
-function OpcionCardDetalle(props){
+function OpcionCardDetalle(props) {
 
     return (<>
-            <Card variant={"outlined"}>
-                <CardActionArea onClick={props.handler} sx={{height: 352}}>
-                    <CardContent>
-                        <Grid container spacing={1}>
-                            <Grid item xs={12}>
-                                <Typography textAlign={"center"} variant={"h5"}>{props.titulo}</Typography>
-                            </Grid>
+        <Card variant={"outlined"} style={{ background: '#214A87', color: 'white' }}>
+            <CardActionArea onClick={props.handler} sx={{ height: 350 }}>
+                <CardContent style={{ padding: '3%' }}>
+                    <Grid container spacing={1}>
+                        <Grid item xs={12}>
+                            <Typography textAlign={"center"} variant={"h5"}>{props.titulo}</Typography>
                         </Grid>
-                        <Typography textAlign={"center"}>{props.desc}</Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        </>
+                    </Grid>
+                    <Typography textAlign={"center"} fontSize='1rem'>{props.desc}</Typography>
+                </CardContent>
+            </CardActionArea>
+        </Card>
+    </>
     )
 }
 
-function colaboradoresTarget(props){
+function colaboradoresTarget(props) {
     return (<>
-        <Grid container spacing={1}>
-            <Grid item>
-                <Tooltip title={props.nombre}>
-                    <Avatar src={props.img}/>
-                    <Typography  variant={"h5"}>{props.nombre}</Typography>
-                    <Typography  variant={"h5"}>{props.email}</Typography>
+        <Grid container spacing={1} style={{ marginBottom: '4%' }}>
+            <Grid item style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
+                <Tooltip title={props.nombre} style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
+                    <Avatar src={props.img} />
+                    <div style={{ marginLeft: '4%' }}>
+                        <Typography variant={"h6"}>{props.nombre}</Typography>
+                        <Typography variant={"subtitle1"}>{props.email}</Typography>
+                    </div>
                 </Tooltip>
             </Grid>
         </Grid>
@@ -193,16 +195,17 @@ function colaboradoresTarget(props){
 function OpcionCardRecursos(props) {
     return (
         <>
-            <Card variant={"outlined"}>
-                <CardActionArea onClick={props.handler} sx={{ height: 352 }}>
-                    <Grid container spacing={1} justifyContent="center">
-                        <CardContent>
+            <Card style={{ background: '#214A87', width: '100%', color: 'white' }}>
+                <CardActionArea onClick={props.handler} sx={{ height: 350 }} >
+                    <Typography variant="h5" textAlign='center'>Colaboradores</Typography>
+                    <Grid container spacing={1} justifyContent="center" >
+                        <CardContent s>
                             {
-                                props.colaboradores?
+                                props.colaboradores ?
                                     props.colaboradores.map((element, index) => (
-                                        <div key={index}>{colaboradoresTarget(element)}</div>
+                                        <div key={index} >{colaboradoresTarget(element)}</div>
                                     ))
-                                    :<CircularProgress />
+                                    : <CircularProgress />
 
                             }
                         </CardContent>
@@ -214,45 +217,45 @@ function OpcionCardRecursos(props) {
 }
 
 
-function OpcionCardTareas(props){
+function OpcionCardTareas(props) {
     return (<>
-            <Card variant={"outlined"} sx={{p: 0.3}}>
-                <CardActionArea onClick={props.handler} >
-                    <CardContent>
-                        <Grid container spacing={1}>
-                            <Grid item xs={12} textAlign={"center"} >
-                                <Typography variant={"h5"}>{props.titulo}</Typography>
-                            </Grid>
+        <Card variant={"outlined"} sx={{ p: 0.3 }} style={{ background: '#214A87', color: 'white' }}>
+            <CardActionArea onClick={props.handler} >
+                <CardContent>
+                    <Grid container spacing={1}>
+                        <Grid item xs={12} textAlign={"center"} >
+                            <Typography variant={"h5"}>{props.titulo}</Typography>
                         </Grid>
-                        <Grid container spacing={1}>
-                            <Grid item xs={6}  >
-                                <Typography>Fecha de inicio</Typography>
-                                <Typography>{props.fechaInicio}</Typography>
-                            </Grid>
-                            <Grid item xs={6} >
-                                <Typography>Fecha de Finalización</Typography>
-                                <Typography>{props.fechaFinal}</Typography>
-                            </Grid>
+                    </Grid>
+                    <Grid container spacing={1}>
+                        <Grid item xs={6}  >
+                            <Typography>Fecha de inicio</Typography>
+                            <Typography>{props.fechaInicio}</Typography>
                         </Grid>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        </>
+                        <Grid item xs={6} >
+                            <Typography>Fecha de Finalización</Typography>
+                            <Typography>{props.fechaFinal}</Typography>
+                        </Grid>
+                    </Grid>
+                </CardContent>
+            </CardActionArea>
+        </Card>
+    </>
     )
 }
 
-function OpcionCardAvance(props){
+function OpcionCardAvance(props) {
     return (<>
-            <Card variant={"outlined"} sx={{mb: 2}}>
-                <CardActionArea onClick={props.handler} >
-                    <CardContent>
-                        <div className="half-arc" style={{'--percentage': props.rango}}>
-                            <span className="label">{props.porcentaje}%</span>
-                        </div>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        </>
+        <Card sx={{ mb: 4 }}>
+            <CardActionArea onClick={props.handler} >
+                <CardContent style={{ background: 'white' }}>
+                    <div className="half-arc" style={{ '--percentage': props.rango, background: '#214A87' }}>
+                        <span className="label" style={{ fontSize: '1.7em', color: '#214A87' }}>{props.porcentaje}%</span>
+                    </div>
+                </CardContent>
+            </CardActionArea>
+        </Card>
+    </>
     )
 }
 
@@ -260,4 +263,4 @@ function OpcionCardAvance(props){
 
 
 
-export {OpcionCard, OpcionCardTareas, OpcionCardAvance, OpcionCardDetalle, OpcionCardRecursos, OpcionCardProgreso, CardTarea, BasicCard, BasicModal};
+export { OpcionCard, OpcionCardTareas, OpcionCardAvance, OpcionCardDetalle, OpcionCardRecursos, OpcionCardProgreso, CardTarea, BasicCard, BasicModal };

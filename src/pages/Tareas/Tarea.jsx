@@ -52,8 +52,8 @@ function EditarTarea() {
     const [formatoAsignado, setFormatoAsignado] = useState()
     const [asignados, setAsignados] = useState([])
     const [errorFormatoAsignado, setErrorFormatoAsignado] = useState(false)
-    const [emailAsignado, setEmailAsignado] = useState()
-    const [project, setProject] = useState()
+    const [emailAsignado, setEmailAsignado] = useState(null)
+    const [project, setProject] = useState(null)
     const [tareaCreada, setTareaCreada] = useState(false)
     const [tareaModifica, setTareaModificada] = useState(false)
 
@@ -79,7 +79,6 @@ function EditarTarea() {
                     }
                     setTarea(tarea)
                     console.log(tarea)
-                    console.log(respuesta)
                 })
         } else {
             setTarea({
@@ -97,7 +96,6 @@ function EditarTarea() {
             headers: header
         }).then(rawResponse => rawResponse.json()).then(response => {
             setUsuarios(response.usuarios)
-            console.log(response.usuarios)
         })
 
         fetch(url + `/api/proyectos/listadoProyectos/${localStorage.getItem('uid')}`, {
@@ -106,7 +104,6 @@ function EditarTarea() {
         }).then(rawResponse => rawResponse.json())
             .then(response => {
                 if (response.proyectos) {
-
                     setListaProyectos(response.proyectos)
                 } else {
                     setHasProjects(false)
@@ -115,9 +112,26 @@ function EditarTarea() {
 
             })
     }, []);
+
+    useEffect(() => {
+        if (usuarios && tarea) {
+            const correo = usuarios.filter(valor => valor.uid === tarea.asignados)
+            if (correo.length > 0) {
+                setEmailAsignado(correo[0])
+            }
+        }
+        if (proyectos && tarea) {
+            const proyecto = proyectos.filter(valor => valor.uid === tarea.proyecto)
+            setProject(proyecto[0])
+        }
+    })
     //*****************//
     //****FUNCIONES****//
     //*****************//
+
+    const buscarCorreo = (usuarios, tarea) => {
+
+    }
 
 
 
@@ -163,10 +177,12 @@ function EditarTarea() {
     const handleAgregarAsignado = (e) => {
         const changeInTarea = tareaReducer(tarea, { type: "SET_COLABORADORES", payload: e })
         setTarea(changeInTarea)
+        console.log(changeInTarea)
     }
     const handleProyectoChange = (e) => {
         const changeInTarea = tareaReducer(tarea, { type: "SET_PROYECTO", payload: e })
         setTarea(changeInTarea)
+        console.log(changeInTarea)
     }
 
     const handleModalTareaCreated = () => {
@@ -258,9 +274,10 @@ function EditarTarea() {
                         <Grid item xs={6}>
 
                             <Autocomplete
-                                getOptionLabel={(option) => option.email}
                                 options={usuarios ? usuarios : []}
+                                getOptionLabel={(option) => option.email}
                                 includeInputInList
+                                value={emailAsignado}
                                 isOptionEqualToValue={(option, value) => option.id === value.id}
                                 autoComplete={true}
                                 noOptionsText={'Sin resultados'}
@@ -270,10 +287,6 @@ function EditarTarea() {
                                 }
                                 }
                                 onChange={(e, v, r, d) => {
-                                    /*console.log(e.target)
-                                    console.log(v)
-                                    console.log(r)
-                                    console.log(d)*/
                                     console.log(v.uid)
                                     handleAgregarAsignado(v.uid)
                                 }}
@@ -283,8 +296,9 @@ function EditarTarea() {
                         <Grid item xs={6}>
 
                             <Autocomplete
-                                getOptionLabel={(proyecto) => proyecto.nombre}
                                 options={proyectos ? proyectos : []}
+                                getOptionLabel={(proyecto) => proyecto.nombre}
+                                value={project}
                                 includeInputInList
                                 isOptionEqualToValue={(proyecto, value) => proyecto.uid === proyecto.uid}
                                 autoComplete={true}
@@ -295,12 +309,7 @@ function EditarTarea() {
                                 }}
 
                                 onChange={(e, v, r, d) => {
-                                    console.log(v)
-                                    /*console.log(v)
-                                    console.log(r)
-                                    console.log(d)*/
                                     handleProyectoChange(v)
-                                    console.log(tarea)
                                 }}
                                 renderInput={(params) => <TextField {...params} label={'Proyecto'} />} />
                         </Grid>
@@ -319,29 +328,29 @@ function EditarTarea() {
                                     headers.set("Content-Type", "application/json");
 
                                     if (!id) {
-                                        console.log(tarea.proyecto.uid)
+                                        console.log(JSON.stringify({ ...tarea, proyecto: tarea.proyecto.uid, asignados: tarea.asignados }))
 
                                         fetch(url + `/api/tareas`, {
                                             method: 'post',
                                             headers: headers,
-                                            body: JSON.stringify({ ...tarea, proyecto: tarea.proyecto.uid, asignados: tarea.asignados.uid })
+                                            body: JSON.stringify({ ...tarea, proyecto: tarea.proyecto.uid, asignados: tarea.asignados })
                                         })
                                             .then(raw => raw.json())
-                                            .then(response => { setTareaCreada(true) })
+                                            .then(response => { setTareaCreada(true) 
+                                            console.log(response)})
                                     } else {
+                                        console.log(JSON.stringify({ ...tarea, proyecto: tarea.proyecto.uid, asignados: tarea.asignados }))
                                         fetch(url + `/api/tareas/${tarea.uid}`, {
                                             method: 'put',
                                             headers: headers,
-                                            body: JSON.stringify({ ...tarea, proyecto: tarea.proyecto.uid })
+                                            body: JSON.stringify({ ...tarea, proyecto: tarea.proyecto.uid, asignados: tarea.asignados })
                                         })
                                             .then(raw => raw.json())
-                                            .then(response => {console.log(response)
-                                                setTareaModificada(true)})
-
-                                        console.log(tarea)
+                                            .then(response => {
+                                                console.log(response)
+                                                setTareaModificada(true)
+                                            })
                                     }
-                                    console.log(JSON.stringify({ ...tarea, proyecto: tarea.proyecto.uid }))
-
                                 }
                                 }
                             >{id ? 'Modificar' : 'Crear'}
@@ -349,14 +358,14 @@ function EditarTarea() {
                         </Grid>
                         <Grid item>
                             <Button variant={'contained'} color={'error'}
-                                    onClick={() => navigate('/mistareas')}>Cancelar</Button>
+                                onClick={() => navigate('/mistareas')}>Cancelar</Button>
                         </Grid>
                     </Grid>
                     <br></br>
 
                     <Dialog sx={{ margin: 0, padding: 0 }}
-                            onClose={() => setIsModalErrorVisible(false)}
-                            open={isModalErrorVisible}>
+                        onClose={() => setIsModalErrorVisible(false)}
+                        open={isModalErrorVisible}>
                         <DialogContent sx={{ margin: 0, padding: 0 }}>
                             <Alert severity={'error'}>No se encontro el colaborador buscado.</Alert>
 
@@ -380,12 +389,12 @@ function EditarTarea() {
                     <Dialog open={tareaModifica} onClose={handleModalTareaCreated}>
                         <DialogTitle>Exito</DialogTitle>
                         <DialogContent>
-                            <Grid container style={{alignItems:'center'}}>
+                            <Grid container style={{ alignItems: 'center' }}>
                                 <Grid item xs={12}>
                                     <Typography variant={'h4'}>La tarea se modificó exitosamente!</Typography>
                                 </Grid>
-                                <Grid item style={{justifyItems:"center"}}>
-                                    <Button variant={'contained'} onClick={handleModalTareaCreated} style={{alignContent:'center'}}>
+                                <Grid item style={{ justifyItems: "center" }}>
+                                    <Button variant={'contained'} onClick={handleModalTareaCreated} style={{ alignContent: 'center' }}>
                                         Aceptar
                                     </Button>
                                 </Grid>

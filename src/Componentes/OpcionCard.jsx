@@ -40,7 +40,7 @@ function OpcionCard(props) {
 
 function CardArea(props) {
     return (<>
-            <Card sm={{ maxWidth: 345 }} >
+            <Card sm={{ maxWidth: 345 }} style={{height:'100%'}}>
                 <CardActionArea onClick={props.handler}>
                     <CardMedia
                         component="img"
@@ -49,10 +49,10 @@ function CardArea(props) {
                         alt="green iguana"
                     />
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
+                        <Typography gutterBottom variant="h5" component="div" align='center'>
                             {props.titulo}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" color="text.secondary" whiteSpace="pre-wrap">
                             {props.desc}
                         </Typography>
                     </CardContent>
@@ -65,7 +65,7 @@ function CardArea(props) {
 
 function CardAreaProximamente(props) {
     return (<>
-            <Card sx={{ height: 290 }}>
+            <Card sx={{ height: '100%', width:'100%'}}>
                 <CardActionArea onClick={props.handler} >
                     <CardMedia
                         component="img"
@@ -94,15 +94,15 @@ function CardUserInfo(props) {
             <CardActionArea>
                 <Grid container spacing={2} justifyContent="center">
                     <Grid item md={8}>
-                        <CardContent justifyContent="center">
-                            <Avatar alt="Remy Sharp" src={props.imgUser} sx={{ width: 100, height: 100 }} />
-                            <h5>{props.usuario}</h5>
+                        <CardContent  style={{display:'flex',justifyContent:"center", alignItems:'center'}}>
+                            <Avatar alt="Remy Sharp" src={props.imgUser} sx={{ width: 100, height: 100 }} style={{justifyContent:'center', display:'flex'}}/>                            
+                            <h5 style={{textAlign:'center', marginLeft:'5%'}}>{props.usuario}</h5>
                         </CardContent>
                     </Grid>
                 </Grid>
-                <CardContent>
+                <CardContent style={{paddingTop:'0'}}>
                     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                        <ListItem>
+                        <ListItem style={{paddingTop:'0'}}>
                             <ListItemAvatar>
                                 <Avatar>
                                     <CheckCircleOutlineIcon color="success" />
@@ -150,14 +150,14 @@ function CardReport(props) {
             <CardActionArea onClick={props.handler} >
                 <CardMedia
                     component="img"
-                    height="300px"
+                    height="75%"
                     image={props.img}
                 />
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                <CardContent style={{background:'#214A87', marginTop:'2%'}}>
+                    <Typography gutterBottom variant="h4" component="div" style={{color:'white', textAlign:'center'}} >
                         {props.titulo}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color="text.secondary" style={{color:'white', textAlign:'center', marginBottom:'10%'}}>
                         {props.desc}
                     </Typography>
                 </CardContent>

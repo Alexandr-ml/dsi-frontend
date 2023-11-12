@@ -1,12 +1,3 @@
-import react from 'react'
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
@@ -14,43 +5,41 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Toolbar from "@mui/material/Toolbar";
+import AppBar from "@mui/material/AppBar";
 
 
 function AppBarIndex(props) {
     let navigate = useNavigate();
 
     return (<>
-        <AppBar position="static" style={{ background: '#214A87' }}>
+        <AppBar position="fixed" style={{ background: '#214A87' }}>
             <Container maxWidth="xl" >
-                <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
+                <Toolbar disableGutters sx={{ justifyContent: "center", display:"flex" }}>
                     <Box sx={{ display: "inline-list-item", alignContent: "center" }}>
                         <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="a"
-                            sx={{
-                                mr: 2,
-                                display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                letterSpacing: '.1rem',
-                                color: 'inherit',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            SGDP
-                        </Typography>
+                        <a href='/' style={{ textDecoration: "none", color:'white' }}>
+                            <Typography
+                                variant="h6"
+                                noWrap
+                                component="a"
+                                sx={{
+                                    mr: 2,
+                                    display: { xs: 'none', md: 'flex' },
+                                    fontFamily: 'monospace',
+                                    fontWeight: 700,
+                                    letterSpacing: '.1rem',
+                                    color: 'inherit',
+                                    textDecoration: 'none',
+                                }}
+                            >
+                                SISTEMA GESTOR DE PROYECTOS
+                            </Typography>
+                        </a>
                     </Box>
-                    <Box sx={{ display: "inline-list-item", alignContent: "center" }}>
-                        <Box marginRight={2}>
-                            <Button href="/login" style={{ background: "#FFFFFF" }}>Iniciar Sesión</Button>
-                        </Box>
-                        <Box marginRight={2}>
-                            <Button href="/registro" variant="outlined" style={{ borderColor: "#FFFFFF", color: "#FFFFFF" }}>Crear Cuenta</Button>
-                        </Box>
-                    </Box>
-
                 </Toolbar>
             </Container>
         </AppBar>

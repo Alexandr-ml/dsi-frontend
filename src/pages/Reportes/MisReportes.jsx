@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid} from "@mui/material";
+import { Grid, Typography} from "@mui/material";
 import { CardReport } from "../../Componentes/OpcionCard";
 import { useNavigate } from "react-router-dom";
 
@@ -9,9 +9,9 @@ import { useNavigate } from "react-router-dom";
 function MisReportes() {
     let navigate = useNavigate()
     return <>
-        <div className="container">
-            <h1>Mis Reportes</h1>
-            <Grid container spacing={4} flexWrap={"nowrap"} style={{ display: "flex", justifyContent: "center"}}>
+        <div style={{padding:0, margin:0, display:'block', justifySelf:'center'}}>
+            <Typography variant="h3" align='center' style={{marginBottom:'3%'}}>Mis Reportes</Typography>
+            <Grid container spacing={2} style={{padding:'2%'}}>
                 <Grid item md={4}>
                     <CardReport titulo={"Proyectos"} desc={"Informe de tus proyectos"} handler={()=>{navigate('/reportproy')}} img={"https://res.cloudinary.com/dykkzngwd/image/upload/v1695942222/ImagenesGestor/index/moncai3hrzeoxdurtovt.png"} />
                 </Grid>

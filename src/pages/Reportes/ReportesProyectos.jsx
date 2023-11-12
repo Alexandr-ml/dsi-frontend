@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card, CardContent, Typography, useStepContext, CircularProgress } from "@mui/material";
+import { Card, CardContent, Typography, useStepContext, CircularProgress, Grid } from "@mui/material";
 import { Doughnut, Bar } from "react-chartjs-2";
 import { Chart } from "chart.js/auto";
 import { useState } from "react";
@@ -38,9 +38,9 @@ const ReportProyectos = () => {
         let proyectosNoIniciadosAux = proyectos.filter(valor => valor.estado_Proyecto === 'No iniciado')
         let proyectosEnProgresoAux = proyectos.filter(valor => valor.estado_Proyecto === 'En proceso')
         let proyectosFinalizadosAux = proyectos.filter(valor => valor.estado_Proyecto === 'Finalizado')
-        let proyectos33 = proyectosEnProgresoAux.filter(valor => valor.porcentaje <= 33 )
-        let proyectos66 = proyectosEnProgresoAux. filter (valor => valor.porcentaje >= 33 && valor.porcentaje <= 66 )
-        let proyectos99 = proyectosEnProgresoAux.filter(valor => valor.porcentaje > 66 )
+        let proyectos33 = proyectosEnProgresoAux.filter(valor => valor.porcentaje <= 33)
+        let proyectos66 = proyectosEnProgresoAux.filter(valor => valor.porcentaje >= 33 && valor.porcentaje <= 66)
+        let proyectos99 = proyectosEnProgresoAux.filter(valor => valor.porcentaje > 66)
         setProyectosEnProgreso(proyectosEnProgresoAux)
         setProyectosFinalizados(proyectosFinalizadosAux)
         setProyectosNoIniciados(proyectosNoIniciadosAux)
@@ -57,15 +57,15 @@ const ReportProyectos = () => {
     }
 
     useEffect(() => {
-        fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/proyectos/creador/"+id, initGetProyectos)
+        fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/proyectos/creador/" + id, initGetProyectos)
             .then(rawResponse => rawResponse.json())
             .then((response) => {
                 const proyectos = response.proyectos;
                 filtrarProyectos(proyectos);
                 console.log(proyectos);
             }).catch(error => {
-            console.error("Error", error);
-        })
+                console.error("Error", error);
+            })
     }, []);
 
 
@@ -140,7 +140,7 @@ const ReportProyectos = () => {
         };
 
         return (
-            <div className="tabs-container">
+            <div className="tabs-container" style={{ width: '100%' }}>
                 <div className="tab-buttons">
                     {tabs.map((tab, index) => (
                         <div
@@ -152,7 +152,7 @@ const ReportProyectos = () => {
                         </div>
                     ))}
                 </div>
-                <div className="tab-content">
+                <div className="tab-content" style={{ width: '90%' }}>
                     {tabs[activeTab].content}
                 </div>
             </div>
@@ -162,137 +162,154 @@ const ReportProyectos = () => {
     const tabData = [
         {
             label: 'Estado',
-            content: <div >
-                <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
-                    <div style={{ display: 'flex' }}>
-                        <Doughnut data={data} options={options} />
-                    </div>
-                    <div style={{ display: 'flex', alignContent: 'center', verticalAlign: 'middle' }}>
-                        <Bar data={data} options={optionsBar} />
-                    </div>
-                </div>
-                <br></br>
-                <div style={{ display: 'flex' }}>
+            content:
+                <div >
+                    <Grid container style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Grid item md={6} xs={12} style={{ marginBottom: '5%', padding: '3%' }}>
+                            <Doughnut data={data} options={options} />
+                        </Grid>
+                        <Grid item md={6} xs={12} style={{ padding: '3%' }}>
+                            <Bar data={data} options={optionsBar} />
+                        </Grid>
+                    </Grid>
 
-                    {proyectosNoIniciados ? <>
-                        <TableContainer component={'div'}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell style={{ textAlign: 'center' , background:'#214A87', color:'white'  }}>No iniciados</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {proyectosNoIniciados.map((fila, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell style={{ border: 'none' }}>{fila.nombre}</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                        <TableContainer component={'div'}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell style={{ textAlign: 'center' , background:'#214A87', color:'white' }}>En progreso</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {proyectosEnProgreso.map((fila, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell style={{ border: 'none' }}>{fila.nombre}</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                        <TableContainer component={'div'}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell style={{ textAlign: 'center' , background:'#214A87', color:'white' }}>Finalizados</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {proyectosFinalizados.map((fila, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell style={{ border: 'none' }}>{fila.nombre}</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </>:<div align={'center'}><CircularProgress /></div>}
+                    <div style={{ width: '100%' }}>
+                        {proyectosNoIniciados ? <>
+                            <Grid container style={{ width: '100%' }}>
+                                <Grid item md={4} xs={12}>
+                                    <TableContainer component={'div'}>
+                                        <Table>
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell style={{ textAlign: 'center', background: '#214A87', color: 'white' }}>No iniciados</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {proyectosNoIniciados.map((fila, index) => (
+                                                    <TableRow key={index}>
+                                                        <TableCell style={{ border: 'none' }}>{fila.nombre}</TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </Grid>
+                                <Grid item md={4} xs={12}>
+                                    <TableContainer component={'div'}>
+                                        <Table>
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell style={{ textAlign: 'center', background: '#214A87', color: 'white' }}>En progreso</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {proyectosEnProgreso.map((fila, index) => (
+                                                    <TableRow key={index}>
+                                                        <TableCell style={{ border: 'none' }}>{fila.nombre}</TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </Grid>
+                                <Grid item md={4} xs={12}>
+                                    <TableContainer component={'div'}>
+                                        <Table>
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell style={{ textAlign: 'center', background: '#214A87', color: 'white' }}>Finalizados</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {proyectosFinalizados.map((fila, index) => (
+                                                    <TableRow key={index}>
+                                                        <TableCell style={{ border: 'none' }}>{fila.nombre}</TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </Grid>
+                            </Grid>
+                        </> : <div align={'center'}><CircularProgress /></div>}
+                    </div>
+                    <br></br>
                 </div>
-                <br></br>
-            </div>
         },
         {
             label: 'Porcentaje',
-            content: <div >
-                <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
-                    <div style={{ display: 'flex' }}>
-                        <Doughnut data={dataPor} options={options} />
+            content:
+                <div style={{ width: '100%' }}>
+                    <Grid container style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Grid item md={6} xs={12} style={{ marginBottom: '5%', padding: '3%' }}>
+                            <Doughnut data={dataPor} options={options} />
+                        </Grid>
+                        <Grid item md={6} xs={12} style={{ padding: '3%' }}>
+                            <Bar data={dataPor} options={optionsBar} />
+                        </Grid>
+                    </Grid>
+                    <div style={{ display: "flex" }}>
+                        {proyectos33 ? <>
+                            <Grid container>
+                                <Grid item md={4} xs={12}>
+                                    <TableContainer component={'div'}>
+                                        <Table>
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell style={{ textAlign: 'center', background: '#214A87', color: 'white' }}>0% - 33%</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {proyectos33.map((fila, index) => (
+                                                    <TableRow key={index}>
+                                                        <TableCell style={{ border: 'none' }}>{fila.nombre + " (" + fila.porcentaje + "%)"}</TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </Grid>
+                                <Grid item md={4} xs={12}>
+                                    <TableContainer component={'div'}>
+                                        <Table>
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell style={{ textAlign: 'center', background: '#214A87', color: 'white' }}>34% - 66%</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {proyectos66.map((fila, index) => (
+                                                    <TableRow key={index}>
+                                                        <TableCell style={{ border: 'none' }}>{fila.nombre + " (" + fila.porcentaje + "%)"}</TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </Grid>
+                                <Grid item md={4} xs={12}>
+                                    <TableContainer component={'div'}>
+                                        <Table>
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell style={{ textAlign: 'center', background: '#214A87', color: 'white' }}>67% - 99%</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {proyectos99.map((fila, index) => (
+                                                    <TableRow key={index}>
+                                                        <TableCell style={{ border: 'none' }}>{fila.nombre + " (" + fila.porcentaje + "%)"}</TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </Grid>
+                            </Grid>
+                        </> : <div align={'center'}><CircularProgress /></div>}
                     </div>
-                    <div style={{ display: 'flex', alignContent: 'center', verticalAlign: 'middle' }}>
-                        <Bar data={dataPor} options={optionsBar} />
-                    </div>
+                    <br></br>
                 </div>
-                <br></br>
-                <div style={{display:"flex"}}>
-                    {proyectos33 ? <>
-                        <TableContainer component={'div'}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell style={{ textAlign: 'center', background:'#214A87', color:'white' }}>0% - 33%</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {proyectos33.map((fila, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell style={{ border: 'none' }}>{fila.nombre + " ("+fila.porcentaje+"%)"}</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                        <TableContainer component={'div'}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell style={{ textAlign: 'center' , background:'#214A87', color:'white'  }}>34% - 66%</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {proyectos66.map((fila, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell style={{ border: 'none' , background:'#214A87', color:'white'  }}>{fila.nombre  + " ("+fila.porcentaje+"%)"}</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                        <TableContainer component={'div'}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell style={{ textAlign: 'center' , background:'#214A87', color:'white' }}>67% - 99%</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {proyectos99.map((fila, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell style={{ border: 'none' }}>{fila.nombre  + " ("+fila.porcentaje+"%)"}</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer> </>: <div align={'center'}><CircularProgress /></div>}
-                </div>
-                <br></br>
-            </div>
         }
     ];
 
@@ -301,7 +318,7 @@ const ReportProyectos = () => {
 
         <h2 style={{ textAlign: 'center' }}>Reporte de Proyectos</h2>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Tabs tabs={tabData} />
+            <Tabs tabs={tabData} style={{ width: '100%' }} />
         </div>
 
     </>

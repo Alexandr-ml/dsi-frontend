@@ -29,7 +29,7 @@ function TareasTable({ listaTareas, actualizarTareas }) {
             seModificaronTareas ?
                 <div align={'center'}><CircularProgress /></div>
                 :
-                <TableContainer>
+                <TableContainer sx={{ height: 450, maxHeight: 450 }}>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -39,17 +39,14 @@ function TareasTable({ listaTareas, actualizarTareas }) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-
-
                             {(listaTareas.length > 0) ?
-                                listaTareas.map((value, index) => <RowTarea tarea={value} actualizarTareas={actualizarTareas} setSeModificaronTareas={setSeModificaronTareas} />)
+                                listaTareas.map((value, index) => <RowTarea key={index} tarea={value} actualizarTareas={actualizarTareas} setSeModificaronTareas={setSeModificaronTareas} />)
                                 : <TableRow>
                                     <TableCell colSpan={4}>
                                         <Typography align='center' variant='h5' >No hay tareas</Typography>
                                     </TableCell>
                                 </TableRow>
                             }
-
                         </TableBody>
 
                     </Table>
@@ -111,9 +108,9 @@ function RowTarea({ tarea, actualizarTareas, setSeModificaronTareas }) {
 
 
         <TableRow key={tarea.uid}>
-            <TableCell >{tarea.nombre}</TableCell>
-            <TableCell >{tarea.descripcion.substring(0, 100) + '...'}</TableCell>
-            <TableCell >{tarea?.proyecto.nombre}</TableCell>
+            <TableCell align={'center'}>{tarea.nombre}</TableCell>
+            <TableCell align={'center'}>{tarea.descripcion}</TableCell>
+            <TableCell align={'center'}>{tarea?.proyecto.nombre}</TableCell>
 
             <TableCell align={'center'}>
                 <Tooltip title={'Editar tarea'}>
@@ -124,16 +121,6 @@ function RowTarea({ tarea, actualizarTareas, setSeModificaronTareas }) {
 
                     </IconButton>
                 </Tooltip>
-                <Tooltip title={'Borrar tarea'}>
-                    <IconButton
-                        color={'error'}
-                        onClick={() => {
-                            setSeBorraraTarea(true)
-                        }} >
-                        <DeleteIcon />
-                    </IconButton>
-                </Tooltip>
-
             </TableCell>
 
         </TableRow>
