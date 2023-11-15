@@ -1,5 +1,8 @@
 import React from 'react'
-import { Card, CardActionArea, CardContent, Grid } from "@mui/material";
+import Card from '@mui/material/Card';
+import CardActionArea from '@mui/material/CardActionArea';
+import CardContent from '@mui/material/CardContent';
+import Grid from '@mui/material/Grid';
 import CardActions from '@mui/material/CardActions';
 import Typography from "@mui/material/Typography";
 import IconButton from '@mui/material/IconButton';
@@ -11,69 +14,102 @@ import { Pagination } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import CircularProgress from '@mui/material/CircularProgress';
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import CardMedia from '@mui/material/CardMedia';
+import CloseIcon from '@mui/icons-material/Close';
 
 const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: '90vw',
     bgcolor: 'transparent',
     p: 4,
     transition: '0.3s',
+    textAlign: 'center',
+    maxWidth: 500,
+    maxHeight: 600,
+    padding: 0,
+    margin: 0
 };
+
+const styleModal = {
+    maxWidth: 500,
+    maxHeight: 600,
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    margin: 'auto',
+}
 
 import { Link } from 'react-router-dom';
 
-function BasicModal(nombre, descripcion, enlace, asignado) {
+function BasicModal(nombre, descripcion, enlace, asignado, color, fecha) {
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => { setOpen(true) 
-        document.body.style.overflowY = 'hidden';};
-    const handleClose = () => {setOpen(false)
-        document.body.style.overflowY = 'auto';};
+    const handleOpen = () => {
+        setOpen(true)
+        document.body.style.overflow = 'hidden';
+    };
+    const handleClose = () => {
+        setOpen(false)
+        document.body.style.overflow = 'auto';
+    };
 
     //extraer campo nombre, img del elemento asignado
-
     return (
         <div>
-            <Button variant='outlined' onClick={handleOpen} style={{ color: 'white' }}>Ver tarea</Button>
+            <Button variant='outlined' onClick={handleOpen} style={{ color: 'white', borderColor: 'white' }}>Ver tarea</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+                style={styleModal}
             >
                 <Box sx={style}>
-                    <Card sx={{ maxWidth: 345, bgcolor: '#214A87' }}>
+                    <Card sx={{ bgcolor: color }}>
                         <CardActionArea>
-                            <CardMedia
-                                component="img"
-                                height="140"
-                                image="https://res.cloudinary.com/dykkzngwd/image/upload/v1695007522/ImagenesGestor/Administrador-de-tareas-gratis-header_c2gmj9.png"
-                                alt="green iguana"
-                            />
                             <CardContent>
-                                <Typography id="modal-modal-title" variant="h6" component="h2" color='white'>
-                                    {nombre}
-                                </Typography>
-                                <Typography id="modal-modal-description" sx={{ mt: 2 }} color='white'>
-                                    {descripcion}
-                                </Typography>
-                                <Tooltip title={"Nombre"}>
-                                    <Avatar src={asignado} />
-                                </Tooltip>
-                                <Link to={enlace}>
-                                    <Button variant='outlined' style={{ color: 'white' }}>Editar Tarea</Button>
-                                </Link>
+                                <Grid container>
+                                    <Grid item md={12} margin='2%'>
+                                        <Typography id="modal-modal-title" variant="h5" component="h2" color='white' align='center' fontWeight='bolder'>
+                                            {nombre}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item md={6} style={{ alignSelf: 'center', padding: '2%' }}>
+                                        <Typography id="modal-modal-description" sx={{ mt: 2 }} color='white' style={{ margin: '5%' }}>
+                                            {descripcion}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item md={6} style={{ alignSelf: 'center', padding: '2%' }}>
+                                        <Typography color='white'>Termina: {fecha}</Typography>
+                                        <Typography color='white' variant='subtitle1' style={{ marginTop: '3%' }}>Asignado</Typography>
+                                        <div style={{ display: 'flex', alignContent: 'center', margin: '2%', justifyContent: 'center' }}>
+                                            <Tooltip title={"Nombre"} style={{ marginRight: '3%' }}>
+                                                <Avatar src={asignado.img} />
+                                            </Tooltip>
+                                            <Typography variant='subtitle2' color={'white'} style={{ alignSelf: 'center' }}>{asignado.nombre}</Typography>
+                                        </div>
+                                    </Grid>
+                                </Grid>
+                                <Grid item md={12} margin='2%'>
+                                    <Link to={enlace}>
+                                        <Button variant='outlined' style={{ color: 'white', borderColor: 'white', fontWeight: 'lighter' }}>Editar Tarea</Button>
+                                    </Link>
+                                </Grid>
                             </CardContent>
                         </CardActionArea>
                     </Card>
-
+                    <CloseIcon
+                        edge="end"
+                        color='action'
+                        onClick={handleClose}
+                        aria-label="close"
+                        sx={{ position: 'absolute', top: 5, right: 5, cursor:'pointer' }}
+                    >                        
+                    </CloseIcon>
                 </Box>
             </Modal>
         </div>
@@ -82,8 +118,29 @@ function BasicModal(nombre, descripcion, enlace, asignado) {
 
 
 function BasicCard(props) {
+    let color
+    switch (props.estado) {
+        case "Finalizado":
+            color = "#145406"
+            break;
+        case "No iniciado":
+            color = "#540e06"
+            break;
+        case "En proceso":
+            color = "#a1a102"
+            break;
+        default:
+
+            break;
+    }
+    let descripcion
+    if (props.descripcion.length > 100) {
+        descripcion = props.descripcion.substring(0, 35) + '...'
+    } else {
+        descripcion = props.descripcion
+    }
     return (
-        <Card sx={{ minWidth: 275 }} style={{ background: '#214A87', color: 'white' }}>
+        <Card sx={{ minWidth: 275 }} style={{ background: color, color: 'white' }}>
             <CardContent >
                 <Typography variant="h5" component="div">
                     {props.nombre}
@@ -94,11 +151,11 @@ function BasicCard(props) {
                 <Typography sx={{ mb: 1.5 }} color="white">
                 </Typography>
                 <Typography variant="body2">
-                    {props.descripcion}
+                    {descripcion}
                 </Typography>
             </CardContent>
             <CardActions>
-                {BasicModal(props.nombre, props.descripcion, props.linkT, props.asignado)}
+                {BasicModal(props.nombre, props.descripcion, props.linkT, props.asignado, color, props.final.substring(0, 10))}
             </CardActions>
         </Card>
     );
@@ -145,7 +202,7 @@ function CardTarea(props) {
 function OpcionCardProgreso(props) {
 
     return (<>
-        <Card variant={"outlined"} style={{ background: '#214A87', color: 'white' }}>
+        <Card variant={"outlined"} style={{ background: props.color, color: 'white' }}>
             <CardActionArea onClick={props.handler} >
                 <CardContent style={{ display: 'flex', justifyContent: 'center' }}>
                     <Typography >{props.desc}{props.icono}</Typography>

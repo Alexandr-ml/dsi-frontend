@@ -47,7 +47,7 @@ export default function Login() {
     return <>
         <AppBarIndex />
         <div className='loginCont' style={{width:'100vw', height:'100vh'}}>
-            <form className="formLogin" style={{ width: "70vw" }} id={"loginForm"}>
+            <form className="formLogin" style={{ width: "70vw", maxWidth:'750px' }} id={"loginForm"}>
                 <h2>Iniciar Sesión</h2>
                 <div className="form-outline mb-4">
                     <TextField type="email"
@@ -106,6 +106,8 @@ export default function Login() {
                                         window.location = window.location.href.replace("login", "dashboard")
                                     } else {
                                         setAut(true)
+                                        setEmail("");
+                                        setPassword("");
                                     }
                                 }).catch(error => {
                                 })

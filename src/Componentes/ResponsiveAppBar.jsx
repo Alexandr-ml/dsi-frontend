@@ -1,4 +1,5 @@
 import react, { useEffect } from 'react'
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -24,6 +25,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActionArea from '@mui/material/CardActionArea';
+import CloseIcon from '@mui/icons-material/Close';
+import { Link } from 'react-router-dom';
+
+
 
 const pages = ['Inicio', 'Proyectos', 'Tareas', 'Informes'];
 const settings = ['Perfil', 'Cerrar sesión'];
@@ -42,6 +52,7 @@ const style = {
 function ResponsiveAppBar(props) {
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
+    const [anchorElNot, setAnchorElNot] = useState(null);
     const [notificaciones, setNotificaciones] = useState([]);
 
     const [avatar, setAvatar] = useState()
@@ -99,6 +110,10 @@ function ResponsiveAppBar(props) {
         setAnchorElUser(event.currentTarget);
     };
 
+    const handleOpenNot = (event) => {
+        setAnchorElNot(event.currentTarget);
+    }
+
     const handleCloseNavMenu = (index) => {
         setAnchorElNav(null);
     };
@@ -106,6 +121,14 @@ function ResponsiveAppBar(props) {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+    const handleCloseNot = () => {
+        setAnchorElNot(null);
+    }
+
+    const handleOpenTarea = (tarea, proyecto, fecha) => {
+        setAnchorElNot(null);
+        Notificacion(tarea, proyecto, fecha);
+    }
 
 
 
@@ -127,70 +150,136 @@ function ResponsiveAppBar(props) {
 
 
     const [open, setOpen] = useState(false);
+    const [openNotificacion, setOpenNotificacion] = useState(false)
+    const handleOpenNotificacion = () => setOpenNotificacion(true);
+    const handleCloseNotificacion = () => setOpenNotificacion(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     let hayNotificaciones
 
+    console.log(notificaciones)
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '90vw',
+        bgcolor: 'transparent',
+        p: 4,
+        transition: '0.3s',
+        textAlign: 'center',
+        maxWidth: 500,
+        maxHeight: 600,
+        padding: 0,
+        margin: 0
+    };
+
+    const styleModal = {
+        maxWidth: 500,
+        maxHeight: 600,
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        margin: 'auto',
+    }
+
+    const styleNotificacion = {
+        transition: 'background-color 0.3s',
+
+    }
+
+    function Notificacion(props) {
+        const [openNoti, setOpenNoti] = React.useState(false);
+        const handleOpenNoti = () => {
+            setOpenNoti(true);
+        };
+        const handleCloseNoti = () => {
+            setOpenNoti(false);
+            handleCloseNot();
+        }
+        const handleCloseIcon = () => {
+            setOpenNoti(false);
+        }
+        const nombre = localStorage.getItem('nombreUsuario');
+        const editarTarea = '/mistareas/tarea/' + props.tarea._id + '/editar';
+        const verProyecto = '/misproyectos/proyecto/consultar/' + props.proyecto._id;
+        return (
+            <div>
+                    <Grid container onClick={handleOpenNoti} style={styleNotificacion}>
+                        <Grid item md={12} style={{ alignSelf: 'center' }}>
+                            <Typography style={{ fontSize: '0.9em', fontWeight: 'bold', textAlign: 'left' }}>Se te ha asignado {props.tarea.nombre.toLowerCase()} en {props.proyecto.nombre.toLowerCase()}</Typography>
+                        </Grid>
+                        <Grid item md={12} style={{ alignSelf: 'center', justifySelf: 'right', textAlign: 'right' }}>
+                            <Typography style={{ fontSize: '0.85em' }}>{props.fecha}</Typography>
+                        </Grid>
+                    </Grid>
 
 
+                <Modal
+                    open={openNoti}
+                    onClose={handleCloseIcon}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                    style={styleModal}
+                >
+                    <Box sx={style}>
+                        <Card sx={{ bgcolor: '#214A87' }}>
+                                <CardContent>
+                                    <Grid container>
+                                        <Grid item md={12} margin='2%'>
+                                            <Typography id="modal-modal-title" variant="h5" component="h2" color='white' align='center' fontWeight='bolder'>
+                                                {props.tarea.nombre}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item md={12} style={{ alignSelf: 'center' }}>
+                                            <Typography id="modal-modal-description" color='white' style={{ fontSize: '0.85em' }}>
+                                                {props.proyecto.nombre}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item md={12} style={{ alignSelf: 'center', padding: '2%' }}>
+                                            <Typography id="modal-modal-description" sx={{ mt: 2 }} color='white' style={{ margin: '5%' }}>
+                                                {props.descripcion}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item md={6}>
+                                            <Typography color='white' variant='subtitle1' style={{ marginTop: '3%' }}>Asignado</Typography>
+                                            <div style={{ display: 'flex', alignContent: 'center', margin: '2%', justifyContent: 'center' }}>
+                                                <Tooltip title={"Nombre"} style={{ marginRight: '3%' }}>
+                                                    <Avatar src={avatar} />
+                                                </Tooltip>
+                                                <Typography variant='subtitle2' color={'white'} style={{ alignSelf: 'center' }}>{nombre}</Typography>
+                                            </div>
+                                        </Grid>
+                                        <Grid item md={6} style={{ alignSelf: 'center', padding: '2%' }}>
+                                            <Typography color='white'>Termina: {props.fecha}</Typography>
+                                        </Grid>
+                                        <Grid item md={6} padding='2%' align='center' cursor='default'>
+                                            <Link to={editarTarea} onClick={handleCloseNoti}>
+                                                <Button variant='outlined' style={{ color: '#214A87', borderColor: 'white', fontWeight: 'lighter', background:'white' }}>Editar Tarea</Button>
+                                            </Link>
+                                        </Grid>
+                                        <Grid item md={6} padding='2%' align='center' cursor='default'>
+                                            <Link to={verProyecto} onClick={handleCloseNoti}>
+                                                <Button variant='outlined' style={{ color: '#214A87', borderColor: 'white', fontWeight: 'lighter', background:'white' }}>Ver Proyecto</Button>
+                                            </Link>
+                                        </Grid>
+                                    </Grid>
+                                </CardContent>
+                        </Card>
+                        <CloseIcon
+                            edge="end"
+                            color='action'
+                            onClick={handleCloseIcon}
+                            aria-label="close"
+                            sx={{ position: 'absolute', top: 5, right: 5, cursor: 'pointer' }}
+                        >
+                        </CloseIcon>
+                    </Box>
+                </Modal>
+            </div>
+        );
+    }
 
     return (<>
-
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-            <Box sx={style} textAlign={"center"} style={{background:'white'}}>
-                <Typography variant="h4">Notificaciones</Typography>
-                <br></br>
-                <TableContainer component={'div'}>
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead style={{ background: '#214A87' }}>
-                            <TableRow>
-                                <TableCell align="center" style={{ color: "white", fontWeight: 'bolder' }}>Titulo</TableCell>
-                                <TableCell align="center" style={{ color: "white", fontWeight: 'bolder' }}>Descripcion</TableCell>
-                                <TableCell align="center" style={{ color: "white", fontWeight: 'bolder' }}>Fecha</TableCell>
-                                <TableCell align="center" style={{ color: "white", fontWeight: 'bolder' }}>Proyecto</TableCell>
-                                <TableCell align="center" style={{ color: "white", fontWeight: 'bolder' }}>Tarea</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {notificaciones ? notificaciones.map((element, index) => {
-                                const titulo = element.titulo;
-                                const descripcion = element.descripcion;
-                                const fecha = element.fecha;
-                                /*const proyecto = element.proyecto.nombre; // Accede a la propiedad "nombre" del objeto proyecto
-                                const tarea = element.tarea.nombre;*/
-                                const fechaFormat = fecha.slice(0, 10)
-                                return(
-                                    <TableRow key={index}>
-                                        <TableCell align="center">{titulo}</TableCell>
-                                        <TableCell align="center">{descripcion}</TableCell>
-                                        <TableCell align="center">{fechaFormat}</TableCell>
-                                        {/*<TableCell align="center">{proyecto}</TableCell>
-                                        <TableCell align="center">{tarea}</TableCell>*/}
-                                    </TableRow>
-                                )
-                            }) : <div></div>}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <br></br>
-                <Button variant={'contained'} color={'error'}
-                    onClick={() => {
-                        const headers = new Headers();
-                        headers.set("x-token", sessionStorage.getItem("token"))
-                        const initBorrarTarea = {
-                            method: 'DELETE',
-                            headers: headers,
-                        }
-                        let id = localStorage.getItem("uid")
-                        fetch(serverUrl + "/api/notificaciones/" + id, initBorrarTarea)
-                    }}>Eliminar</Button>
-            </Box>
-        </Modal>
 
         <AppBar position="static" style={{ background: '#214A87' }}>
             <Container maxWidth="xl" >
@@ -282,11 +371,71 @@ function ResponsiveAppBar(props) {
                     </Box>
 
 
-                    <Box sx={{ flexGrow: 0 }} style={{ marginRight: '3%', cursor:'pointer' }}>
+                    <Box sx={{ flexGrow: 0 }} style={{ marginRight: '2%', cursor: 'pointer' }}>
                         <Tooltip title="Notificaciones">
-                            <NotificationsIcon onClick={handleOpen} sx={{ p: 0 }}>
+                            <NotificationsIcon onClick={handleOpenNot} sx={{ p: 0 }}>
                             </NotificationsIcon>
                         </Tooltip>
+                        <Menu
+                            sx={{ mt: '45px' }}
+                            id="menu-appbar"
+                            anchorEl={anchorElNot}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right'
+                            }}
+                            open={Boolean(anchorElNot)}
+                            onClose={handleCloseNot}
+                            padding='0'
+                            style={{ position: 'absolute' }}
+                        >
+                            <Box width='30vw' padding='0'>
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant='h6' paddingLeft='4%'>Notificaciones</Typography>
+                                    <DeleteIcon style={{ alignSelf: 'center', marginRight: '4%', cursor: 'pointer' }} color='error' onClick={() => {
+                                        const headers = new Headers();
+                                        headers.set("x-token", sessionStorage.getItem("token"))
+                                        const initBorrarTarea = {
+                                            method: 'DELETE',
+                                            headers: headers,
+                                        }
+                                        let id = localStorage.getItem("uid")
+                                        fetch(serverUrl + "/api/notificaciones/" + id, initBorrarTarea)
+                                    }}></DeleteIcon>
+                                </div>
+                                <Table style={{ border: 'none' }}>
+                                    <TableBody style={{ border: 'none' }}>
+                                        {notificaciones ? notificaciones.map((element, index) => {
+                                            const titulo = element.titulo;
+                                            const descripcion = element.descripcion;
+                                            const fecha = element.fecha;
+                                            const proyecto = element.proyecto; // Accede a la propiedad "nombre" del objeto proyecto
+                                            const tarea = element.tarea;
+                                            const fechaFormat = fecha.slice(0, 10)
+                                            return (
+                                                <TableRow key={index} style={{ border: 'none' }}>
+                                                    <TableCell align="center" style={{ border: 'none', cursor: 'pointer' }}>
+                                                        <Notificacion
+                                                            tarea={tarea}
+                                                            proyecto={proyecto}
+                                                            fecha={fechaFormat}
+                                                            descripcion={descripcion}
+                                                        ></Notificacion>
+                                                    </TableCell>
+                                                </TableRow>
+                                            )
+                                        }) : <div style={{ margin: '10%' }}>
+                                            <Typography style={{ fontSize: '0.85em', textAlign: 'center' }}>No tienes ninguna notificación</Typography>
+                                        </div>}
+                                    </TableBody>
+                                </Table>
+                            </Box>
+                        </Menu>
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
@@ -310,6 +459,7 @@ function ResponsiveAppBar(props) {
                             }}
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
+                            style={{ position: 'absolute' }}
                         >
                             {settings.map((setting) => (
                                 <MenuItem key={setting} onClick={() => {

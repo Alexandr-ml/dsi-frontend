@@ -23,6 +23,7 @@ const ReportColab = () => {
     const [tareas, setTareas] = useState([])
     const [colabUnicos, setColabUnicos] = useState()
     const [usuariosOcupados, setUsuariosOcupados] = useState([])
+    const [usuariosLibres, setUsuariosLibres] = useState([])
     const [cantOcupados, setCantOcupados] = useState(0)
     const [cantLibres, setCantLibres] = useState(0)
 
@@ -53,19 +54,23 @@ const ReportColab = () => {
         const usuarioUnicos = listColaboradores.filter((usuario, index, self) =>
             index === self.findIndex(u => u.uid === usuario.uid)
         )
-        const usuariosTareas = usuarioUnicos.map(usuario => {
-            const tareasAsignadas = tareasFiltrada.filter(tarea => tarea.asignados === usuario.nombre);
-            return {
-                ...usuario,
-                tieneTareas: tareasAsignadas.length > 0
-            }
+
+        const usuariosTareas = usuarioUnicos.filter(usuario => {
+            const ocupados = tareasFiltrada.some(tarea => tarea.asignados.nombre === usuario.nombre)
+            return ocupados;
         })
-        console.log(usuariosTareas)
-        const ocupados = usuariosTareas.filter(usuario => usuario.tieneTareas = true)
-        const libres = usuariosTareas.filter(usuario => !usuario.tieneTareas)
+
+        const usuariosLibres = usuarioUnicos.filter(usuario => {
+            const ocupados = !tareasFiltrada.some(tarea => tarea.asignados.nombre === usuario.nombre)
+            return ocupados;
+        })
+
+        const ocupados = usuariosTareas;
+        const libres = usuariosLibres;
         setCantOcupados(ocupados.length)
         setCantLibres(libres.length)
-        setUsuariosOcupados(usuariosTareas)
+        setUsuariosOcupados(ocupados)
+        setUsuariosLibres(libres)
 
     }, [listColaboradores, tareas, proyectos]);
 
@@ -190,15 +195,21 @@ const ReportColab = () => {
                             <Table>
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell style={{ textAlign: 'center' , background:'#214A87', color:'white' }}>Colaborador</TableCell>
-                                        <TableCell style={{ textAlign: 'center', background:'#214A87', color:'white'  }}>Estado</TableCell>
+                                        <TableCell style={{ textAlign: 'center', background: '#214A87', color: 'white' }}>Colaborador</TableCell>
+                                        <TableCell style={{ textAlign: 'center', background: '#214A87', color: 'white' }}>Estado</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
+                                    {usuariosLibres.map((fila, index) => (
+                                        <TableRow key={index}>
+                                            <TableCell style={{ border: 'none', textAlign: 'center' }}>{fila.nombre}</TableCell>
+                                            <TableCell style={{ border: 'none', textAlign: 'center' }}>Libre</TableCell>
+                                        </TableRow>
+                                    ))}
                                     {usuariosOcupados.map((fila, index) => (
                                         <TableRow key={index}>
                                             <TableCell style={{ border: 'none', textAlign: 'center' }}>{fila.nombre}</TableCell>
-                                            <TableCell style={{ border: 'none', textAlign: 'center' }}>{fila.tieneTareas ? 'Ocupado' : 'Libre'}</TableCell>
+                                            <TableCell style={{ border: 'none', textAlign: 'center' }}>Ocupado</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>

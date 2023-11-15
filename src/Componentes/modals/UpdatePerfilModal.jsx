@@ -72,25 +72,24 @@ export default function UpdatePerfilModal({modalUpdatePerfilOPen,setInfoPersonal
 
     return <>
         <Dialog open={modalUpdatePerfilOPen} onClose={handleCloseAsCancel}>
-            <DialogTitle>Actualizar informacion personal.</DialogTitle>
-            <DialogContent>
+            <DialogTitle  style={{backgroundColor:'#214A87', color: 'white'}}>Actualizar informacion personal</DialogTitle>
+            <DialogContent  style={{backgroundColor:'#214A87', color: 'white', padding:'4%'}}>
 
                 {
                     cargando ? <CircularProgress/>
                         :
-                        <Stack spacing={2}>
-                        <Typography>Nombre:</Typography>
-                        <TextField type="text" value={copyNombre} onChange={handleOnChangeNombre}/>
-                    </Stack>
+                        <div style={{display:'flex', alignContent:'center', justifyContent:'center', color:'white'}}>
+                            <TextField label='Nombre' type="text" value={copyNombre} onChange={handleOnChangeNombre}/>
+                        </div>
 
                 }
 
             </DialogContent>
 
-            <DialogActions>
-                <Button color="success" onClick={actualizarDatos}>Actualizar.</Button>
-                <Button onClick={handleCloseAsCancel}>Cancelar.</Button>
-            </DialogActions>
+            <div style={{backgroundColor:'#214A87', width:'100%', alignSelf:'center', padding:'2%', display:'flex', justifyContent:'center'}}>
+                <Button variant='contained' color="success" onClick={actualizarDatos} style={{margin:'2%'}}>Actualizar</Button>
+                <Button variant='contained' color='error' onClick={handleCloseAsCancel} style={{margin:'2%'}}>Cancelar</Button>
+            </div>
         </Dialog>
 
     </>

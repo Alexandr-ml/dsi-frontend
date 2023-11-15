@@ -15,6 +15,7 @@ import Loading from '../../Componentes/Loading.jsx';
 
 function MisTareas(){
 
+    var id = localStorage.getItem("uid")
     const headers = new Headers()
     headers.set("x-token", sessionStorage.getItem("token"))
 
@@ -24,7 +25,8 @@ function MisTareas(){
     }
 
 
-    let [tareas,setTareas] = useState()
+    let [tareas,setTareas] = useState([])
+    let [proyectos, setProyectos] = useState([])
 
     const [tareasNoIniciadas,setTareasNoIniciadas] = useState()
     const [tareasEnProgreso,setTareasEnProgreso] = useState()
@@ -33,16 +35,10 @@ function MisTareas(){
     const [misTareasProgre, setMisTareasProgre] = useState([])
     const [misTareasFin, setMisTareasFin] = useState([])
 
+    const [tareasFiltradas, setTareasFiltradas] = useState([])
     let navigate = useNavigate()
 
     const actualizarTareas = (tareas) => {
-        setTareas(tareas)
-        let tareasNoIniciadasAux = tareas.filter(valor => valor.estado_Tarea === 'No iniciado')
-        let tareasFinalizadasAux = tareas.filter(valor => valor.estado_Tarea === 'Finalizado')
-        let tareasEnProgresoAux = tareas.filter(valor => valor.estado_Tarea === 'En proceso')
-        setTareasEnProgreso(tareasEnProgresoAux)
-        setTareasNoIniciadas(tareasNoIniciadasAux)
-        setTareasFinalizadas(tareasFinalizadasAux)
         console.log(tareas)
         let tareasFiltradas = tareas.filter(valor => valor.asignados.nombre ===localStorage.getItem("nombreUsuario"))
         let misTareasNoIniciadasAux = tareasFiltradas.filter(valor => valor.estado_Tarea === 'No iniciado')
@@ -60,11 +56,33 @@ function MisTareas(){
             .then(respuesta => {
 
                 const tareas =  respuesta.tareas
+                setTareas(tareas)
                 actualizarTareas(tareas)
 
             })
+        fetch(serverUrl + '/api/proyectos/creador/'+id, initGetTareas)
+        .then(rawResponse => rawResponse.json())
+            .then((response) => {
+                const proyectos = response.proyectos
+                setProyectos(proyectos)
+                console.log(proyectos)
+            })
         
     }, []);
+
+    useEffect(()=>{
+        if(proyectos || tareas){
+        let idsProyectos = proyectos.map(proyecto => proyecto.uid)
+        let tareasFiltrada = tareas.filter(tarea => idsProyectos.includes(tarea.proyecto._id))
+        setTareasFiltradas(tareasFiltrada)
+        let tareasNoIniciadasAux = tareasFiltrada.filter(valor => valor.estado_Tarea === 'No iniciado')
+        let tareasFinalizadasAux = tareasFiltrada.filter(valor => valor.estado_Tarea === 'Finalizado')
+        let tareasEnProgresoAux = tareasFiltrada.filter(valor => valor.estado_Tarea === 'En proceso')
+        setTareasEnProgreso(tareasEnProgresoAux)
+        setTareasNoIniciadas(tareasNoIniciadasAux)
+        setTareasFinalizadas(tareasFinalizadasAux)
+    }
+    }, [tareas, proyectos])
 
     let [tabSeleccionada,setTabSeleccionada] = useState(0)
     let [miTabSelec, setMiTabSelec] = useState(0)
@@ -130,7 +148,7 @@ function MisTareas(){
         <Container>
 
             {
-                tareas?<> <Tabs value={tabSeleccionada} onChange={handleTabChanged}>
+                tareasNoIniciadas?<> <Tabs value={tabSeleccionada} onChange={handleTabChanged}>
                         <Tab style={{color:'#214A87'}} label={'No iniciadas'} value={0}/>
                         <Tab style={{color:'#214A87'}}label={'En progreso'} value={1}/>
                         <Tab style={{color:'#214A87'}}label={'Finalizadas'} value={2}/>
