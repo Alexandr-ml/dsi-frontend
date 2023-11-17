@@ -78,6 +78,7 @@ function CrearTarea() {
         fetch(url + '/api/proyectos/' + id, initGetProyecto)
             .then(raw => raw.json())
             .then(response => {
+                setProject(response.resto._doc)
                 setUsuarios(response.resto._doc.colaboradores)
             })
     }, []);
@@ -157,19 +158,13 @@ function CrearTarea() {
 
                 :
                 <div>
-                    {usuarios ?
+                    {usuarios&&project ?
                         < Container >
 
-                            {
-                                project && usuarios ?
                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                        <Typography variant={'h3'} className={'mb-4'}>Tarea</Typography>
-                                        <Typography variant='h5' className='mb-4' style={{ marginLeft: '5%' }}>Proyecto: {project.nombre}</Typography>
+                                        <Typography variant={'h3'} className={'mb-4'}>Crear tarea en {project.nombre}</Typography>
                                     </div>
-                                    : <div>
-                                        <Typography variant={'h3'} className={'mb-4'}>Tarea</Typography>
 
-                                    </div>}
                             <Grid container alignItems={'center'} style={{ display: 'flex' }} spacing={4} className={'mb-4'}>
                                 <Grid item xs={12} >
 
@@ -193,7 +188,7 @@ function CrearTarea() {
                                         label={'Descripción'} />
                                 </Grid>
 
-                                <Grid item >
+                                <Grid item md={3}>
                                     <TextField
                                         label={'Estado'}
                                         required
@@ -208,7 +203,7 @@ function CrearTarea() {
                                     </TextField>
                                 </Grid>
 
-                                <Grid item>
+                                <Grid item md={3}>
                                     <DatePicker
                                         value={tarea ? dayjs(tarea.create_date) : null}
                                         label={'Fecha de inicio'}
@@ -216,7 +211,7 @@ function CrearTarea() {
                                         onChange={handleStartDateChange} />
                                 </Grid>
 
-                                <Grid item>
+                                <Grid item md={3}>
                                     <DatePicker
                                         label={'Fecha de finalizacion'}
                                         disablePast
@@ -226,7 +221,7 @@ function CrearTarea() {
                                     />
                                 </Grid>
 
-                                <Grid item xs={6} justifySelf={'center'}>
+                                <Grid item xs={6} md={3} justifySelf={'center'}>
                                     <Autocomplete
                                         options={usuarios ? usuarios : []}
                                         getOptionLabel={(option) => option.nombre}

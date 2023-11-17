@@ -67,6 +67,7 @@ function RowTarea({ tarea, actualizarTareas, setSeModificaronTareas }) {
 
     let navigate = useNavigate()
     let [seBorraraTarea, setSeBorraraTarea] = useState(false)
+    let descripcion = tarea.descripcion 
 
 
     const cerrarDialog = () => setSeBorraraTarea(false)
@@ -85,7 +86,9 @@ function RowTarea({ tarea, actualizarTareas, setSeModificaronTareas }) {
             headers: headers,
         }
 
-
+        if(descripcion.length > 100){
+            descripcion = tarea.descripcion.substring(0, 100) + '...'
+        }
         cerrarDialog()
         console.log(tarea)
 
@@ -112,7 +115,7 @@ function RowTarea({ tarea, actualizarTareas, setSeModificaronTareas }) {
 
         <TableRow key={tarea.uid}>
             <TableCell >{tarea.nombre}</TableCell>
-            <TableCell >{tarea.descripcion.substring(0, 100) + '...'}</TableCell>
+            <TableCell >{descripcion}</TableCell>
             <TableCell >{tarea?.proyecto.nombre}</TableCell>
 
             <TableCell align={'center'}>

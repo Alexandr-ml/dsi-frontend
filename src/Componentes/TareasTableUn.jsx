@@ -63,9 +63,13 @@ function TareasTable({ listaTareas, actualizarTareas }) {
 function RowTarea({ tarea, actualizarTareas, setSeModificaronTareas }) {
 
     let navigate = useNavigate()
-    let [seBorraraTarea, setSeBorraraTarea] = useState(false)
+    let descripcion = tarea.descripcion
+    console.log(descripcion)
 
-
+    if(tarea.descripcion.length > 100){
+        descripcion = tarea.descripcion.substring(0, 100) + '...'
+        console.log('si')
+    }
     const cerrarDialog = () => setSeBorraraTarea(false)
     const borrarTarea = () => {
 
@@ -82,6 +86,7 @@ function RowTarea({ tarea, actualizarTareas, setSeModificaronTareas }) {
             headers: headers,
         }
 
+        
 
         cerrarDialog()
         console.log(tarea)
@@ -109,7 +114,7 @@ function RowTarea({ tarea, actualizarTareas, setSeModificaronTareas }) {
 
         <TableRow key={tarea.uid}>
             <TableCell align={'center'}>{tarea.nombre}</TableCell>
-            <TableCell align={'center'}>{tarea.descripcion}</TableCell>
+            <TableCell align={'center'}>{descripcion}</TableCell>
             <TableCell align={'center'}>{tarea?.proyecto.nombre}</TableCell>
 
             <TableCell align={'center'}>
@@ -124,27 +129,6 @@ function RowTarea({ tarea, actualizarTareas, setSeModificaronTareas }) {
             </TableCell>
 
         </TableRow>
-
-        <Dialog open={seBorraraTarea} onClose={cerrarDialog}>
-            <DialogTitle><Typography variant={'h5'} color={'error'}>Desea eliminar esta tarea?</Typography></DialogTitle>
-
-            <DialogContent>
-                <p>Esta accion no puede deshacerse.</p>
-            </DialogContent>
-
-            <DialogActions>
-                <Button
-                    onClick={borrarTarea}
-                    variant={'contained'}
-                    color={'error'}> Eliminar.</Button>
-                <Button
-                    onClick={cerrarDialog}
-                    variant={'contained'}
-                    color={'primary'}>Cancelar</Button>
-            </DialogActions>
-        </Dialog>
-
-
 
     </>
 

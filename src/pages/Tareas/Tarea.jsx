@@ -225,184 +225,184 @@ function EditarTarea() {
                     {usuarios ?
                         < Container >
 
-                        {
-                            project?
-                                <div style = {{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Typography variant={'h3'} className={'mb-4'}>Tarea</Typography>
-                    <Typography variant='h5' className='mb-4' style={{ marginLeft: '5%' }}>Proyecto: {project.nombre}</Typography>
-                </div>
-                        : <div></div>}
-        <Grid container alignItems={'center'} style={{ display: 'flex' }} spacing={4} className={'mb-4'}>
-            <Grid item xs={12} >
+                            {
+                                project ?
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                        <Typography variant={'h3'} className={'mb-4'}>Tarea</Typography>
+                                        <Typography variant='h5' className='mb-4' style={{ marginLeft: '5%' }}>Proyecto: {project.nombre}</Typography>
+                                    </div>
+                                    : <div></div>}
+                            <Grid container alignItems={'center'} style={{ display: 'flex' }} spacing={4} className={'mb-4'}>
+                                <Grid item xs={12} >
 
-                <TextField
-                    required
-                    value={tarea ? tarea.nombre : ''}
-                    hiddenLabel={tarea ? true : false}
-                    label={'Nombre de la tarea'}
-                    onChange={handleTareaNameChange}
-                />
+                                    <TextField
+                                        required
+                                        value={tarea ? tarea.nombre : ''}
+                                        hiddenLabel={tarea ? true : false}
+                                        label={'Nombre de la tarea'}
+                                        onChange={handleTareaNameChange}
+                                    />
 
-            </Grid>
-            <Grid item xs={12} >
-                <TextField
-                    required
-                    multiline
-                    value={tarea ? tarea.descripcion : ''}
-                    fullWidth
-                    rows={6}
-                    onChange={handleTareaDescrChange}
-                    label={'Descripción'} />
-            </Grid>
+                                </Grid>
+                                <Grid item xs={12} >
+                                    <TextField
+                                        required
+                                        multiline
+                                        value={tarea ? tarea.descripcion : ''}
+                                        fullWidth
+                                        rows={6}
+                                        onChange={handleTareaDescrChange}
+                                        label={'Descripción'} />
+                                </Grid>
 
-            <Grid item >
-                <TextField
-                    label={'Estado'}
-                    required
-                    fullWidth
-                    defaultValue={''}
-                    value={tarea ? tarea.estado_Tarea : 'No iniciado'}
-                    onChange={handleTareaEstadoChange}
-                    select>
-                    <MenuItem key={'No iniciado'} value={'No iniciado'}>No iniciado</MenuItem>
-                    <MenuItem key={'En proceso'} value={'En proceso'}>En proceso</MenuItem>
-                    <MenuItem key={'Finalizado'} value={'Finalizado'}>Finalizado</MenuItem>
-                </TextField>
-            </Grid>
+                                <Grid item >
+                                    <TextField
+                                        label={'Estado'}
+                                        required
+                                        fullWidth
+                                        defaultValue={''}
+                                        value={tarea ? tarea.estado_Tarea : 'No iniciado'}
+                                        onChange={handleTareaEstadoChange}
+                                        select>
+                                        <MenuItem key={'No iniciado'} value={'No iniciado'}>No iniciado</MenuItem>
+                                        <MenuItem key={'En proceso'} value={'En proceso'}>En proceso</MenuItem>
+                                        <MenuItem key={'Finalizado'} value={'Finalizado'}>Finalizado</MenuItem>
+                                    </TextField>
+                                </Grid>
 
-            <Grid item>
-                <DatePicker
-                    value={tarea ? dayjs(tarea.create_date) : null}
-                    label={'Fecha de inicio'}
-                    disablePast
-                    onChange={handleStartDateChange} />
-            </Grid>
+                                <Grid item>
+                                    <DatePicker
+                                        value={tarea ? dayjs(tarea.create_date) : null}
+                                        label={'Fecha de inicio'}
+                                        disablePast
+                                        onChange={handleStartDateChange} />
+                                </Grid>
 
-            <Grid item>
-                <DatePicker
-                    label={'Fecha de finalizacion'}
-                    disablePast
-                    onChange={handleEndDateChange}
-                    onClick={handleStartDateChange}
-                    value={tarea ? dayjs(tarea.ending_date) : null}
-                />
-            </Grid>
+                                <Grid item>
+                                    <DatePicker
+                                        label={'Fecha de finalizacion'}
+                                        disablePast
+                                        onChange={handleEndDateChange}
+                                        onClick={handleStartDateChange}
+                                        value={tarea ? dayjs(tarea.ending_date) : null}
+                                    />
+                                </Grid>
 
-            <Grid item xs={6} justifySelf={'center'}>
-                <Autocomplete
-                    options={usuarios ? usuarios : []}
-                    getOptionLabel={(option) => option.nombre}
-                    includeInputInList
-                    value={emailAsignado}
-                    isOptionEqualToValue={(option, value) => option._id === value._id}
-                    autoComplete={true}
-                    noOptionsText={'Sin resultados'}
-                    filterOptions={(opciones, seleccion) => {
-                        const filteredOptions = opciones.filter(option => option.nombre.search(seleccion.inputValue) !== -1)
-                        console.log(seleccion)
-                        return filteredOptions
+                                <Grid item xs={6} justifySelf={'center'}>
+                                    <Autocomplete
+                                        options={usuarios ? usuarios : []}
+                                        getOptionLabel={(option) => option.nombre}
+                                        includeInputInList
+                                        value={emailAsignado}
+                                        isOptionEqualToValue={(option, value) => option._id === value._id}
+                                        autoComplete={true}
+                                        noOptionsText={'Sin resultados'}
+                                        filterOptions={(opciones, seleccion) => {
+                                            const filteredOptions = opciones.filter(option => option.nombre.search(seleccion.inputValue) !== -1)
+                                            console.log(seleccion)
+                                            return filteredOptions
+                                        }
+                                        }
+                                        onChange={(e, v, r, d) => {
+                                            console.log(v._id)
+                                            handleAgregarAsignado(v._id)
+                                        }}
+                                        renderInput={(params) => <TextField {...params} label={'Asignar tarea'} />} />
+                                </Grid>
+
+                            </Grid>
+
+
+                            <Grid container spacing={2} alignItems={'center'} justifyContent={'center'}>
+                                <Grid item >
+                                    <Button
+                                        variant={'contained'}
+                                        color={id ? 'warning' : 'primary'}
+                                        onClick={() => {
+                                            let headers = new Headers
+                                            headers.set("x-token", sessionStorage.getItem("token"));
+                                            headers.set("Content-Type", "application/json");
+
+                                            if (!id) {
+                                                console.log(JSON.stringify({ ...tarea, proyecto: tarea.proyecto.uid, asignados: tarea.asignados }))
+
+                                                fetch(url + `/api/tareas`, {
+                                                    method: 'post',
+                                                    headers: headers,
+                                                    body: JSON.stringify({ ...tarea, proyecto: tarea.proyecto.uid, asignados: tarea.asignados })
+                                                })
+                                                    .then(raw => raw.json())
+                                                    .then(response => {
+                                                        setTareaCreada(true)
+                                                        console.log(response)
+                                                    })
+                                            } else {
+                                                console.log(JSON.stringify({ ...tarea, proyecto: tarea.proyecto.uid, asignados: tarea.asignados }))
+                                                fetch(url + `/api/tareas/${tarea.uid}`, {
+                                                    method: 'put',
+                                                    headers: headers,
+                                                    body: JSON.stringify({ ...tarea, proyecto: tarea.proyecto.uid, asignados: tarea.asignados })
+                                                })
+                                                    .then(raw => raw.json())
+                                                    .then(response => {
+                                                        console.log(response)
+                                                        setTareaModificada(true)
+                                                    })
+                                            }
+                                        }
+                                        }
+                                    >{id ? 'Modificar' : 'Crear'}
+                                    </Button>
+                                </Grid>
+                                <Grid item>
+                                    <Button variant={'contained'} color={'error'}
+                                        onClick={() => navigate('/mistareas')}>Cancelar</Button>
+                                </Grid>
+                            </Grid>
+                            <br></br>
+
+                            <Dialog sx={{ margin: 0, padding: 0 }}
+                                onClose={() => setIsModalErrorVisible(false)}
+                                open={isModalErrorVisible}>
+                                <DialogContent sx={{ margin: 0, padding: 0 }}>
+                                    <Alert severity={'error'}>No se encontro el colaborador buscado.</Alert>
+
+                                </DialogContent>
+                            </Dialog>
+                            <Dialog open={tareaCreada} onClose={handleModalTareaCreated}>
+                                <DialogTitle>Exito</DialogTitle>
+                                <DialogContent>
+                                    <Grid container>
+                                        <Grid item xs={12}>
+                                            <Typography variant={'h4'}>La tarea se creo exitosamente!</Typography>
+                                        </Grid>
+                                        <Grid item>
+                                            <Button variant={'contained'} onClick={handleModalTareaCreated}>
+                                                Aceptar
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                </DialogContent>
+                            </Dialog>
+                            <Dialog open={tareaModifica} onClose={handleModalTareaCreated}>
+                                <DialogTitle>Exito</DialogTitle>
+                                <DialogContent>
+                                    <Grid container style={{ alignItems: 'center' }}>
+                                        <Grid item xs={12}>
+                                            <Typography variant={'h4'}>La tarea se modificó exitosamente!</Typography>
+                                        </Grid>
+                                        <Grid item style={{ justifyItems: "center" }}>
+                                            <Button variant={'contained'} onClick={handleModalTareaCreated} style={{ alignContent: 'center' }}>
+                                                Aceptar
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                </DialogContent>
+                            </Dialog>
+                        </Container > : <div></div>
                     }
-                    }
-                    onChange={(e, v, r, d) => {
-                        console.log(v._id)
-                        handleAgregarAsignado(v._id)
-                    }}
-                    renderInput={(params) => <TextField {...params} label={'Asignar tarea'} />} />
-            </Grid>
-
-        </Grid>
-
-
-        <Grid container spacing={2} alignItems={'center'} justifyContent={'center'}>
-            <Grid item >
-                <Button
-                    variant={'contained'}
-                    color={id ? 'warning' : 'primary'}
-                    onClick={() => {
-                        let headers = new Headers
-                        headers.set("x-token", sessionStorage.getItem("token"));
-                        headers.set("Content-Type", "application/json");
-
-                        if (!id) {
-                            console.log(JSON.stringify({ ...tarea, proyecto: tarea.proyecto.uid, asignados: tarea.asignados }))
-
-                            fetch(url + `/api/tareas`, {
-                                method: 'post',
-                                headers: headers,
-                                body: JSON.stringify({ ...tarea, proyecto: tarea.proyecto.uid, asignados: tarea.asignados })
-                            })
-                                .then(raw => raw.json())
-                                .then(response => {
-                                    setTareaCreada(true)
-                                    console.log(response)
-                                })
-                        } else {
-                            console.log(JSON.stringify({ ...tarea, proyecto: tarea.proyecto.uid, asignados: tarea.asignados }))
-                            fetch(url + `/api/tareas/${tarea.uid}`, {
-                                method: 'put',
-                                headers: headers,
-                                body: JSON.stringify({ ...tarea, proyecto: tarea.proyecto.uid, asignados: tarea.asignados })
-                            })
-                                .then(raw => raw.json())
-                                .then(response => {
-                                    console.log(response)
-                                    setTareaModificada(true)
-                                })
-                        }
-                    }
-                    }
-                >{id ? 'Modificar' : 'Crear'}
-                </Button>
-            </Grid>
-            <Grid item>
-                <Button variant={'contained'} color={'error'}
-                    onClick={() => navigate('/mistareas')}>Cancelar</Button>
-            </Grid>
-        </Grid>
-        <br></br>
-
-        <Dialog sx={{ margin: 0, padding: 0 }}
-            onClose={() => setIsModalErrorVisible(false)}
-            open={isModalErrorVisible}>
-            <DialogContent sx={{ margin: 0, padding: 0 }}>
-                <Alert severity={'error'}>No se encontro el colaborador buscado.</Alert>
-
-            </DialogContent>
-        </Dialog>
-        <Dialog open={tareaCreada} onClose={handleModalTareaCreated}>
-            <DialogTitle>Exito</DialogTitle>
-            <DialogContent>
-                <Grid container>
-                    <Grid item xs={12}>
-                        <Typography variant={'h4'}>La tarea se creo exitosamente!</Typography>
-                    </Grid>
-                    <Grid item>
-                        <Button variant={'contained'} onClick={handleModalTareaCreated}>
-                            Aceptar
-                        </Button>
-                    </Grid>
-                </Grid>
-            </DialogContent>
-        </Dialog>
-        <Dialog open={tareaModifica} onClose={handleModalTareaCreated}>
-            <DialogTitle>Exito</DialogTitle>
-            <DialogContent>
-                <Grid container style={{ alignItems: 'center' }}>
-                    <Grid item xs={12}>
-                        <Typography variant={'h4'}>La tarea se modificó exitosamente!</Typography>
-                    </Grid>
-                    <Grid item style={{ justifyItems: "center" }}>
-                        <Button variant={'contained'} onClick={handleModalTareaCreated} style={{ alignContent: 'center' }}>
-                            Aceptar
-                        </Button>
-                    </Grid>
-                </Grid>
-            </DialogContent>
-        </Dialog>
-    </Container >: <div></div>
-}
-                </div > 
-                }
+                </div >
+        }
 
     </>
 

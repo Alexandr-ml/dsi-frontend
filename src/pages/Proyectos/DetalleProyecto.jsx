@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ResponsiveAppBar from "../../Componentes/ResponsiveAppBar.jsx";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { OpcionCardTareas, OpcionCardAvance, OpcionCardDetalle, OpcionCardRecursos, OpcionCardProgreso, BasicCard } from "../../Componentes/DetalleProyecto.jsx"
 import Box from "@mui/material/Box";
 import ConstructionIcon from '@mui/icons-material/Construction';
@@ -19,6 +19,7 @@ import { Link } from 'react-router-dom';
 import { Style } from '@mui/icons-material';
 import { set } from 'date-fns';
 import Loading from '../../Componentes/Loading.jsx'
+import { Add } from "@mui/icons-material";
 
 
 function DetalleProyecto() {
@@ -200,30 +201,46 @@ function DetalleProyecto() {
                             <OpcionCardRecursos colaboradores={colaboradoresProyecto} />
                         </Grid>
                     </Grid>
-                    <Typography variant='h4' textAlign='center' color='#214A87'>Tareas</Typography>
-                    <Grid container spacing={1} sx={{ mt: 1, background: 'white', paddingRight: 1 }} style={{ borderRadius: 10 }}>
-                        {proyectoTarea ? (
-                            proyectoTarea.map((element, index) => (
-                                <Grid item md={4} xs={12} lg={3} key={index}>
-                                    <BasicCard
-                                        asignado={element.asignados}
-                                        estado={element.estado_Tarea}
-                                        nombre={element.nombre}
-                                        descripcion={element.descripcion}
-                                        final={element.ending_date}
-                                        linkT={'/mistareas/tarea/' + element.uid + '/editar'}
-                                    />
-                                </Grid>
-                            ))
-                        ) : (
-                            <CircularProgress />
-                        )}
+                    <Grid container alignItems={'center'} className={'mb-3'}>
+                        <Grid item xs={8} >
+                            <Typography variant={'h3'} color='#214A87'>Tareas</Typography>
+                        </Grid >
+                        <Grid item xs={4} justifyContent={'right'} display={'flex'}>
+                            {dueno? 
+                            <Button
+                                onClick={() => {
+                                    navigate(`/mistareas/creartarea/${idPro}`)
+                                }}
+                                variant={'contained'}
+                                style={{ background: '#214A87', color: 'white', marginRight:'5%' }}
+                                endIcon={<Add />}
+                                >Nueva tarea</Button>
+                                : <div></div>}
+                        </Grid>
                     </Grid>
-                    <br></br>
-                </div>
-                : <Loading></Loading>}
-        </>
-    )
+                            <Grid container spacing={1} sx={{ mt: 1, background: 'white', paddingRight: 1 }} style={{ borderRadius: 10 }}>
+                                {proyectoTarea ? (
+                                    proyectoTarea.map((element, index) => (
+                                        <Grid item md={4} xs={12} lg={3} key={index}>
+                                            <BasicCard
+                                                asignado={element.asignados}
+                                                estado={element.estado_Tarea}
+                                                nombre={element.nombre}
+                                                descripcion={element.descripcion}
+                                                final={element.ending_date}
+                                                linkT={'/mistareas/tarea/' + element.uid + '/editar'}
+                                            />
+                                        </Grid>
+                                    ))
+                                ) : (
+                                    <CircularProgress />
+                                )}
+                            </Grid>
+                            <br></br>
+                        </div>
+                        : <Loading></Loading>}
+                    </>
+                    )
 }
 
-export default DetalleProyecto;
+                    export default DetalleProyecto;
