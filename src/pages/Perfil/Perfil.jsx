@@ -77,12 +77,12 @@ function Perfil(){
                 <Button variant='contained' color={'error'} onClick={()=>{
                     const headers = new Headers();
                     headers.set("x-token", sessionStorage.getItem("token"))
-                    const initBorrarTarea = {
+                    const initBorrarUsuario = {
                         method: 'DELETE',
                         headers: headers,
                     }
                     let id = localStorage.getItem("uid")
-                    fetch(url + "/api/usuarios/" + id, initBorrarTarea)
+                    fetch(url + "/api/usuarios/" + id, initBorrarUsuario)
                     navigate("/login")
                 }}>Eliminar</Button>
             </DialogActions>

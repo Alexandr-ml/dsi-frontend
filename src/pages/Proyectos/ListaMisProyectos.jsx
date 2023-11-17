@@ -155,7 +155,7 @@ function ListaMisProyectos() {
                                                 <TableCell align={'center'}>
                                                     <Tooltip title={'Agregar tarea'}>
                                                         <IconButton color={'success'} onClick={() => {
-                                                            navigate(`/mistareas/tarea`)
+                                                            navigate(`/mistareas/creartarea/${proyecto.uid}`)
                                                         }}>
                                                             <Add />
                                                         </IconButton>

@@ -52,7 +52,7 @@ function Tareas() {
                 </Grid >
                 <Grid item xs={4} justifyContent={'right'} display={'flex'}>
                     <Button
-                        onClick={() => navigate('/mistareas/tarea')}
+                        onClick={() => navigate('/mistareas/creartarea')}
                         variant={'contained'}
                         endIcon={<Add />}>Nueva tarea</Button>
                 </Grid>

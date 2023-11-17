@@ -22,6 +22,7 @@ import MisReportes from "./pages/Reportes/MisReportes.jsx";
 import ReportColab from "./pages/Reportes/ReportesColab.jsx";
 import ReportProyectos from "./pages/Reportes/ReportesProyectos.jsx";
 import ReportTareas from "./pages/Reportes/ReportesTareas.jsx";
+import CrearTarea from "./pages/Tareas/CrearTarea.jsx"
 export const App = () => {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'es-mx'}>
@@ -45,6 +46,7 @@ export const App = () => {
                         <Route path={"/reportcolab"} element={<Dashboard><ReportColab/></Dashboard>}/>
                         <Route path={"/reportproy"} element={<Dashboard><ReportProyectos/></Dashboard>}/>
                         <Route path={"/reporttareas"} element={<Dashboard><ReportTareas/></Dashboard>}/>
+                        <Route path={"mistareas/creartarea/:id"} element={<Dashboard><CrearTarea/></Dashboard>}></Route>
                     </Route>
                 </Routes>
             </BrowserRouter>

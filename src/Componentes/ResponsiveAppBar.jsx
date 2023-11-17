@@ -393,11 +393,11 @@ function ResponsiveAppBar(props) {
                             onClose={handleCloseNot}
                             padding='0'
                             style={{ position: 'absolute' }}
-                        >
+                        >                            
                             <Box width='30vw' padding='0'>
                                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                     <Typography variant='h6' paddingLeft='4%'>Notificaciones</Typography>
-                                    <DeleteIcon style={{ alignSelf: 'center', marginRight: '4%', cursor: 'pointer' }} color='error' onClick={() => {
+                                    <DeleteIcon style={{ alignSelf: 'center', marginRight: '4%'}} color='error' onClick={() => {
                                         const headers = new Headers();
                                         headers.set("x-token", sessionStorage.getItem("token"))
                                         const initBorrarTarea = {
