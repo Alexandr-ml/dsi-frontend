@@ -134,7 +134,7 @@ function BasicCard(props) {
             break;
     }
     let descripcion
-    if (props.descripcion.length > 100) {
+    if (props.descripcion.length > 35) {
         descripcion = props.descripcion.substring(0, 35) + '...'
     } else {
         descripcion = props.descripcion

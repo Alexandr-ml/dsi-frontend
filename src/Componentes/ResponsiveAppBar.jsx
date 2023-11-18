@@ -182,14 +182,11 @@ function ResponsiveAppBar(props) {
         margin: 'auto',
     }
 
-    const styleNotificacion = {
-        transition: 'background-color 0.3s',
-
-    }
 
     function Notificacion(props) {
         const [openNoti, setOpenNoti] = React.useState(false);
         const handleOpenNoti = () => {
+
             setOpenNoti(true);
         };
         const handleCloseNoti = () => {
@@ -204,14 +201,14 @@ function ResponsiveAppBar(props) {
         const verProyecto = '/misproyectos/proyecto/consultar/' + props.proyecto._id;
         return (
             <div>
-                    <Grid container onClick={handleOpenNoti} style={styleNotificacion}>
-                        <Grid item md={12} style={{ alignSelf: 'center' }}>
-                            <Typography style={{ fontSize: '0.9em', fontWeight: 'bold', textAlign: 'left' }}>Se te ha asignado {props.tarea.nombre.toLowerCase()} en {props.proyecto.nombre.toLowerCase()}</Typography>
-                        </Grid>
-                        <Grid item md={12} style={{ alignSelf: 'center', justifySelf: 'right', textAlign: 'right' }}>
-                            <Typography style={{ fontSize: '0.85em' }}>{props.fecha}</Typography>
-                        </Grid>
+                <Grid container onClick={handleOpenNoti}>
+                    <Grid item md={12} style={{ alignSelf: 'center' }}>
+                        <Typography style={{ fontSize: '0.9em', fontWeight: 'bold', textAlign: 'left' }}>Se te ha asignado {props.tarea.nombre} en {props.proyecto.nombre}</Typography>
                     </Grid>
+                    <Grid item md={12} style={{ alignSelf: 'center', justifySelf: 'right', textAlign: 'right' }}>
+                        <Typography style={{ fontSize: '0.85em' }}>{props.fecha}</Typography>
+                    </Grid>
+                </Grid>
 
 
                 <Modal
@@ -223,47 +220,47 @@ function ResponsiveAppBar(props) {
                 >
                     <Box sx={style}>
                         <Card sx={{ bgcolor: '#214A87' }}>
-                                <CardContent>
-                                    <Grid container>
-                                        <Grid item md={12} margin='2%'>
-                                            <Typography id="modal-modal-title" variant="h5" component="h2" color='white' align='center' fontWeight='bolder'>
-                                                {props.tarea.nombre}
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item md={12} style={{ alignSelf: 'center' }}>
-                                            <Typography id="modal-modal-description" color='white' style={{ fontSize: '0.85em' }}>
-                                                {props.proyecto.nombre}
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item md={12} style={{ alignSelf: 'center', padding: '2%' }}>
-                                            <Typography id="modal-modal-description" sx={{ mt: 2 }} color='white' style={{ margin: '5%' }}>
-                                                {props.descripcion}
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item md={6}>
-                                            <Typography color='white' variant='subtitle1' style={{ marginTop: '3%' }}>Asignado</Typography>
-                                            <div style={{ display: 'flex', alignContent: 'center', margin: '2%', justifyContent: 'center' }}>
-                                                <Tooltip title={"Nombre"} style={{ marginRight: '3%' }}>
-                                                    <Avatar src={avatar} />
-                                                </Tooltip>
-                                                <Typography variant='subtitle2' color={'white'} style={{ alignSelf: 'center' }}>{nombre}</Typography>
-                                            </div>
-                                        </Grid>
-                                        <Grid item md={6} style={{ alignSelf: 'center', padding: '2%' }}>
-                                            <Typography color='white'>Termina: {props.fecha}</Typography>
-                                        </Grid>
-                                        <Grid item md={6} padding='2%' align='center' cursor='default'>
-                                            <Link to={editarTarea} onClick={handleCloseNoti}>
-                                                <Button variant='outlined' style={{ color: '#214A87', borderColor: 'white', fontWeight: 'lighter', background:'white' }}>Editar Tarea</Button>
-                                            </Link>
-                                        </Grid>
-                                        <Grid item md={6} padding='2%' align='center' cursor='default'>
-                                            <Link to={verProyecto} onClick={handleCloseNoti}>
-                                                <Button variant='outlined' style={{ color: '#214A87', borderColor: 'white', fontWeight: 'lighter', background:'white' }}>Ver Proyecto</Button>
-                                            </Link>
-                                        </Grid>
+                            <CardContent>
+                                <Grid container>
+                                    <Grid item md={12} margin='2%'>
+                                        <Typography id="modal-modal-title" variant="h5" component="h2" color='white' align='center' fontWeight='bolder'>
+                                            {props.tarea.nombre}
+                                        </Typography>
                                     </Grid>
-                                </CardContent>
+                                    <Grid item md={12} style={{ alignSelf: 'center' }}>
+                                        <Typography id="modal-modal-description" color='white' style={{ fontSize: '0.85em' }}>
+                                            {props.proyecto.nombre}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item md={12} style={{ alignSelf: 'center', padding: '2%' }}>
+                                        <Typography id="modal-modal-description" sx={{ mt: 2 }} color='white' style={{ margin: '5%' }}>
+                                            {props.descripcion}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item md={6}>
+                                        <Typography color='white' variant='subtitle1' style={{ marginTop: '3%' }}>Asignado</Typography>
+                                        <div style={{ display: 'flex', alignContent: 'center', margin: '2%', justifyContent: 'center' }}>
+                                            <Tooltip title={"Nombre"} style={{ marginRight: '3%' }}>
+                                                <Avatar src={avatar} />
+                                            </Tooltip>
+                                            <Typography variant='subtitle2' color={'white'} style={{ alignSelf: 'center' }}>{nombre}</Typography>
+                                        </div>
+                                    </Grid>
+                                    <Grid item md={6} style={{ alignSelf: 'center', padding: '2%' }}>
+                                        <Typography color='white'>Termina: {props.fecha}</Typography>
+                                    </Grid>
+                                    <Grid item md={6} padding='2%' align='center' cursor='default'>
+                                        <Link to={editarTarea} onClick={handleCloseNoti}>
+                                            <Button variant='outlined' style={{ color: '#214A87', borderColor: 'white', fontWeight: 'lighter', background: 'white' }}>Editar Tarea</Button>
+                                        </Link>
+                                    </Grid>
+                                    <Grid item md={6} padding='2%' align='center' cursor='default'>
+                                        <Link to={verProyecto} onClick={handleCloseNoti}>
+                                            <Button variant='outlined' style={{ color: '#214A87', borderColor: 'white', fontWeight: 'lighter', background: 'white' }}>Ver Proyecto</Button>
+                                        </Link>
+                                    </Grid>
+                                </Grid>
+                            </CardContent>
                         </Card>
                         <CloseIcon
                             edge="end"
@@ -373,12 +370,12 @@ function ResponsiveAppBar(props) {
 
                     <Box sx={{ flexGrow: 0 }} style={{ marginRight: '2%', cursor: 'pointer' }}>
                         <Tooltip title="Notificaciones">
-                            <NotificationsIcon onClick={handleOpenNot} sx={{ p: 0 }}>
+                            <NotificationsIcon onClick={handleOpenNot} sx={{ p: 0, m: 0 }}>
                             </NotificationsIcon>
                         </Tooltip>
                         <Menu
                             sx={{ mt: '45px' }}
-                            id="menu-appbar"
+                            PopoverClasses={{ paper: 'popover' }}
                             anchorEl={anchorElNot}
                             anchorOrigin={{
                                 vertical: 'top',
@@ -393,11 +390,11 @@ function ResponsiveAppBar(props) {
                             onClose={handleCloseNot}
                             padding='0'
                             style={{ position: 'absolute' }}
-                        >                            
+                        >
                             <Box width='30vw' padding='0'>
                                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                     <Typography variant='h6' paddingLeft='4%'>Notificaciones</Typography>
-                                    <DeleteIcon style={{ alignSelf: 'center', marginRight: '4%'}} color='error' onClick={() => {
+                                    <DeleteIcon style={{ alignSelf: 'center', marginRight: '4%' }} color='error' onClick={() => {
                                         const headers = new Headers();
                                         headers.set("x-token", sessionStorage.getItem("token"))
                                         const initBorrarTarea = {

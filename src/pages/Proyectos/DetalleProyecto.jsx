@@ -107,7 +107,7 @@ function DetalleProyecto() {
 
             fetch("https://gestor-dsi-produccion2-production.up.railway.app/api/tareas/listadoTareas/" + idPro, requestOptions)
                 .then(response => response.json())
-                .then(result => setproyectoTarea(result.tareas))
+                .then(result => setproyectoTarea(result.tareas.reverse()))
                 .catch(error => console.log('error', error));
         }
 
@@ -220,7 +220,7 @@ function DetalleProyecto() {
                     </Grid>
                             <Grid container spacing={1} sx={{ mt: 1, background: 'white', paddingRight: 1 }} style={{ borderRadius: 10 }}>
                                 {proyectoTarea ? (
-                                    proyectoTarea.map((element, index) => (
+                                    proyectoTarea.reverse().map((element, index) => (
                                         <Grid item md={4} xs={12} lg={3} key={index}>
                                             <BasicCard
                                                 asignado={element.asignados}

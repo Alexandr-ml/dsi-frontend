@@ -31,7 +31,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 
 function ListaMisProyectos() {
 
-    let [listaProyectos, setListaProyectos] = useState()
+    let [listaProyectos, setListaProyectos] = useState([])
     let [hasProjects, setHasProjects] = useState(true)
     let [proyectos, setProyectos] = useState([])
 
@@ -140,7 +140,7 @@ function ListaMisProyectos() {
                             </TableHead>
                             <TableBody>
                                 {
-                                    hasProjects && listaProyectos.length >= 0 ?
+                                    listaProyectos.length >= 0 ?
                                         listaProyectos.map(proyecto => {
                                             let descripcion
                                             if (proyecto.descripcion.length > 100) {
@@ -180,11 +180,11 @@ function ListaMisProyectos() {
                                                 </TableCell>
                                             </TableRow>
                                         })
-                                        : <Grid container>
-                                            <Grid container>
-                                                <Typography>No cuenta con proyectos. Cree uno nuevo dando click en el boton 'Crear proyecto'.</Typography>
-                                            </Grid>
-                                        </Grid>
+                                        : <TableRow>
+                                            <TableCell colSpan={4}>
+                                                <Typography align='center' variant='h5' >No hay tareas</Typography>
+                                            </TableCell>
+                                        </TableRow>
                                 }
                             </TableBody>
                         </Table>

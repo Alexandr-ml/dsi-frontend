@@ -64,11 +64,10 @@ function RowTarea({ tarea, actualizarTareas, setSeModificaronTareas }) {
 
     let navigate = useNavigate()
     let descripcion = tarea.descripcion
-    console.log(descripcion)
+
 
     if(tarea.descripcion.length > 100){
         descripcion = tarea.descripcion.substring(0, 100) + '...'
-        console.log('si')
     }
     const cerrarDialog = () => setSeBorraraTarea(false)
     const borrarTarea = () => {
@@ -89,7 +88,7 @@ function RowTarea({ tarea, actualizarTareas, setSeModificaronTareas }) {
         
 
         cerrarDialog()
-        console.log(tarea)
+
 
         setSeModificaronTareas(true)
 

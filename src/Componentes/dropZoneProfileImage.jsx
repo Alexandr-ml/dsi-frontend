@@ -77,7 +77,6 @@ export default function DropZoneProfileImage({ imagenUrl, userID }) {
         transform: 'translate(-50%, -50%)',
         background: 'rgba(0, 0, 0, 0.8)',
         borderRadius: '50%',
-        display: 'inline-block',
         pointerEvents: 'none', 
         display: hovered ? 'block' : 'none',
         width: '100%',
