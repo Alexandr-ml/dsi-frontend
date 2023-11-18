@@ -139,11 +139,17 @@ function BasicCard(props) {
     } else {
         descripcion = props.descripcion
     }
+    let nombre
+    if(props.nombre.length > 19){
+        nombre = props.nombre.substring(0, 19) + '...'
+    }else{
+        nombre = props.nombre
+    }
     return (
         <Card sx={{ minWidth: 275 }} style={{ background: color, color: 'white' }}>
             <CardContent >
                 <Typography variant="h5" component="div">
-                    {props.nombre}
+                    {nombre}
                 </Typography>
                 <Typography sx={{ fontSize: 14 }} color="white" gutterBottom>
                     {props.estado}
